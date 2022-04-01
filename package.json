@@ -18,8 +18,10 @@
   },
   "homepage": "https://github.com/Shimoco7/Poll-It-Server#readme",
   "dependencies": {
+    "body-parser": "^1.19.2",
     "dotenv": "^16.0.0",
-    "express": "^4.17.3"
+    "express": "^4.17.3",
+    "mongoose": "^6.2.9"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
