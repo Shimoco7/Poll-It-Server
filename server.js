@@ -15,6 +15,9 @@ app.use(bodyParser.json());
 const appRouter = require('./routes/router');
 app.use('/',appRouter);
 
+const authRouter = require('./routes/auth_routes');
+app.use('/auth', authRouter);
+
 if (process.env.NODE_ENV == "development") {
     const swaggerUI = require("swagger-ui-express")
     const swaggerJsDoc = require("swagger-jsdoc")
