@@ -1,5 +1,5 @@
 const User = require('../models/user_model')
-const bcrypt = require('bcrypt')
+const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
 const sendError = (res,code,msg)=>{
@@ -21,8 +21,8 @@ const register = async (req, res) => {
                 'error': 'user exists'
             })
         }
-        const salt = await bcrypt.genSalt(10)
-        const hashPwd = await bcrypt.hash(password,salt)
+        const salt = await bcryptjs.genSalt(10)
+        const hashPwd = await bcryptjs.hash(password,salt)
 
         const user = User({
             'email' : email,
