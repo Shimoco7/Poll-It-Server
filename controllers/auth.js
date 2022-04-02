@@ -11,7 +11,7 @@ const sendError = (res,code,msg)=>{
 
 const register = async (req, res) => {
     const email = req.body.email
-    const password = "123456" // req.body.password
+    const password = req.body.password
 
     try{
         const exists = await User.findOne({'email' : email})
@@ -42,7 +42,7 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
     const email = req.body.email
-    const password = "123456"//req.body.password
+    const password = req.body.password
     if (email == null || password == null) return sendError(res,400,'wrong email or password')
     
     try{
