@@ -28,14 +28,9 @@ const register = async (req, res) => {
     const password = req.body.password
 
     try {
-        const salt = await bcryptjs.genSalt(10)
-        const hashPwd = await bcryptjs.hash(password, salt)
-        const user = User({
-            'email': email,
-            'password': hashPwd
-        })
-        newUser = await user.save();
-        res.status(200).send(newUser)
+
+        newUser = await User.create({email, password});
+        res.status(200).send(newUser);
 
     } catch (err) {
         const erros = handleErrors(err);
