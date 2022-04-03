@@ -26,9 +26,10 @@ Content-Type: application/json
 
 DELETE http://localhost:3000/auth/logout
 Content-Type: application/json
-Authorization: Baerer 
+Authorization: Baerer addtokenhere
 
 ###
 
 POST http://localhost:3000/auth/refreshToken
-Authorization: Baerer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNDlmMWNiMzcxNDkyODA2ZDZhODcyNyIsImlhdCI6MTY0OTAxMzQyNSwiZXhwIjoxNjQ5MDE3MDI1fQ.PvB0y2Qg0Lg0v4pM2M7qz2rwiyUqc-JjjmEk2SxnL60
+Content-Type: application/json
+Authorization: Baerer addtokenhere
