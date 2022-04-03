@@ -1,5 +1,5 @@
 const User = require('../models/user_model')
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken')         
 
 const handleErrors = (err) => {
     let errors = { email: "", password: "" }
@@ -67,7 +67,7 @@ const refreshToken = async (req, res) => {
         if (err) return sendError(res, 403, err.message)
         const userId = userInfo.id
         try {
-            user = await User.findById(userId)
+            const user = await User.findById(userId)
             if (user == null) return sendError(res, 403, 'invalid request');
             if (!user.tokens.includes(token)) {
                 user.tokens = []
@@ -95,7 +95,7 @@ const logout = async (req, res) => {
         if (err) return sendError(res, 403, err.message)
         const userId = userInfo.id
         try {
-            user = await User.findById(userId)
+            const user = await User.findById(userId)
             if (user == null) return sendError(res, 403, 'invalid request')
             if (!user.tokens.includes(token)) {
                 user.tokens = []

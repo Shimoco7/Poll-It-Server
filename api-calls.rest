@@ -31,5 +31,4 @@ Authorization: Baerer
 ###
 
 POST http://localhost:3000/auth/refreshToken
-Content-Type: application/json
-Authorization: Baerer 
+Authorization: Baerer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNDlmMWNiMzcxNDkyODA2ZDZhODcyNyIsImlhdCI6MTY0OTAxMzQyNSwiZXhwIjoxNjQ5MDE3MDI1fQ.PvB0y2Qg0Lg0v4pM2M7qz2rwiyUqc-JjjmEk2SxnL60
