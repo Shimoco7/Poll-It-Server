@@ -16,10 +16,7 @@ const register = async (req, res) => {
     try {
         const exists = await User.findOne({ 'email': email })
         if (exists != null) {
-            return res.status(400).send({
-                'status': 'fail',
-                'error': 'user exists'
-            })
+            return sendError(res, 400, 'user exists')
         }
         const salt = await bcryptjs.genSalt(10)
         const hashPwd = await bcryptjs.hash(password, salt)
@@ -32,10 +29,7 @@ const register = async (req, res) => {
         res.status(200).send(newUser)
 
     } catch (err) {
-        res.status(400).send({
-            'status': 'fail',
-            'error': err.message
-        })
+        return sendError(res, 400, err.message)
     }
 }
 
@@ -43,7 +37,7 @@ const register = async (req, res) => {
 const login = async (req, res) => {
     const email = req.body.email
     const password = req.body.password
-    if (email == null || password == null) return sendError(res, 400, 'wrong email or password')
+    if (email == null || password == null) return sendError(res, 400, 'missing email or password')
 
     try {
         const user = await User.findOne({ 'email': email })
@@ -71,15 +65,15 @@ const refreshToken = async (req, res) => {
     if (token == null) return sendError(res, 401, 'no refresh token')
     jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, async (err, userInfo) => {
 
-        if (err) return res.status(403).send(err.message)
+        if (err) return sendError(res, 403, err.message)
         const userId = userInfo.id
         try {
             user = await User.findById(userId)
-            if (user == null) return res.status(403).send('invalid request')
+            if (user == null) return sendError(res, 403, 'invalid request');
             if (!user.tokens.includes(token)) {
                 user.tokens = []
                 await user.save()
-                return res.status(403).send('invalid request')
+                return sendError(res, 403, 'invalid request');
             }
 
             const accessToken = generateAccessToken(user)
@@ -88,7 +82,7 @@ const refreshToken = async (req, res) => {
             await user.save()
             res.status(200).send({ 'accessToken': accessToken, 'refreshToken': refreshToken });
         } catch (err) {
-            res.status(403).send(err.message)
+            return sendError(res, 403, err.message);
         }
     })
 }
@@ -96,24 +90,24 @@ const refreshToken = async (req, res) => {
 const logout = async (req, res) => {
     const authHeader = req.headers['authorization']
     const token = authHeader && authHeader.split(' ')[1]
-    if (token == null) return res.sendStatus('401')
+    if (token == null) return res.status(401).send()
     jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, async (err, userInfo) => {
 
-        if (err) return res.status(403).send(err.message)
+        if (err) return sendError(res, 403, err.message)
         const userId = userInfo.id
         try {
             user = await User.findById(userId)
-            if (user == null) return res.status(403).send('invalid request')
+            if (user == null)  return sendError(res, 403, 'invalid request')
             if (!user.tokens.includes(token)) {
                 user.tokens = []
                 await user.save()
-                return res.status(403).send('invalid request')
+                return sendError(res, 403, 'invalid request')
             }
             user.tokens.splice(user.tokens.indexOf(token), 1)
             await user.save()
             res.status(200).send();
         } catch (err) {
-            res.status(403).send(err.message)
+            return sendError(res, 403, err.message)
         }
     })
 
