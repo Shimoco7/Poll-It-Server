@@ -51,7 +51,7 @@ const login = async (req, res) => {
         const user = await User.findOne({ 'email': email })
         if (user == null) return sendError(res, 400, 'wrong email or password')
 
-        const match = await bcrypt.compare(password, user.password)
+        const match = await bcryptjs.compare(password, user.password)
         if (!match) return sendError(res, 400, 'wrong email or password')
 
         const accessToken = generateAccessToken(user)
@@ -68,7 +68,7 @@ const login = async (req, res) => {
 
 }
 
-const token = async (req, res) => {
+const refreshToken = async (req, res) => {
     const refreshToken = req.body.token
     if (refreshToken == null) return sendError(res, 401, 'no refresh token')
     if (!refreshTokens.includes(refreshToken)) return sendError(res, 403, 'no refresh token')
@@ -100,5 +100,5 @@ module.exports = {
     login,
     register,
     logout,
-    token
+    refreshToken
 }
