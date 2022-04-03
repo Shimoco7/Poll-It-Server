@@ -17,15 +17,15 @@ const handleErrors = (err) => {
 
 
 const sendError = (res, code, msg) => {
-    return res.status(code).send({
+    return res.status(code).json({
         'status': 'fail',
         'error': msg
     })
 }
 
 const register = async (req, res) => {
-    const email = req.body.email
-    const password = req.body.password
+    const email = req.body.email;
+    const password = req.body.password;
 
     try {
 
@@ -40,23 +40,18 @@ const register = async (req, res) => {
 
 
 const login = async (req, res) => {
-    const email = req.body.email
-    const password = req.body.password
+    const email = req.body.email;
+    const password = req.body.password;
     if (email == null || password == null) return sendError(res, 400, 'missing email or password')
 
     try {
-        const user = await User.findOne({ 'email': email })
-        if (user == null) return sendError(res, 400, 'wrong email or password')
-
-        const match = await bcryptjs.compare(password, user.password)
-        if (!match) return sendError(res, 400, 'wrong email or password')
-
-        const accessToken = generateAccessToken(user)
-        const refreshToken = generateRefreshToken(user)
+        const user =await User.login(email, password);
+        const accessToken = generateAccessToken(user);
+        const refreshToken = generateRefreshToken(user);
         if (user.tokens == null) user.tokens = [refreshToken]
         else user.tokens.push(refreshToken)
-        await user.save()
-        res.status(200).send({ 'accessToken': accessToken, 'refreshToken': refreshToken })
+        await user.save();
+        res.status(200).send({ 'accessToken': accessToken, 'refreshToken': refreshToken });
 
     } catch (err) {
         return sendError(res, 400, err.message)
