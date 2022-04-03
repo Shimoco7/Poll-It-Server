@@ -2,6 +2,20 @@ const User = require('../models/user_model')
 const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
+const handleErrors = (err) => {
+    let errors = {email:"", password:""}
+    if(err.code === 11000){
+        errors.email = "The user is already registered"
+    }
+    if(err.message.includes("User validation failed")){
+        Object.values(err.errors).forEach(({properties}) =>{
+            errors[properties.path] = properties.message;
+        });
+    }
+    return errors;
+}
+
+
 const sendError = (res, code, msg) => {
     return res.status(code).send({
         'status': 'fail',
@@ -14,13 +28,8 @@ const register = async (req, res) => {
     const password = req.body.password
 
     try {
-        const exists = await User.findOne({ 'email': email })
-        if (exists != null) {
-            return sendError(res, 400, 'user exists')
-        }
         const salt = await bcryptjs.genSalt(10)
         const hashPwd = await bcryptjs.hash(password, salt)
-
         const user = User({
             'email': email,
             'password': hashPwd
@@ -29,7 +38,8 @@ const register = async (req, res) => {
         res.status(200).send(newUser)
 
     } catch (err) {
-        return sendError(res, 400, err.message)
+        const erros = handleErrors(err);
+        res.status(400).json({erros});
     }
 }
 
