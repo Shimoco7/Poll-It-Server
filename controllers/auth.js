@@ -1,14 +1,13 @@
 const User = require('../models/user_model')
-const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
 const handleErrors = (err) => {
-    let errors = {email:"", password:""}
-    if(err.code === 11000){
+    let errors = { email: "", password: "" }
+    if (err.code === 11000) {
         errors.email = "The user is already registered"
     }
-    if(err.message.includes("User validation failed")){
-        Object.values(err.errors).forEach(({properties}) =>{
+    if (err.message.includes("User validation failed")) {
+        Object.values(err.errors).forEach(({ properties }) => {
             errors[properties.path] = properties.message;
         });
     }
@@ -29,12 +28,12 @@ const register = async (req, res) => {
 
     try {
 
-        newUser = await User.create({email, password});
+        newUser = await User.create({ email, password });
         res.status(200).send(newUser);
 
     } catch (err) {
         const erros = handleErrors(err);
-        res.status(400).json({erros});
+        res.status(400).json({ erros });
     }
 }
 
@@ -45,7 +44,7 @@ const login = async (req, res) => {
     if (email == null || password == null) return sendError(res, 400, 'missing email or password')
 
     try {
-        const user =await User.login(email, password);
+        const user = await User.login(email, password);
         const accessToken = generateAccessToken(user);
         const refreshToken = generateRefreshToken(user);
         if (user.tokens == null) user.tokens = [refreshToken]
@@ -97,7 +96,7 @@ const logout = async (req, res) => {
         const userId = userInfo.id
         try {
             user = await User.findById(userId)
-            if (user == null)  return sendError(res, 403, 'invalid request')
+            if (user == null) return sendError(res, 403, 'invalid request')
             if (!user.tokens.includes(token)) {
                 user.tokens = []
                 await user.save()
