@@ -51,9 +51,11 @@ const login = async (req, res) => {
         const account = await Account.login(email, password);
         const accessToken = generateAccessToken(account);
         const refreshToken = generateRefreshToken(account);
-        if (account.refresh_tokens == null) account.refresh_tokens = [refreshToken]
-        else account.refresh_tokens.push(refreshToken)
-        await account.save();
+        if (account.refresh_token != refreshToken) {
+            account.refresh_token = refreshToken;
+            await account.save();
+        }
+        
         res.status(200).send({ 'accessToken': accessToken, 'refreshToken': refreshToken });
 
     } catch (err) {
@@ -73,16 +75,18 @@ const refreshToken = async (req, res) => {
         try {
             const account = await Account.findById(accountId)
             if (account == null) return sendError(res, 403, 'Invalid request');
-            if (!account.refresh_tokens.includes(token)) {
-                account.refresh_tokens = []
-                await account.save()
+            if (account.refresh_token != token) {
+                account.refresh_token = undefined;
+                await account.save();
                 return sendError(res, 403, 'Invalid request');
             }
 
-            const accessToken = generateAccessToken(account)
-            const refreshToken = generateRefreshToken(account)
-            account.refresh_tokens[account.refresh_tokens.indexOf(token)] = refreshToken
+            const accessToken = generateAccessToken(account);
+            const refreshToken = generateRefreshToken(account);
+            if(account.refresh_token != refreshToken){
+            account.refresh_token = refreshToken
             await account.save()
+            }
             res.status(200).send({ 'accessToken': accessToken, 'refreshToken': refreshToken });
         } catch (err) {
             return sendError(res, 403, err.message);
@@ -101,13 +105,13 @@ const logout = async (req, res) => {
         try {
             const account = await Account.findById(accountId)
             if (account == null) return sendError(res, 403, 'Invalid request')
-            if (!account.refresh_tokens.includes(token)) {
-                account.refresh_tokens = []
-                await account.save()
+            if (account.refresh_token != token) {
+                account.refresh_token = undefined;
+                await account.save();
                 return sendError(res, 403, 'invalid request')
             }
-            account.refresh_tokens.splice(account.refresh_tokens.indexOf(token), 1)
-            await account.save()
+            account.refresh_token = undefined;
+            await account.save();
             res.status(200).send();
         } catch (err) {
             return sendError(res, 403, err.message)
