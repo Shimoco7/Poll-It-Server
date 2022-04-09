@@ -35,12 +35,8 @@ const accountSchema = new mongoose.Schema({
     },
     profile_pic_url: {
         type: String
-    },
-    update_date: {
-        type: Date,
-        default: Date.now
     }
-});
+}, {timestamps:true});
 
 accountSchema.pre('save', async function(next){
     if (!this.isModified('password')) return next();
