@@ -5,15 +5,16 @@ const bcryptjs = require('bcryptjs');
 const userSchema = new mongoose.Schema({
     email: {
         type: String,
-        required: [true, 'Please enter an email'],
         unique: true,
+        required: [true, 'Please enter an email'],
         lowercase: true,
         validate: [isEmail, "Please enter a valid email"]
     },
     password: {
         type: String,
         required: [true, 'Please enter a password'],
-        minlength: [8, 'Minimum password length is 8 characters']
+        match: [/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,100}$/,"At least one uppercase.At least one lower case.At least one special character"]
+        
     },
     tokens: {
         type: [String]

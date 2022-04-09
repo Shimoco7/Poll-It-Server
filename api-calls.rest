@@ -9,7 +9,7 @@ Content-Type: application/json
 
 {
     "email" : "adar@test.com",
-    "password" : "12345678"
+    "password" : "Adar1234@"
 }
 
 ###
@@ -19,7 +19,7 @@ Content-Type: application/json
 
 {
     "email" : "adar@test.com",
-    "password" : "12345678"
+    "password" : "Adar1234@"
 }
 
 ###

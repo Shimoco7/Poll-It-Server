@@ -5,7 +5,7 @@ const { response } = require('../server')
 const User = require('../models/user_model')
 
 const email = 'test@adar.com'
-const pwd = '12345678'
+const pwd = 'Adar1234@'
 
 beforeAll(done=>{
     User.remove({'email' : email}, (err)=>{
