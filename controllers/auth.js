@@ -65,8 +65,7 @@ const login = async (req, res) => {
 }
 
 const refreshToken = async (req, res) => {
-    const authHeader = req.headers['authorization']
-    const token = authHeader && authHeader.split(' ')[1]
+    const token = req.body.refresh_token;
     if (token == null) return sendError(res, 401, 'No refresh token')
     jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, async (err, accountInfo) => {
 

@@ -33,4 +33,7 @@ Authorization: Baerer addtokenhere
 
 POST http://localhost:3000/auth/refreshToken
 Content-Type: application/json
-Authorization: Baerer addtokenhere
+
+{
+"refresh_token": "addTokenHere"
+}
