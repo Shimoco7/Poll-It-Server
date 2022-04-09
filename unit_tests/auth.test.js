@@ -28,7 +28,7 @@ describe('Testing Auth API',()=>{
         const response = await request(app).post('/auth/register').send({
             'email' : email,
             'password':pwd,
-            'confirmPassword': pwd
+            'confirm_password': pwd
         })
         expect(response.statusCode).toEqual(200)
     })

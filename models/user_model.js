@@ -18,6 +18,22 @@ const userSchema = new mongoose.Schema({
     },
     tokens: {
         type: [String]
+    },
+    name: {
+        type: String
+    },
+    gender: {
+        type: String
+    },
+    address: {
+        type: String
+    },
+    profile_pic_url: {
+        type: String
+    },
+    update_date: {
+        type: Date,
+        default: Date.now
     }
 });
 

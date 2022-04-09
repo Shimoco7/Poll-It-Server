@@ -25,7 +25,7 @@ const sendError = (res, code, msg) => {
 const register = async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
-    const confirmPassword = req.body.confirmPassword;
+    const confirmPassword = req.body.confirm_password;
     if(password !== confirmPassword){
         res.status(400).json({email: "", password: "Passwords do not match" });
         return;
@@ -33,7 +33,7 @@ const register = async (req, res) => {
     try {
 
         newUser = await User.create({ email, password });
-        res.status(200).send(newUser);
+         res.status(200).send();
 
     } catch (err) {
         const erros = handleErrors(err);
