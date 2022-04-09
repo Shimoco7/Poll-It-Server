@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema({
     },
     gender: {
         type: String,
-        enum: ["Male", "Female", "Don't Wish To Specify"]
+        enum: {values:["Male", "Female", "Don't Wish To Specify"], message: "Please enter a valid gender"}
     },
     address: {
         type: String
