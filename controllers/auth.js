@@ -51,8 +51,8 @@ const login = async (req, res) => {
         const user = await User.login(email, password);
         const accessToken = generateAccessToken(user);
         const refreshToken = generateRefreshToken(user);
-        if (user.tokens == null) user.tokens = [refreshToken]
-        else user.tokens.push(refreshToken)
+        if (user.refresh_tokens == null) user.refresh_tokens = [refreshToken]
+        else user.refresh_tokens.push(refreshToken)
         await user.save();
         res.status(200).send({ 'accessToken': accessToken, 'refreshToken': refreshToken });
 
@@ -73,15 +73,15 @@ const refreshToken = async (req, res) => {
         try {
             const user = await User.findById(userId)
             if (user == null) return sendError(res, 403, 'invalid request');
-            if (!user.tokens.includes(token)) {
-                user.tokens = []
+            if (!user.refresh_tokens.includes(token)) {
+                user.refresh_tokens = []
                 await user.save()
                 return sendError(res, 403, 'invalid request');
             }
 
             const accessToken = generateAccessToken(user)
             const refreshToken = generateRefreshToken(user)
-            user.tokens[user.tokens.indexOf(token)] = refreshToken
+            user.refresh_tokens[user.refresh_tokens.indexOf(token)] = refreshToken
             await user.save()
             res.status(200).send({ 'accessToken': accessToken, 'refreshToken': refreshToken });
         } catch (err) {
@@ -101,12 +101,12 @@ const logout = async (req, res) => {
         try {
             const user = await User.findById(userId)
             if (user == null) return sendError(res, 403, 'invalid request')
-            if (!user.tokens.includes(token)) {
-                user.tokens = []
+            if (!user.refresh_tokens.includes(token)) {
+                user.refresh_tokens = []
                 await user.save()
                 return sendError(res, 403, 'invalid request')
             }
-            user.tokens.splice(user.tokens.indexOf(token), 1)
+            user.refresh_tokens.splice(user.refresh_tokens.indexOf(token), 1)
             await user.save()
             res.status(200).send();
         } catch (err) {
