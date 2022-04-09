@@ -118,6 +118,19 @@ const logout = async (req, res) => {
 
 }
 
+
+const getRegister = async (req, res) => {
+    res.send("//TODO: implement register page");
+}
+
+const getLogin = async (req, res) => {
+    res.send("//TODO: implement login page");
+}
+
+const getLogout = async (req, res) => {
+    res.send("//TODO: implement logout page");
+}
+
 function generateAccessToken(account) {
     return jwt.sign(
         { 'id': account._id },
@@ -137,5 +150,8 @@ module.exports = {
     login,
     register,
     logout,
-    refreshToken
+    refreshToken,
+    getRegister,
+    getLogin,
+    getLogout
 }

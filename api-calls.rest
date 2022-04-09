@@ -15,6 +15,10 @@ Content-Type: application/json
 
 ###
 
+GET http://localhost:3000/auth/register
+
+###
+
 POST http://localhost:3000/auth/login
 Content-Type: application/json
 
@@ -25,12 +29,22 @@ Content-Type: application/json
 
 ###
 
+GET http://localhost:3000/auth/login
+
+###
+
 DELETE http://localhost:3000/auth/logout
+Authorization: Bearer addAccessTokenHere
 Content-Type: application/json
 
 {
-"refresh_token": "addTokenHere"
+"refresh_token": "addRefreshTokenHere"
 }
+
+###
+
+GET http://localhost:3000/auth/logout
+Authorization: Bearer addAccessTokenHere
 
 ###
 
@@ -38,5 +52,5 @@ POST http://localhost:3000/auth/refreshToken
 Content-Type: application/json
 
 {
-"refresh_token": "addTokenHere"
+"refresh_token": "addRefreshTokenHere"
 }
