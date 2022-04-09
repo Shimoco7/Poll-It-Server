@@ -26,7 +26,6 @@ const register = async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
     const confirmPassword = req.body.confirm_password;
-    const gender = req.body.gender
     if(password !== confirmPassword){
         res.status(400).json({email: "", password: "Passwords do not match" });
         return;
