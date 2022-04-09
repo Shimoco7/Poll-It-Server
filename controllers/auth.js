@@ -1,12 +1,12 @@
-const User = require('../models/user_model')
+const Account = require('../models/account_model')
 const jwt = require('jsonwebtoken')         
 
 const handleErrors = (err) => {
     let errors = { email: "", password: "" }
     if (err.code === 11000) {
-        errors.email = "The user is already registered"
+        errors.email = "The account is already registered"
     }
-    if (err.message.includes("User validation failed")) {
+    if (err.message.includes("Account validation failed")) {
         Object.values(err.errors).forEach(({ properties }) => {
             errors[properties.path] = properties.message;
         });
@@ -32,7 +32,7 @@ const register = async (req, res) => {
     }
     try {
 
-        newUser = await User.create({ "email": email, "password": password});
+        newAccount = await Account.create({ "email": email, "password": password});
          res.status(200).send();
 
     } catch (err) {
@@ -45,15 +45,15 @@ const register = async (req, res) => {
 const login = async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
-    if (email == null || password == null) return sendError(res, 400, 'missing email or password')
+    if (email == null || password == null) return sendError(res, 400, 'Missing email or password')
 
     try {
-        const user = await User.login(email, password);
-        const accessToken = generateAccessToken(user);
-        const refreshToken = generateRefreshToken(user);
-        if (user.refresh_tokens == null) user.refresh_tokens = [refreshToken]
-        else user.refresh_tokens.push(refreshToken)
-        await user.save();
+        const account = await Account.login(email, password);
+        const accessToken = generateAccessToken(account);
+        const refreshToken = generateRefreshToken(account);
+        if (account.refresh_tokens == null) account.refresh_tokens = [refreshToken]
+        else account.refresh_tokens.push(refreshToken)
+        await account.save();
         res.status(200).send({ 'accessToken': accessToken, 'refreshToken': refreshToken });
 
     } catch (err) {
@@ -65,24 +65,24 @@ const login = async (req, res) => {
 const refreshToken = async (req, res) => {
     const authHeader = req.headers['authorization']
     const token = authHeader && authHeader.split(' ')[1]
-    if (token == null) return sendError(res, 401, 'no refresh token')
-    jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, async (err, userInfo) => {
+    if (token == null) return sendError(res, 401, 'No refresh token')
+    jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, async (err, accountInfo) => {
 
         if (err) return sendError(res, 403, err.message)
-        const userId = userInfo.id
+        const accountId = accountInfo.id
         try {
-            const user = await User.findById(userId)
-            if (user == null) return sendError(res, 403, 'invalid request');
-            if (!user.refresh_tokens.includes(token)) {
-                user.refresh_tokens = []
-                await user.save()
-                return sendError(res, 403, 'invalid request');
+            const account = await Account.findById(accountId)
+            if (account == null) return sendError(res, 403, 'Invalid request');
+            if (!account.refresh_tokens.includes(token)) {
+                account.refresh_tokens = []
+                await account.save()
+                return sendError(res, 403, 'Invalid request');
             }
 
-            const accessToken = generateAccessToken(user)
-            const refreshToken = generateRefreshToken(user)
-            user.refresh_tokens[user.refresh_tokens.indexOf(token)] = refreshToken
-            await user.save()
+            const accessToken = generateAccessToken(account)
+            const refreshToken = generateRefreshToken(account)
+            account.refresh_tokens[account.refresh_tokens.indexOf(token)] = refreshToken
+            await account.save()
             res.status(200).send({ 'accessToken': accessToken, 'refreshToken': refreshToken });
         } catch (err) {
             return sendError(res, 403, err.message);
@@ -94,20 +94,20 @@ const logout = async (req, res) => {
     const authHeader = req.headers['authorization']
     const token = authHeader && authHeader.split(' ')[1]
     if (token == null) return res.status(401).send()
-    jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, async (err, userInfo) => {
+    jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, async (err, accountInfo) => {
 
         if (err) return sendError(res, 403, err.message)
-        const userId = userInfo.id
+        const accountId = accountInfo.id
         try {
-            const user = await User.findById(userId)
-            if (user == null) return sendError(res, 403, 'invalid request')
-            if (!user.refresh_tokens.includes(token)) {
-                user.refresh_tokens = []
-                await user.save()
+            const account = await Account.findById(accountId)
+            if (account == null) return sendError(res, 403, 'Invalid request')
+            if (!account.refresh_tokens.includes(token)) {
+                account.refresh_tokens = []
+                await account.save()
                 return sendError(res, 403, 'invalid request')
             }
-            user.refresh_tokens.splice(user.refresh_tokens.indexOf(token), 1)
-            await user.save()
+            account.refresh_tokens.splice(account.refresh_tokens.indexOf(token), 1)
+            await account.save()
             res.status(200).send();
         } catch (err) {
             return sendError(res, 403, err.message)
@@ -116,17 +116,17 @@ const logout = async (req, res) => {
 
 }
 
-function generateAccessToken(user) {
+function generateAccessToken(account) {
     return jwt.sign(
-        { 'id': user._id },
+        { 'id': account._id },
         process.env.ACCESS_TOKEN_SECRET,
         { expiresIn: process.env.JWT_TOKEN_EXPIRATION }
     )
 }
 
-function generateRefreshToken(user) {
+function generateRefreshToken(account) {
     return jwt.sign(
-        { 'id': user._id },
+        { 'id': account._id },
         process.env.REFRESH_TOKEN_SECRET
     )
 }

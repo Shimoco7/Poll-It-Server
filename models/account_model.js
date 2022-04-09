@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const {isEmail} = require("validator");
 const bcryptjs = require('bcryptjs');
 
-const userSchema = new mongoose.Schema({
+const accountSchema = new mongoose.Schema({
     role: {
         type: String,
         enum: ['User', 'Client'],
@@ -42,21 +42,21 @@ const userSchema = new mongoose.Schema({
     }
 });
 
-userSchema.pre('save', async function(next){
+accountSchema.pre('save', async function(next){
     if (!this.isModified('password')) return next();
     const salt = await bcryptjs.genSalt();
     this.password = await bcryptjs.hash(this.password, salt);
     next();
 })
 
-userSchema.statics.login = async function (email, password){
-    const user = await this.findOne({email});
-    if (user == null) throw Error("Incorrect Email");
+accountSchema.statics.login = async function (email, password){
+    const account = await this.findOne({email});
+    if (account == null) throw Error("Incorrect Email");
 
-    const match = await bcryptjs.compare(password, user.password)
+    const match = await bcryptjs.compare(password, account.password)
     if (!match) throw Error("Incorrect Password");
 
-    return user;
+    return account;
 }
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('Account', accountSchema);
