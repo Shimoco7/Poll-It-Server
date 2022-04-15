@@ -105,3 +105,12 @@ Content-Type: application/json
     "question_id": "test question id",
     "uid": "account id"
 }
+
+###
+GET http://localhost:3000/detail/getDetailsByUid
+Authorization: Bearer addAccessTokenHere
+Content-Type: application/json
+
+{
+   "uid": "account id" 
+}

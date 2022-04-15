@@ -17,7 +17,7 @@ const create = async (req, res) => {
     const questionId = req.body.question_id;
     const accountId = req.body.uid;
     try {
-        newDetail = await Detail.create({ "answer": answer, "question": question, "question_id":questionId, "uid": accountId});
+        const newDetail = await Detail.create({ "answer": answer, "question": question, "question_id":questionId, "uid": accountId});
         res.status(200).send({"_id":newDetail._id});
 
     } catch (err) {
@@ -26,8 +26,19 @@ const create = async (req, res) => {
     }
 }
 
+const getDetailsByUid = async (req, res) => {
+    const accountId = req.body.uid;
+    try {
+        const details = await Detail.find({"uid": accountId});
+        res.status(200).send(details);
 
+    } catch (err) {
+        const erros = handleErrors(err);
+        res.status(400).json({ erros });
+    }
+}
 
 module.exports = {
-    create
+    create,
+    getDetailsByUid
 }
