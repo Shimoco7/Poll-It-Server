@@ -63,6 +63,31 @@ const login = async (req, res) => {
 
 }
 
+const logout = async (req, res) => {
+    const token = req.body.refresh_token;
+    if (token == null) return res.status(401).send()
+    jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, async (err, accountInfo) => {
+
+        if (err) return sendError(res, 403, err.message)
+        const accountId = accountInfo.id
+        try {
+            const account = await Account.findById(accountId)
+            if (account == null) return sendError(res, 403, 'Invalid request')
+            if (account.refresh_token != token) {
+                account.refresh_token = undefined;
+                await account.save();
+                return sendError(res, 403, 'invalid request')
+            }
+            account.refresh_token = undefined;
+            await account.save();
+            res.status(200).send();
+        } catch (err) {
+            return sendError(res, 403, err.message)
+        }
+    })
+
+}
+
 const refreshToken = async (req, res) => {
     const token = req.body.refresh_token;
     if (token == null) return sendError(res, 401, 'No refresh token')
@@ -92,29 +117,16 @@ const refreshToken = async (req, res) => {
     })
 }
 
-const logout = async (req, res) => {
-    const token = req.body.refresh_token;
-    if (token == null) return res.status(401).send()
-    jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, async (err, accountInfo) => {
+const update = async (req, res) => {
+    try {
+        await Account.updateOne({_id: req.body._id},  req.body,{multi: true});
+        res.status(200).send();
 
-        if (err) return sendError(res, 403, err.message)
-        const accountId = accountInfo.id
-        try {
-            const account = await Account.findById(accountId)
-            if (account == null) return sendError(res, 403, 'Invalid request')
-            if (account.refresh_token != token) {
-                account.refresh_token = undefined;
-                await account.save();
-                return sendError(res, 403, 'invalid request')
-            }
-            account.refresh_token = undefined;
-            await account.save();
-            res.status(200).send();
-        } catch (err) {
-            return sendError(res, 403, err.message)
-        }
-    })
-
+    } catch (err) {
+        const erros = handleErrors(err);
+        res.status(400).json({ erros });
+    }
+ 
 }
 
 
@@ -150,6 +162,7 @@ module.exports = {
     register,
     logout,
     refreshToken,
+    update,
     getRegister,
     getLogin,
     getLogout

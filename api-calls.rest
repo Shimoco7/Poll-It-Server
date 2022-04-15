@@ -56,6 +56,17 @@ Content-Type: application/json
 "refresh_token": "addRefreshTokenHere"
 }
 
+###
+POST http://localhost:3000/auth/update
+Content-Type: application/json
+
+{
+    "_id": "account id",
+    "address": "Tel Aviv",
+    "name": "adar",
+    "gender": "Male"
+}
+
 #Poll----------------------------------------------------------------------
 ###
 POST http://localhost:3000/poll/create
