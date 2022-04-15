@@ -48,7 +48,6 @@ accountSchema.pre('save', async function(next){
 accountSchema.statics.login = async function (email, password){
     const account = await this.findOne({email});
     if (account == null) throw Error("Incorrect Email");
-    if (account.name == null||account.address == null||account.gender==null) throw Error("There are missing details you have to fill");
 
     const match = await bcryptjs.compare(password, account.password)
     if (!match) throw Error("Incorrect Password");

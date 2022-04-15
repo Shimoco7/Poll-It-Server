@@ -39,6 +39,7 @@ const register = async (req, res) => {
 const login = async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
+    var detailsFilled = false;
     if (email == null || password == null) return sendError(res, 400, "Missing email or password")
 
     try {
@@ -49,8 +50,12 @@ const login = async (req, res) => {
             account.refresh_token = refreshToken;
             await account.save();
         }
+        if (account.name != null && account.address != null && account.gender != null){
+            detailsFilled = true;
+        }
+
         
-        res.status(200).send({ "accessToken": accessToken, "refreshToken": refreshToken, "account":  account});
+        res.status(200).send({ "accessToken": accessToken, "refreshToken": refreshToken, "account":  account, "detailsFilled":detailsFilled});
 
     } catch (err) {
         return sendError(res, 400, err.message)
