@@ -1,10 +1,10 @@
-const Account = require('../models/account_model')
-const jwt = require('jsonwebtoken')         
+const Account = require('../models/account_model');
+const jwt = require('jsonwebtoken');       
 
 const handleErrors = (err) => {
-    let errors = {}
+    let errors = {};
     if (err.code === 11000) {
-        errors["email"] = "The account is already registered"
+        errors["email"] = "The account is already registered";
     }
     if (err.message.includes("Account validation failed")) {
         Object.values(err.errors).forEach(({ properties }) => {
@@ -70,7 +70,7 @@ const logout = async (req, res) => {
     jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, async (err, accountInfo) => {
 
         if (err) return sendError(res, 403, err.message)
-        const accountId = accountInfo.id
+        const accountId = accountInfo.id;
         try {
             const account = await Account.findById(accountId)
             if (account == null) return sendError(res, 403, 'Invalid request')
@@ -95,7 +95,7 @@ const refreshToken = async (req, res) => {
     jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, async (err, accountInfo) => {
 
         if (err) return sendError(res, 403, err.message)
-        const accountId = accountInfo.id
+        const accountId = accountInfo.id;
         try {
             const account = await Account.findById(accountId)
             if (account == null) return sendError(res, 403, 'Invalid request');
@@ -108,8 +108,8 @@ const refreshToken = async (req, res) => {
             const accessToken = generateAccessToken(account);
             const refreshToken = generateRefreshToken(account);
             if(account.refresh_token != refreshToken){
-            account.refresh_token = refreshToken
-            await account.save()
+            account.refresh_token = refreshToken;
+            await account.save();
             }
             res.status(200).send({ 'accessToken': accessToken, 'refreshToken': refreshToken });
         } catch (err) {
