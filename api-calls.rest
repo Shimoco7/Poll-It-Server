@@ -66,3 +66,6 @@ Content-Type: application/json
 "poll_name": "poll name"
 }
 
+###
+GET http://localhost:3000/poll/create
+Authorization: Bearer addAccessTokenHere

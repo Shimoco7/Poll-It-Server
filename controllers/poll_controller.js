@@ -21,7 +21,12 @@ const create = async (req, res) => {
     }
 }
 
+const getCreate = async (req, res) => {
+    res.send("//TODO: implement poll create page");
+}
+
 
 module.exports = {
-    create
+    create,
+    getCreate
 }
