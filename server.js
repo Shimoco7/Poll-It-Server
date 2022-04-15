@@ -27,6 +27,9 @@ app.use('/poll_question', pollQuestionRouter);
 const detailRouter = require('./routes/detail_routes');
 app.use('/detail', detailRouter);
 
+const questionRouter = require('./routes/question_routes');
+app.use('/question', questionRouter);
+
 if (process.env.NODE_ENV == "development") {
     const swaggerUI = require("swagger-ui-express")
     const swaggerJsDoc = require("swagger-jsdoc")

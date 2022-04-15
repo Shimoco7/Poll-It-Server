@@ -5,7 +5,7 @@ const pollQuestionSchema = new mongoose.Schema({
 
     poll_question: {
         type: String,
-        required: [true, "Please enter a poll question name"]
+        required: [true, "Please enter a poll question"]
     },
     poll_question_type: {
         type: String,

@@ -1,25 +1,21 @@
 ###
-
 GET http://localhost:3000/
 
 #Auth----------------------------------------------------------------------
 
 ###
-
 POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
     "email" : "adar@test.com",
     "password" : "Adar1234@"
-    }
+}
 
 ###
-
 GET http://localhost:3000/auth/register
 
 ###
-
 POST http://localhost:3000/auth/login
 Content-Type: application/json
 
@@ -29,11 +25,9 @@ Content-Type: application/json
 }
 
 ###
-
 GET http://localhost:3000/auth/login
 
 ###
-
 DELETE http://localhost:3000/auth/logout
 Authorization: Bearer addAccessTokenHere
 Content-Type: application/json
@@ -43,12 +37,10 @@ Content-Type: application/json
 }
 
 ###
-
 GET http://localhost:3000/auth/logout
 Authorization: Bearer addAccessTokenHere
 
 ###
-
 POST http://localhost:3000/auth/refreshToken
 Content-Type: application/json
 
@@ -68,6 +60,7 @@ Content-Type: application/json
 }
 
 #Poll----------------------------------------------------------------------
+
 ###
 POST http://localhost:3000/poll/create
 Authorization: Bearer addAccessTokenHere
@@ -82,6 +75,7 @@ GET http://localhost:3000/poll/create
 Authorization: Bearer addAccessTokenHere
 
 #PollQuestion----------------------------------------------------------------------
+
 ###
 POST http://localhost:3000/poll_question/create
 Authorization: Bearer addAccessTokenHere
@@ -94,7 +88,12 @@ Content-Type: application/json
     "poll_id": "poll id"
 }
 
+###
+GET http://localhost:3000/poll_question/create
+Authorization: Bearer addAccessTokenHere
+
 #Detail----------------------------------------------------------------------
+
 ###
 POST http://localhost:3000/detail/create
 Content-Type: application/json
@@ -114,3 +113,19 @@ Content-Type: application/json
 {
    "uid": "account id" 
 }
+
+#Question----------------------------------------------------------------------
+
+###
+POST http://localhost:3000/question/create
+Authorization: Bearer addAccessTokenHere
+Content-Type: application/json
+
+{
+    "question": "test question?",
+    "multi_choice": ["q1","q2","q3"]
+}
+
+###
+GET http://localhost:3000/question/create
+Authorization: Bearer addAccessTokenHere
