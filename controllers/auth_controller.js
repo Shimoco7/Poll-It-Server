@@ -39,7 +39,7 @@ const register = async (req, res) => {
 const login = async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
-    if (email == null || password == null) return sendError(res, 400, 'Missing email or password')
+    if (email == null || password == null) return sendError(res, 400, "Missing email or password")
 
     try {
         const account = await Account.login(email, password);
@@ -50,7 +50,7 @@ const login = async (req, res) => {
             await account.save();
         }
         
-        res.status(200).send({ 'accessToken': accessToken, 'refreshToken': refreshToken });
+        res.status(200).send({ "accessToken": accessToken, "refreshToken": refreshToken, "account":  account});
 
     } catch (err) {
         return sendError(res, 400, err.message)
