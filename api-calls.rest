@@ -69,3 +69,16 @@ Content-Type: application/json
 ###
 GET http://localhost:3000/poll/create
 Authorization: Bearer addAccessTokenHere
+
+#PollQuestion----------------------------------------------------------------------
+###
+POST http://localhost:3000/poll_question/create
+Authorization: Bearer addAccessTokenHere
+Content-Type: application/json
+
+{
+    "poll_question": "test question?",
+    "poll_question_type": "Multi Choice",
+    "choices": ["q1","q2","q3"],
+    "poll_id": "62592114a3a5131ab38c29d"
+}

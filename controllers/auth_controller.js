@@ -2,9 +2,9 @@ const Account = require('../models/account_model')
 const jwt = require('jsonwebtoken')         
 
 const handleErrors = (err) => {
-    let errors = { email: "", password: "" }
+    let errors = {}
     if (err.code === 11000) {
-        errors.email = "The account is already registered"
+        errors["email"] = "The account is already registered"
     }
     if (err.message.includes("Account validation failed")) {
         Object.values(err.errors).forEach(({ properties }) => {

@@ -21,6 +21,8 @@ app.use('/auth', authRouter);
 const pollRouter = require('./routes/poll_routes');
 app.use('/poll', pollRouter);
 
+const pollQuestionRouter = require('./routes/poll_question_routes');
+app.use('/poll_question', pollQuestionRouter);
 
 if (process.env.NODE_ENV == "development") {
     const swaggerUI = require("swagger-ui-express")

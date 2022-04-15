@@ -5,7 +5,7 @@ const pollSchema = new mongoose.Schema({
 
     poll_name: {
         type: String,
-        unique: true
+        required: [true, "Please enter a poll name"]
     }
 
 }, {timestamps:true});
