@@ -2,6 +2,8 @@
 
 GET http://localhost:3000/
 
+#Auth----------------------------------------------------------------------
+
 ###
 
 POST http://localhost:3000/auth/register
@@ -9,8 +11,7 @@ Content-Type: application/json
 
 {
     "email" : "adar@test.com",
-    "password" : "Adar1234@",
-    "confirm_password" : "Adar1234@"
+    "password" : "Adar1234@"
     }
 
 ###
@@ -54,3 +55,14 @@ Content-Type: application/json
 {
 "refresh_token": "addRefreshTokenHere"
 }
+
+#Poll----------------------------------------------------------------------
+###
+POST http://localhost:3000/poll/create
+Authorization: Bearer addAccessTokenHere
+Content-Type: application/json
+
+{
+"poll_name": "poll name"
+}
+

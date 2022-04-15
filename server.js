@@ -18,6 +18,10 @@ app.use('/',appRouter);
 const authRouter = require('./routes/auth_routes');
 app.use('/auth', authRouter);
 
+const pollRouter = require('./routes/poll_routes');
+app.use('/poll', pollRouter);
+
+
 if (process.env.NODE_ENV == "development") {
     const swaggerUI = require("swagger-ui-express")
     const swaggerJsDoc = require("swagger-jsdoc")
