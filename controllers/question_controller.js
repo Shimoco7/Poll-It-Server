@@ -1,7 +1,7 @@
 const Question = require('../models/question_model')
 
 const handleErrors = (err) => {
-    let errors = {}
+    let errors = {};
 
     if (err.message.includes("Question validation failed")) {
         Object.values(err.errors).forEach(({ properties }) => {

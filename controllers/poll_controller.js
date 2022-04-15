@@ -1,7 +1,7 @@
 const Poll = require('../models/poll_model')
 
 const handleErrors = (err) => {
-    let errors = {}
+    let errors = {};
 
     if (err.message.includes("Poll validation failed")) {
         Object.values(err.errors).forEach(({ properties }) => {

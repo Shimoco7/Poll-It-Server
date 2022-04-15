@@ -30,6 +30,9 @@ app.use('/detail', detailRouter);
 const questionRouter = require('./routes/question_routes');
 app.use('/question', questionRouter);
 
+const answerRouter = require('./routes/answer_routes');
+app.use('/answer', answerRouter);
+
 if (process.env.NODE_ENV == "development") {
     const swaggerUI = require("swagger-ui-express")
     const swaggerJsDoc = require("swagger-jsdoc")
