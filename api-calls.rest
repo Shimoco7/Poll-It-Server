@@ -80,5 +80,17 @@ Content-Type: application/json
     "poll_question": "test question?",
     "poll_question_type": "Multi Choice",
     "choices": ["q1","q2","q3"],
-    "poll_id": "62592114a3a5131ab38c29d"
+    "poll_id": "poll id"
+}
+
+#Detail----------------------------------------------------------------------
+###
+POST http://localhost:3000/detail/create
+Content-Type: application/json
+
+{
+    "answer": "test answer",
+    "question": "test question?",
+    "question_id": "test question id",
+    "uid": "account id"
 }
