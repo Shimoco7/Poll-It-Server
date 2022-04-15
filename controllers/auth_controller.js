@@ -27,7 +27,7 @@ const register = async (req, res) => {
     const password = req.body.password;
     try {
         const newAccount = await Account.create({ "email": email, "password": password});
-        res.status(200).send({"_id":newAccount._id});
+        res.status(200).send();
 
     } catch (err) {
         const erros = handleErrors(err);
