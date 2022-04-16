@@ -96,6 +96,7 @@ Authorization: Bearer addAccessTokenHere
 
 ###
 POST http://localhost:8000/detail/create
+Authorization: Bearer addAccessTokenHere
 Content-Type: application/json
 
 {
