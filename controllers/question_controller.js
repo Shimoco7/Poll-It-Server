@@ -28,8 +28,20 @@ const getCreate = async (req, res) => {
     res.send("//TODO: implement question create page");
 }
 
+const getAllQuestions = async (req, res) => {
+    try {
+        const questions = await Question.find();
+        res.status(200).send(questions);
+
+    } catch (err) {
+        const erros = handleErrors(err);
+        res.status(400).json({ erros });
+    }
+}
+
 
 module.exports = {
     create,
-    getCreate
+    getCreate,
+    getAllQuestions
 }

@@ -7,4 +7,6 @@ router.post('/create',authenticate, Question.create);
 
 router.get('/create', authenticate, Question.getCreate);
 
+router.get('/getAllQuestions', authenticate, Question.getAllQuestions);
+
 module.exports = router
