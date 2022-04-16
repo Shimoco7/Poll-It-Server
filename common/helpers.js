@@ -12,6 +12,14 @@ const handleErrors = (schema, err) => {
     return errors;
 }
 
+const sendError = (res, code, msg) => {
+    return res.status(code).json({
+        'status': 'fail',
+        'error': msg
+    })
+}
+
 module.exports = {
-    handleErrors
+    handleErrors,
+    sendError
 }

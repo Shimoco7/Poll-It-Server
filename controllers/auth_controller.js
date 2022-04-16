@@ -3,13 +3,6 @@ const Account = require('../models/account_model');
 const jwt = require('jsonwebtoken');       
 const helpers = require("../common/helpers");
 
-const sendError = (res, code, msg) => {
-    return res.status(code).json({
-        'status': 'fail',
-        'error': msg
-    })
-}
-
 const register = async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
@@ -28,7 +21,7 @@ const login = async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
     var detailsFilled = true;
-    if (email == null || password == null) return sendError(res, 400, "Missing email or password")
+    if (email == null || password == null) return helpers.sendError(res, 400, "Missing email or password")
 
     try {
         const account = await Account.login(email, password);
@@ -47,31 +40,31 @@ const login = async (req, res) => {
         res.status(200).send({ "accessToken": accessToken, "refreshToken": refreshToken, "account":  account, "detailsFilled":detailsFilled});
 
     } catch (err) {
-        return sendError(res, 400, err.message)
+        return helpers.sendError(res, 400, err.message)
     }
 
 }
 
 const logout = async (req, res) => {
     const token = req.body.refresh_token;
-    if (token == null) return res.status(401).send()
+    if (token == null) return helpers.sendError(res, 401, 'No refresh token')
     jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, async (err, accountInfo) => {
 
-        if (err) return sendError(res, 403, err.message)
+        if (err) return helpers.sendError(res, 403, err.message)
         const accountId = accountInfo.id;
         try {
             const account = await Account.findById(accountId)
-            if (account == null) return sendError(res, 403, 'Invalid request')
+            if (account == null) return helpers.sendError(res, 403, 'Invalid request')
             if (account.refresh_token != token) {
                 account.refresh_token = undefined;
                 await account.save();
-                return sendError(res, 403, 'invalid request')
+                return helpers.sendError(res, 403, 'invalid request')
             }
             account.refresh_token = undefined;
             await account.save();
             res.status(200).send();
         } catch (err) {
-            return sendError(res, 403, err.message)
+            return helpers.sendError(res, 403, err.message)
         }
     })
 
@@ -79,18 +72,18 @@ const logout = async (req, res) => {
 
 const refreshToken = async (req, res) => {
     const token = req.body.refresh_token;
-    if (token == null) return sendError(res, 401, 'No refresh token')
+    if (token == null) return helpers.sendError(res, 401, 'No refresh token')
     jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, async (err, accountInfo) => {
 
-        if (err) return sendError(res, 403, err.message)
+        if (err) return helpers.sendError(res, 403, err.message)
         const accountId = accountInfo.id;
         try {
             const account = await Account.findById(accountId)
-            if (account == null) return sendError(res, 403, 'Invalid request');
+            if (account == null) return helpers.sendError(res, 403, 'Invalid request');
             if (account.refresh_token != token) {
                 account.refresh_token = undefined;
                 await account.save();
-                return sendError(res, 403, 'Invalid request');
+                return helpers.sendError(res, 403, 'Invalid request');
             }
 
             const accessToken = generateAccessToken(account);
@@ -101,7 +94,7 @@ const refreshToken = async (req, res) => {
             }
             res.status(200).send({ 'accessToken': accessToken, 'refreshToken': refreshToken });
         } catch (err) {
-            return sendError(res, 403, err.message);
+            return helpers.sendError(res, 403, err.message);
         }
     })
 }
