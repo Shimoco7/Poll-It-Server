@@ -1,13 +1,13 @@
 const SCHEMA = "Account"
 const Account = require('../models/account_model');
-const jwt = require('jsonwebtoken');       
+const jwt = require('jsonwebtoken');
 const helpers = require("../common/helpers");
 
 const register = async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
     try {
-        const newAccount = await Account.create({ "email": email, "password": password});
+        const newAccount = await Account.create({ "email": email, "password": password });
         res.status(200).send();
 
     } catch (err) {
@@ -31,13 +31,13 @@ const login = async (req, res) => {
             account.refresh_token = refreshToken;
             await account.save();
         }
-        if(account.role=="User"){
-            if (account.name == null || account.address == null || account.gender == null){
+        if (account.role == "User") {
+            if (account.name == null || account.address == null || account.gender == null) {
                 detailsFilled = false;
             }
         }
-        
-        res.status(200).send({ "accessToken": accessToken, "refreshToken": refreshToken, "account":  account, "detailsFilled":detailsFilled});
+
+        res.status(200).send({ "accessToken": accessToken, "refreshToken": refreshToken, "account": account, "detailsFilled": detailsFilled });
 
     } catch (err) {
         return helpers.sendError(res, 400, err.message)
@@ -88,9 +88,9 @@ const refreshToken = async (req, res) => {
 
             const accessToken = generateAccessToken(account);
             const refreshToken = generateRefreshToken(account);
-            if(account.refresh_token != refreshToken){
-            account.refresh_token = refreshToken;
-            await account.save();
+            if (account.refresh_token != refreshToken) {
+                account.refresh_token = refreshToken;
+                await account.save();
             }
             res.status(200).send({ 'accessToken': accessToken, 'refreshToken': refreshToken });
         } catch (err) {
@@ -101,14 +101,14 @@ const refreshToken = async (req, res) => {
 
 const update = async (req, res) => {
     try {
-        await Account.updateOne({_id: req.body._id},  req.body,{multi: true});
+        await Account.updateOne({ _id: req.body._id }, req.body, { multi: true });
         res.status(200).send();
 
     } catch (err) {
         const erros = helpers.handleErrors(SCHEMA, err);
         res.status(400).json({ erros });
     }
- 
+
 }
 
 

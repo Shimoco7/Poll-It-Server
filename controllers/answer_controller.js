@@ -8,8 +8,8 @@ const create = async (req, res) => {
     const pollQuestionId = req.body.poll_question_id;
     const userId = req.body.user_id;
     try {
-        const newAnswer = await Answer.create({"answer": answer, "poll_id": pollId, "poll_question_id": pollQuestionId, "user_id": userId});
-        res.status(200).send({"_id":newAnswer._id});
+        const newAnswer = await Answer.create({ "answer": answer, "poll_id": pollId, "poll_question_id": pollQuestionId, "user_id": userId });
+        res.status(200).send({ "_id": newAnswer._id });
 
     } catch (err) {
         const erros = helpers.handleErrors(SCHEMA, err);

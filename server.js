@@ -44,7 +44,7 @@ if (process.env.NODE_ENV == "development") {
                 version: "1.0.0",
                 description: "Poll-it Server side API Documentation",
             },
-            servers: [{url: "http://localhost:" + process.env.PORT,},],
+            servers: [{url: "http://" + process.env.IP +":" + process.env.PORT,},],
         },
         apis: ["./routes/*.js"],
     };
