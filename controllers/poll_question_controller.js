@@ -1,6 +1,6 @@
 const SCHEMA = "PollQuestion";
 const PollQuestion = require('../models/poll_question_model');
-const handleErrors = require("../common/helpers");
+const helpers = require("../common/helpers");
 
 const create = async (req, res) => {
     const pollQuestion = req.body.poll_question;
@@ -12,7 +12,7 @@ const create = async (req, res) => {
         res.status(200).send({"_id":newPollQuestion._id});
 
     } catch (err) {
-        const erros = handleErrors(SCHEMA, err);
+        const erros = helpers.handleErrors(SCHEMA, err);
         res.status(400).json({ erros });
     }
 }

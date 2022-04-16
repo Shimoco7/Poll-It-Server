@@ -1,7 +1,7 @@
 const SCHEMA = "Account"
 const Account = require('../models/account_model');
 const jwt = require('jsonwebtoken');       
-const handleErrors = require("../common/helpers");
+const helpers = require("../common/helpers");
 
 const sendError = (res, code, msg) => {
     return res.status(code).json({
@@ -18,7 +18,7 @@ const register = async (req, res) => {
         res.status(200).send();
 
     } catch (err) {
-        const erros = handleErrors(SCHEMA, err);
+        const erros = helpers.handleErrors(SCHEMA, err);
         res.status(400).json({ erros });
     }
 }
@@ -112,7 +112,7 @@ const update = async (req, res) => {
         res.status(200).send();
 
     } catch (err) {
-        const erros = handleErrors(SCHEMA, err);
+        const erros = helpers.handleErrors(SCHEMA, err);
         res.status(400).json({ erros });
     }
  

@@ -1,6 +1,6 @@
 const SCHEMA = "Answer";
 const Answer = require('../models/answer_model');
-const handleErrors = require("../common/helpers");
+const helpers = require("../common/helpers");
 
 const create = async (req, res) => {
     const answer = req.body.answer;
@@ -12,7 +12,7 @@ const create = async (req, res) => {
         res.status(200).send({"_id":newAnswer._id});
 
     } catch (err) {
-        const erros = handleErrors(SCHEMA, err);
+        const erros = helpers.handleErrors(SCHEMA, err);
         res.status(400).json({ erros });
     }
 }

@@ -12,4 +12,6 @@ const handleErrors = (schema, err) => {
     return errors;
 }
 
-module.exports = handleErrors
+module.exports = {
+    handleErrors
+}
