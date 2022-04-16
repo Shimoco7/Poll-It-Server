@@ -1,15 +1,6 @@
-const Detail = require('../models/detail_model')
-
-const handleErrors = (err) => {
-    let errors = {};
-
-    if (err.message.includes("Detail validation failed")) {
-        Object.values(err.errors).forEach(({ properties }) => {
-            errors[properties.path] = properties.message;
-        });
-    }
-    return errors;
-}
+const SCHEMA = "Detail";
+const Detail = require('../models/detail_model');
+const handleErrors = require("../common/helpers");
 
 const create = async (req, res) => {
     const answer = req.body.answer;
@@ -21,7 +12,7 @@ const create = async (req, res) => {
         res.status(200).send({"_id":newDetail._id});
 
     } catch (err) {
-        const erros = handleErrors(err);
+        const erros = handleErrors(SCHEMA, err);
         res.status(400).json({ erros });
     }
 }
@@ -33,7 +24,7 @@ const getDetailsByUid = async (req, res) => {
         res.status(200).send(details);
 
     } catch (err) {
-        const erros = handleErrors(err);
+        const erros = handleErrors(SCHEMA, err);
         res.status(400).json({ erros });
     }
 }

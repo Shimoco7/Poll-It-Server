@@ -1,15 +1,6 @@
-const Poll = require('../models/poll_model')
-
-const handleErrors = (err) => {
-    let errors = {};
-
-    if (err.message.includes("Poll validation failed")) {
-        Object.values(err.errors).forEach(({ properties }) => {
-            errors[properties.path] = properties.message;
-        });
-    }
-    return errors;
-}
+const SCHEMA = "Poll";
+const Poll = require('../models/poll_model');
+const handleErrors = require("../common/helpers");
 
 const create = async (req, res) => {
     const name = req.body.poll_name;
@@ -18,7 +9,7 @@ const create = async (req, res) => {
         res.status(200).send({"_id":newPoll._id});
 
     } catch (err) {
-        const erros = handleErrors(err);
+        const erros = handleErrors(SCHEMA, err);
         res.status(400).json({ erros });
     }
 }

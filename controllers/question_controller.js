@@ -1,15 +1,6 @@
-const Question = require('../models/question_model')
-
-const handleErrors = (err) => {
-    let errors = {};
-
-    if (err.message.includes("Question validation failed")) {
-        Object.values(err.errors).forEach(({ properties }) => {
-            errors[properties.path] = properties.message;
-        });
-    }
-    return errors;
-}
+const SCHEMA = "Question";
+const Question = require('../models/question_model');
+const handleErrors = require("../common/helpers");
 
 const create = async (req, res) => {
     const question = req.body.question;
@@ -19,7 +10,7 @@ const create = async (req, res) => {
         res.status(200).send({"_id":newQuestion._id});
 
     } catch (err) {
-        const erros = handleErrors(err);
+        const erros = handleErrors(SCHEMA, err);
         res.status(400).json({ erros });
     }
 }
@@ -34,7 +25,7 @@ const getAllQuestions = async (req, res) => {
         res.status(200).send(questions);
 
     } catch (err) {
-        const erros = handleErrors(err);
+        const erros = handleErrors(SCHEMA, err);
         res.status(400).json({ erros });
     }
 }

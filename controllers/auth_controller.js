@@ -1,19 +1,7 @@
+const SCHEMA = "Account"
 const Account = require('../models/account_model');
 const jwt = require('jsonwebtoken');       
-
-const handleErrors = (err) => {
-    let errors = {};
-    if (err.code === 11000) {
-        errors["email"] = "The account is already registered";
-    }
-    if (err.message.includes("Account validation failed")) {
-        Object.values(err.errors).forEach(({ properties }) => {
-            errors[properties.path] = properties.message;
-        });
-    }
-    return errors;
-}
-
+const handleErrors = require("../common/helpers");
 
 const sendError = (res, code, msg) => {
     return res.status(code).json({
@@ -30,7 +18,7 @@ const register = async (req, res) => {
         res.status(200).send();
 
     } catch (err) {
-        const erros = handleErrors(err);
+        const erros = handleErrors(SCHEMA, err);
         res.status(400).json({ erros });
     }
 }
@@ -124,7 +112,7 @@ const update = async (req, res) => {
         res.status(200).send();
 
     } catch (err) {
-        const erros = handleErrors(err);
+        const erros = handleErrors(SCHEMA, err);
         res.status(400).json({ erros });
     }
  
