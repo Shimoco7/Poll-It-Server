@@ -139,6 +139,7 @@ Authorization: Bearer addAccessTokenHere
 
 ###
 POST http://localhost:8000/answer/create
+Authorization: Bearer addAccessTokenHere
 Content-Type: application/json
 
 {
@@ -150,3 +151,4 @@ Content-Type: application/json
 
 ###
 GET http://localhost:8000/answer/create
+Authorization: Bearer addAccessTokenHere
