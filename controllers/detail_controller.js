@@ -18,7 +18,7 @@ const create = async (req, res) => {
 }
 
 const getDetailsByUid = async (req, res) => {
-    const accountId = req.body.uid;
+    const accountId = req.params.uid;
     try {
         const details = await Detail.find({"uid": accountId});
         res.status(200).send(details);

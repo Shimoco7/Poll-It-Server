@@ -37,10 +37,17 @@ router.post('/create', authenticate, Detail.create);
 
 /**
 * @swagger
-* /detail/getDetailsByUid:
+* /detail/getDetailsByUid/{uid}:
 *   get:
 *     summary: get details by user id
 *     tags: [Detail Api]
+*     parameters:
+*       - in: path
+*         name: uid
+*         schema:
+*           type: string
+*         required: true
+*         description: The user id
 *     responses:
 *       200:
 *         description: The details list
@@ -52,6 +59,6 @@ router.post('/create', authenticate, Detail.create);
 *         description:  Forbidden
 */
 
-router.get('/getDetailsByUid', authenticate, Detail.getDetailsByUid);
+router.get('/getDetailsByUid/:uid', authenticate, Detail.getDetailsByUid);
 
 module.exports = router

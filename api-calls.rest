@@ -107,13 +107,8 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8000/detail/getDetailsByUid
+GET http://localhost:8000/detail/getDetailsByUid/{uid}
 Authorization: Bearer addAccessTokenHere
-Content-Type: application/json
-
-{
-   "uid": "account id" 
-}
 
 #Question----------------------------------------------------------------------
 
