@@ -49,7 +49,7 @@ if (process.env.NODE_ENV == "development") {
         apis: ["./routes/*.js"],
     };
     const specs = swaggerJsDoc(options);
-    app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
+    app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs,{ explorer: true }));
  }
 
 module.exports = app;
