@@ -64,7 +64,7 @@ const logout = async (req, res) => {
             await account.save();
             res.status(200).send();
         } catch (err) {
-            return helpers.sendError(res, 403, err.message)
+            return helpers.sendError(res, 400, err.message)
         }
     })
 
@@ -94,7 +94,7 @@ const refreshToken = async (req, res) => {
             }
             res.status(200).send({ 'accessToken': accessToken, 'refreshToken': refreshToken });
         } catch (err) {
-            return helpers.sendError(res, 403, err.message);
+            return helpers.sendError(res, 400, err.message);
         }
     })
 }
