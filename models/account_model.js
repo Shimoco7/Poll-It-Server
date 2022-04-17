@@ -30,6 +30,12 @@ const bcryptjs = require('bcryptjs');
  *          enum: [Male, Female, Don't Wish To Specify]
  *        profile_pic_url:
  *          type: string   
+ *        createdAt:
+ *          type: string
+ *          format: date-time
+ *        updatedAt:
+ *          type: string
+ *          format: date-time
  */
 
 const accountSchema = new mongoose.Schema({

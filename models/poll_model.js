@@ -11,6 +11,12 @@ const mongoose = require("mongoose");
  *      properties:
  *        poll_name:
  *          type: string
+ *        createdAt:
+ *          type: string
+ *          format: date-time
+ *        updatedAt:
+ *          type: string
+ *          format: date-time
  */
 
 const pollSchema = new mongoose.Schema({

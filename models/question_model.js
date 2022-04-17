@@ -16,6 +16,12 @@ const mongoose = require("mongoose");
  *          type: array
  *          items:
  *             type: string
+ *        createdAt:
+ *          type: string
+ *          format: date-time
+ *        updatedAt:
+ *          type: string
+ *          format: date-time
  */
 
 const QuestionSchema = new mongoose.Schema({
