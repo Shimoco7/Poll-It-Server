@@ -44,21 +44,21 @@ if (process.env.NODE_ENV == "development") {
                 version: "1.0.0",
                 description: "Poll-it Server side API Documentation",
             },
-            components: {
-              securitySchemas: {
-                bearerAuth: {
-                  type: "http",
-                  scheme: "bearer",
-                  bearerFormat: "JWT",
-                },
-              },
-            },
+            servers: [{url: "http://" + process.env.IP +":" + process.env.PORT,},],
             security: [
               {
-                bearerAuth: [],
+                bearerAuth: ['Authorization'],
               },
             ],
-            servers: [{url: "http://" + process.env.IP +":" + process.env.PORT,},],
+            components: {
+                securitySchemes: {
+                  bearerAuth: {
+                    type: 'http',
+                    scheme: 'bearer',
+                    bearerFormat: 'JWT',
+                  }
+                }
+            }
         },
         apis: ["./routes/*.js", "./models/*.js"],
     };
