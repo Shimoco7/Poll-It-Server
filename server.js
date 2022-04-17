@@ -44,9 +44,23 @@ if (process.env.NODE_ENV == "development") {
                 version: "1.0.0",
                 description: "Poll-it Server side API Documentation",
             },
+            components: {
+              securitySchemas: {
+                bearerAuth: {
+                  type: "http",
+                  scheme: "bearer",
+                  bearerFormat: "JWT",
+                },
+              },
+            },
+            security: [
+              {
+                bearerAuth: [],
+              },
+            ],
             servers: [{url: "http://" + process.env.IP +":" + process.env.PORT,},],
         },
-        apis: ["./routes/*.js"],
+        apis: ["./routes/*.js", "./models/*.js"],
     };
     const specs = swaggerJsDoc(options);
     app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs,{ explorer: true }));

@@ -1,5 +1,22 @@
 const mongoose = require("mongoose");
 
+/**
+ * @swagger
+ * components:
+ *  schemas:
+ *    Question:
+ *      type: object
+ *      required:
+ *        - question
+ *      properties:
+ *        question:
+ *          type: string
+ *          default: Age
+ *        multi_choice:
+ *          type: array
+ *          items:
+ *             type: string
+ */
 
 const QuestionSchema = new mongoose.Schema({
 

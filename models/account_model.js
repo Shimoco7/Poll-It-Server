@@ -2,10 +2,41 @@ const mongoose = require("mongoose");
 const {isEmail} = require("validator");
 const bcryptjs = require('bcryptjs');
 
+/**
+ * @swagger
+ * components:
+ *  schemas:
+ *    Account:
+ *      type: object
+ *      required:
+ *        - role
+ *        - email
+ *        - password
+ *      properties:
+ *        role:
+ *          type: string
+ *          enum: [User, Client]
+ *          default: User
+ *        email:
+ *          type: string
+ *        password:
+ *          type: string
+ *        refresh_token:
+ *          type: string
+ *        name:
+ *          type: string
+ *        gender:
+ *          type: string
+ *          enum: [Male, Female, Don't Wish To Specify]
+ *        profile_pic_url:
+ *          type: string   
+ */
+
 const accountSchema = new mongoose.Schema({
     role: {
         type: String,
         enum: ['User', 'Client'],
+        required: [true, 'Please a role'],
         default: 'User'
     },
     email: {

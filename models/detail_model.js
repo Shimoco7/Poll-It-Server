@@ -1,5 +1,26 @@
 const mongoose = require("mongoose");
 
+/**
+ * @swagger
+ * components:
+ *  schemas:
+ *    Detail:
+ *      type: object
+ *      required:
+ *        - answer
+ *        - question
+ *        - question_id
+ *        - uid
+ *      properties:
+ *        answer:
+ *          type: string
+ *        question:
+ *          type: string
+ *        question_id:
+ *          type: string
+ *        uid:
+ *          type: string
+ */
 
 const detailSchema = new mongoose.Schema({
 

@@ -6,7 +6,7 @@ const authenticate = require("../common/auth_middleware");
 /**
 * @swagger
 * tags:
-*   name: Auth Api
+*   name: Account Api
 *   description: The Auth API
 */
 
