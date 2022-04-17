@@ -26,6 +26,11 @@ const mongoose = require("mongoose");
  *        updatedAt:
  *          type: string
  *          format: date-time
+ *      example:
+ *        answer: test answer
+ *        question: test question
+ *        question_id: 625ae81de847b7c2701e0a38
+ *        uid: 625ae81de847b7c2701e0a38       
  */
 
 const detailSchema = new mongoose.Schema({

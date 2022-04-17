@@ -23,12 +23,12 @@ router.get('/create', authenticate, Question.getCreate);
 *     responses:
 *       200:
 *         description: The questions list
-*         content:
-*           application/json:
-*             schema:
-*               type: array
-*               items:
-*                 $ref: '#/components/schemas/Question'
+*       400:
+*         description: Bad Request
+*       401:
+*         description: Unauthorized
+*       403:
+*         description:  Forbidden
 */
 
 router.get('/getAllQuestions', authenticate, Question.getAllQuestions);

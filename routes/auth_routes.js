@@ -10,15 +10,168 @@ const authenticate = require("../common/auth_middleware");
 *   description: The Account API
 */
 
-router.post('/register', Account.register);
-router.post('/login', Account.login);
-router.delete('/logout', Account.logout);
-router.post('/refreshToken', Account.refreshToken);
-router.post('/update', Account.update);
+/**
+* @swagger
+* /auth/register:
+*  post:
+*     summary: Register an account
+*     tags: [Account Api]
+*     requestBody:
+*        required: true
+*        content:
+*           application/json:
+*            schema:
+*                $ref: '#components/schemas/Account'
+*     responses:
+*       200:
+*         description: Account has been registered
+*       400:
+*         description: Bad Request
+*       401:
+*         description: Unauthorized
+*       403:
+*         description:  Forbidden
+*  get:
+*     summary: Register an account
+*     tags: [Account Api]
+*     responses:
+*       200:
+*         description: Register an account
+*       400:
+*         description: Bad Request
+*       401:
+*         description: Unauthorized
+*       403:
+*         description:  Forbidden
+*/
 
+router.post('/register', Account.register);
 router.get('/register', Account.getRegister);
+
+/**
+* @swagger
+* /auth/login:
+*  post:
+*     summary: Login an account
+*     tags: [Account Api]
+*     requestBody:
+*        required: true
+*        content:
+*           application/json:
+*            schema:
+*                $ref: '#components/schemas/Account'
+*     responses:
+*       200:
+*         description: Account has been logged in
+*       400:
+*         description: Bad Request
+*       401:
+*         description: Unauthorized
+*       403:
+*         description:  Forbidden
+*  get:
+*     summary: Login an account
+*     tags: [Account Api]
+*     responses:
+*       200:
+*         description: Login an account
+*       400:
+*         description: Bad Request
+*       401:
+*         description: Unauthorized
+*       403:
+*         description:  Forbidden
+*/
+
+router.post('/login', Account.login);
 router.get('/login', Account.getLogin);
+
+/**
+* @swagger
+* /auth/logout:
+*  delete:
+*     summary: Logout an account
+*     tags: [Account Api]
+*     requestBody:
+*        required: true
+*        content:
+*           application/json:
+*            schema:
+*                $ref: '#components/schemas/Account'
+*     responses:
+*       200:
+*         description: Account has been logged out
+*       400:
+*         description: Bad Request
+*       401:
+*         description: Unauthorized
+*       403:
+*         description:  Forbidden
+*  get:
+*     summary: Logout an account
+*     tags: [Account Api]
+*     responses:
+*       200:
+*         description: Logout an account
+*       400:
+*         description: Bad Request
+*       401:
+*         description: Unauthorized
+*       403:
+*         description:  Forbidden
+*/
+
+router.delete('/logout', Account.logout);
 router.get('/logout', authenticate, Account.getLogout);
 
+/**
+* @swagger
+* /auth/refreshToken:
+*  post:
+*     summary: Generate a new token
+*     tags: [Account Api]
+*     requestBody:
+*        required: true
+*        content:
+*           application/json:
+*            schema:
+*                $ref: '#components/schemas/Account'
+*     responses:
+*       200:
+*         description: Token has been generated
+*       400:
+*         description: Bad Request
+*       401:
+*         description: Unauthorized
+*       403:
+*         description:  Forbidden
+*/
+
+router.post('/refreshToken', Account.refreshToken);
+
+/**
+* @swagger
+* /auth/update:
+*  post:
+*     summary: Update an account
+*     tags: [Account Api]
+*     requestBody:
+*        required: true
+*        content:
+*           application/json:
+*            schema:
+*                $ref: '#components/schemas/Account'
+*     responses:
+*       200:
+*         description: Account has been updated
+*       400:
+*         description: Bad Request
+*       401:
+*         description: Unauthorized
+*       403:
+*         description:  Forbidden
+*/
+
+router.post('/update', Account.update);
 
 module.exports = router

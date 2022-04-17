@@ -36,6 +36,10 @@ const bcryptjs = require('bcryptjs');
  *        updatedAt:
  *          type: string
  *          format: date-time
+ *      example:
+ *        role: User
+ *        email: test@test.com
+ *        password: Test1234@
  */
 
 const accountSchema = new mongoose.Schema({

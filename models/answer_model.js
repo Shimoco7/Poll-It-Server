@@ -30,6 +30,11 @@ const mongoose = require("mongoose");
  *        updatedAt:
  *          type: string
  *          format: date-time
+ *      example:
+ *        answer: test answer
+ *        poll_id: 625ae81de847b7c2701e0a38
+ *        poll_question_id: 625ae81de847b7c2701e0a38
+ *        user_id: 625ae81de847b7c2701e0a38
  */
 
 const answerSchema = new mongoose.Schema({

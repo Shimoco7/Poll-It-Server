@@ -22,6 +22,9 @@ const mongoose = require("mongoose");
  *        updatedAt:
  *          type: string
  *          format: date-time
+ *      example:
+ *        poll_question: test  question
+ *        multi_choice: [t1, t2, t3]
  */
 
 const QuestionSchema = new mongoose.Schema({
