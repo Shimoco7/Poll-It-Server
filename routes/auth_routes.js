@@ -1,24 +1,24 @@
 const express = require('express');
 const router = express.Router();
-const Auth = require('../controllers/auth_controller');
+const Account = require('../controllers/account_controller');
 const authenticate = require("../common/auth_middleware");
 
 /**
 * @swagger
 * tags:
 *   name: Account Api
-*   description: The Auth API
+*   description: The Account API
 */
 
-router.post('/register', Auth.register);
-router.post('/login', Auth.login);
-router.delete('/logout', Auth.logout);
-router.post('/refreshToken', Auth.refreshToken);
-router.post('/update', Auth.update);
+router.post('/register', Account.register);
+router.post('/login', Account.login);
+router.delete('/logout', Account.logout);
+router.post('/refreshToken', Account.refreshToken);
+router.post('/update', Account.update);
 
-router.get('/register', Auth.getRegister);
-router.get('/login', Auth.getLogin);
-router.get('/logout', authenticate, Auth.getLogout);
+router.get('/register', Account.getRegister);
+router.get('/login', Account.getLogin);
+router.get('/logout', authenticate, Account.getLogout);
 
 
 module.exports = router
