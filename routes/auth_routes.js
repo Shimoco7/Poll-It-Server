@@ -89,7 +89,7 @@ router.get('/login', Account.getLogin);
 /**
 * @swagger
 * /auth/logout:
-*  delete:
+*  post:
 *     summary: Logout an account
 *     tags: [Account Api]
 *     requestBody:
@@ -121,7 +121,7 @@ router.get('/login', Account.getLogin);
 *         description:  Forbidden
 */
 
-router.delete('/logout', Account.logout);
+router.post('/logout', Account.logout);
 router.get('/logout', authenticate, Account.getLogout);
 
 /**
