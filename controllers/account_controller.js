@@ -51,7 +51,7 @@ const logout = async (req, res) => {
     jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, async (err, accountInfo) => {
 
         if (err) return helpers.sendError(res, 403, err.message)
-        const accountId = accountInfo.id;
+        const accountId = accountInfo._id;
         try {
             const account = await Account.findById(accountId)
             if (account == null) return helpers.sendError(res, 403, 'Invalid request')
@@ -76,7 +76,7 @@ const refreshToken = async (req, res) => {
     jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, async (err, accountInfo) => {
 
         if (err) return helpers.sendError(res, 403, err.message)
-        const accountId = accountInfo.id;
+        const accountId = accountInfo._id;
         try {
             const account = await Account.findById(accountId)
             if (account == null) return helpers.sendError(res, 403, 'Invalid request');
@@ -126,7 +126,7 @@ const getLogout = async (req, res) => {
 
 function generateAccessToken(account) {
     return jwt.sign(
-        { 'id': account._id },
+        { _id: account._id, role: account.role },
         process.env.ACCESS_TOKEN_SECRET,
         { expiresIn: process.env.JWT_TOKEN_EXPIRATION }
     )
@@ -134,7 +134,7 @@ function generateAccessToken(account) {
 
 function generateRefreshToken(account) {
     return jwt.sign(
-        { 'id': account._id },
+        { _id: account._id, role: account.role },
         process.env.REFRESH_TOKEN_SECRET
     )
 }

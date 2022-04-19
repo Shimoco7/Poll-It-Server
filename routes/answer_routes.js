@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Answer = require('../controllers/answer_controller');
 const authenticate = require("../common/auth_middleware");
+const constants = require('../common/constants');
 
 /**
 * @swagger
@@ -46,7 +47,7 @@ const authenticate = require("../common/auth_middleware");
 */
 
 
-router.post('/create', authenticate, Answer.create);
-router.get('/create', authenticate, Answer.getCreate);
+router.post('/create', authenticate([constants.USER]), Answer.create);
+router.get('/create', authenticate([constants.USER]), Answer.getCreate);
 
 module.exports = router

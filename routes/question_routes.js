@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Question = require('../controllers/question_controller');
 const authenticate = require("../common/auth_middleware");
-
+const constants = require('../common/constants');
 /**
 * @swagger
 * tags:
@@ -10,9 +10,9 @@ const authenticate = require("../common/auth_middleware");
 *   description: The Question API
 */
 
-router.post('/create', authenticate, Question.create);
+router.post('/create', authenticate(), Question.create);
 
-router.get('/create', authenticate, Question.getCreate);
+router.get('/create', authenticate(), Question.getCreate);
 
 /**
 * @swagger
@@ -31,6 +31,6 @@ router.get('/create', authenticate, Question.getCreate);
 *         description:  Forbidden
 */
 
-router.get('/getAllQuestions', authenticate, Question.getAllQuestions);
+router.get('/getAllQuestions', authenticate([constants.USER]), Question.getAllQuestions);
 
 module.exports = router

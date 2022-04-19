@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Poll = require('../controllers/poll_controller');
 const authenticate = require("../common/auth_middleware");
+const constants = require('../common/constants');
 
 /**
 * @swagger
@@ -45,8 +46,8 @@ const authenticate = require("../common/auth_middleware");
 *         description:  Forbidden
 */
 
-router.post('/create',authenticate, Poll.create);
+router.post('/create', authenticate([constants.CLIENT]), Poll.create);
 
-router.get('/create', authenticate, Poll.getCreate);
+router.get('/create', authenticate([constants.CLIENT]), Poll.getCreate);
 
 module.exports = router

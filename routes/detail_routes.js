@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Detail = require('../controllers/detail_controller');
 const authenticate = require("../common/auth_middleware");
+const constants = require('../common/constants');
 
 /**
 * @swagger
@@ -33,7 +34,7 @@ const authenticate = require("../common/auth_middleware");
 *         description:  Forbidden
 */
 
-router.post('/create', authenticate, Detail.create);
+router.post('/create', authenticate([constants.USER]), Detail.create);
 
 /**
 * @swagger
@@ -59,6 +60,6 @@ router.post('/create', authenticate, Detail.create);
 *         description:  Forbidden
 */
 
-router.get('/getDetailsByUid/:uid', authenticate, Detail.getDetailsByUid);
+router.get('/getDetailsByUid/:uid', authenticate([constants.USER, constants.CLIENT]), Detail.getDetailsByUid);
 
 module.exports = router

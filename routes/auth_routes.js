@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Account = require('../controllers/account_controller');
 const authenticate = require("../common/auth_middleware");
+const constants = require('../common/constants');
 
 /**
 * @swagger
@@ -121,8 +122,8 @@ router.get('/login', Account.getLogin);
 *         description:  Forbidden
 */
 
-router.post('/logout', Account.logout);
-router.get('/logout', authenticate, Account.getLogout);
+router.post('/logout', authenticate([constants.USER, constants.CLIENT]), Account.logout);
+router.get('/logout', authenticate([constants.USER, constants.CLIENT]), Account.getLogout);
 
 /**
 * @swagger
@@ -172,6 +173,6 @@ router.post('/refreshToken', Account.refreshToken);
 *         description:  Forbidden
 */
 
-router.post('/update', Account.update);
+router.post('/update', authenticate([constants.USER, constants.CLIENT]), Account.update);
 
 module.exports = router
