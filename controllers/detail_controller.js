@@ -3,7 +3,7 @@ const Detail = require('../models/detail_model');
 const helpers = require("../common/helpers");
 const { ObjectId } = require('mongodb');
 const create = async (req, res) => {
-    const detailId = req.body.detail_id;
+    const detailId = req.body._id;
     const answer = req.body.answer;
     const question = req.body.question;
     const questionId = req.body.question_id;
