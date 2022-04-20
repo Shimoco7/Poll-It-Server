@@ -7,9 +7,9 @@ const mongoose = require("mongoose");
  *    Poll:
  *      type: object
  *      required:
- *        - poll_name
+ *        - pollName
  *      properties:
- *        poll_name:
+ *        pollName:
  *          type: string
  *        createdAt:
  *          type: string
@@ -18,12 +18,12 @@ const mongoose = require("mongoose");
  *          type: string
  *          format: date-time
  *      example:
- *        poll_name: test poll name
+ *        pollName: test poll name
  */
 
 const pollSchema = new mongoose.Schema({
 
-    poll_name: {
+    pollName: {
         type: String,
         required: [true, "Please enter a poll name"]
     }

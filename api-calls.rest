@@ -67,7 +67,7 @@ Authorization: Bearer addAccessTokenHere
 Content-Type: application/json
 
 {
-"poll_name": "poll name"
+"pollName": "poll name"
 }
 
 ###

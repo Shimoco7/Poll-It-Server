@@ -4,9 +4,9 @@ const handleErrors = require("../common/helpers");
 const helpers = require("../common/helpers");
 
 const create = async (req, res) => {
-    const name = req.body.poll_name;
+    const name = req.body.pollName;
     try {
-        newPoll = await Poll.create({ "poll_name": name});
+        newPoll = await Poll.create({ "pollName": name});
         res.status(200).send({"_id":newPoll._id});
 
     } catch (err) {
