@@ -85,7 +85,7 @@ Content-Type: application/json
     "poll_question": "test question?",
     "poll_question_type": "Multi Choice",
     "choices": ["q1","q2","q3"],
-    "poll_id": "poll id"
+    "pollId": "poll id"
 }
 
 ###
@@ -140,9 +140,9 @@ Content-Type: application/json
 
 {
     "answer": "test answer",
-    "poll_id": "test poll id",
-    "poll_question_id": "test poll question id",
-    "user_id": "test poll question id"
+    "pollId": "test poll id",
+    "pollQuestionId": "test poll question id",
+    "accountId": "test poll question id"
 }
 
 ###

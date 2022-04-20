@@ -8,21 +8,21 @@ const mongoose = require("mongoose");
  *      type: object
  *      required:
  *        - answer
- *        - is_deleted
- *        - poll_id
- *        - poll_question_id
- *        - user_id
+ *        - isDeleted
+ *        - pollId
+ *        - pollQuestionId
+ *        - accountId
  *      properties:
  *        answer:
  *          type: string
- *        is_deleted:
+ *        isDeleted:
  *          type: boolean
  *          default: false
- *        poll_id:
+ *        pollId:
  *          type: string
- *        poll_question_id:
+ *        pollQuestionId:
  *          type: string
- *        user_id:
+ *        accountId:
  *          type: string
  *        createdAt:
  *          type: string
@@ -32,9 +32,9 @@ const mongoose = require("mongoose");
  *          format: date-time
  *      example:
  *        answer: test answer
- *        poll_id: 625ae81de847b7c2701e0a38
- *        poll_question_id: 625ae81de847b7c2701e0a38
- *        user_id: 625ae81de847b7c2701e0a38
+ *        pollId: 625ae81de847b7c2701e0a38
+ *        pollQuestionId: 625ae81de847b7c2701e0a38
+ *        accountId: 625ae81de847b7c2701e0a38
  */
 
 const answerSchema = new mongoose.Schema({
@@ -43,22 +43,22 @@ const answerSchema = new mongoose.Schema({
         type: String,
         required: [true, "Please enter an answer"]
     },
-    is_deleted: {
+    isDeleted: {
         type: Boolean,
         required: true,
         default: false
     },
-    poll_id: {
+    pollId: {
         type: String,
         required: [true, "Please enter a poll id"]
     },
-    poll_question_id: {
+    pollQuestionId: {
         type: String,
         required: [true, "Please enter a poll question id"]
     },
-    user_id: {
+    accountId: {
         type: String,
-        required: [true, "Please enter a user id"]
+        required: [true, "Please enter an account id"]
     },
 
 }, {timestamps:true});

@@ -4,11 +4,11 @@ const helpers = require("../common/helpers");
 
 const create = async (req, res) => {
     const answer = req.body.answer;
-    const pollId = req.body.poll_id;
-    const pollQuestionId = req.body.poll_question_id;
-    const userId = req.body.user_id;
+    const pollId = req.body.pollId;
+    const pollQuestionId = req.body.pollQuestionId;
+    const userId = req.body.accountId;
     try {
-        const newAnswer = await Answer.create({ "answer": answer, "poll_id": pollId, "poll_question_id": pollQuestionId, "user_id": userId });
+        const newAnswer = await Answer.create({ "answer": answer, "pollId": pollId, "pollQuestionId": pollQuestionId, "accountId": userId });
         res.status(200).send({ "_id": newAnswer._id });
 
     } catch (err) {

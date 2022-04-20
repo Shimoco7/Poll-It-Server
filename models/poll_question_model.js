@@ -9,7 +9,7 @@ const mongoose = require("mongoose");
  *      required:
  *        - poll_question
  *        - poll_question_type
- *        - poll_id
+ *        - pollId
  *      properties:
  *        poll_question:
  *          type: string
@@ -21,7 +21,7 @@ const mongoose = require("mongoose");
  *          type: array
  *          items:
  *             type: string
- *        poll_id:
+ *        pollId:
  *          type: string
  *        createdAt:
  *          type: string
@@ -33,7 +33,7 @@ const mongoose = require("mongoose");
  *        poll_question: test poll question
  *        poll_question_type: Multi Choice
  *        choices: [t1, t2, t3]
- *        poll_id: 625ae81de847b7c2701e0a38
+ *        pollId: 625ae81de847b7c2701e0a38
  */
 
 const pollQuestionSchema = new mongoose.Schema({
@@ -51,7 +51,7 @@ const pollQuestionSchema = new mongoose.Schema({
     choices: {
         type: [String]
     },
-    poll_id:{
+    pollId:{
         type: String ,
         required: [true, "Please enter a poll id"]
     }

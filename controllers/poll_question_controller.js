@@ -6,9 +6,9 @@ const create = async (req, res) => {
     const pollQuestion = req.body.poll_question;
     const pollQuestionType = req.body.poll_question_type;
     const choices = req.body.choices;
-    const pollId = req.body.poll_id;
+    const pollId = req.body.pollId;
     try {
-        newPollQuestion = await PollQuestion.create({"poll_question": pollQuestion,"poll_question_type":pollQuestionType, "choices": choices, "poll_id": pollId});
+        newPollQuestion = await PollQuestion.create({"poll_question": pollQuestion,"poll_question_type":pollQuestionType, "choices": choices, "pollId": pollId});
         res.status(200).send({"_id":newPollQuestion._id});
 
     } catch (err) {
