@@ -7,13 +7,13 @@ const mongoose = require("mongoose");
  *    PollQuestion:
  *      type: object
  *      required:
- *        - poll_question
- *        - poll_question_type
+ *        - pollQuestion
+ *        - pollQuestionType
  *        - pollId
  *      properties:
- *        poll_question:
+ *        pollQuestion:
  *          type: string
- *        poll_question_type:
+ *        pollQuestionType:
  *          type: enum
  *          enum: [Multi Choice, Image]
  *          default: Multi Choice
@@ -30,19 +30,19 @@ const mongoose = require("mongoose");
  *          type: string
  *          format: date-time
  *      example:
- *        poll_question: test poll question
- *        poll_question_type: Multi Choice
+ *        pollQuestion: test poll question
+ *        pollQuestionType: Multi Choice
  *        choices: [t1, t2, t3]
  *        pollId: 625ae81de847b7c2701e0a38
  */
 
 const pollQuestionSchema = new mongoose.Schema({
 
-    poll_question: {
+    pollQuestion: {
         type: String,
         required: [true, "Please enter a poll question"]
     },
-    poll_question_type: {
+    pollQuestionType: {
         type: String,
         required: [true, "Please enter a poll question type"],
         enum: {values:["Multi Choice", "Image"], message: "Please enter a valid poll question type"},

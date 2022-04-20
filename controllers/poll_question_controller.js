@@ -3,12 +3,12 @@ const PollQuestion = require('../models/poll_question_model');
 const helpers = require("../common/helpers");
 
 const create = async (req, res) => {
-    const pollQuestion = req.body.poll_question;
-    const pollQuestionType = req.body.poll_question_type;
+    const pollQuestion = req.body.pollQuestion;
+    const pollQuestionType = req.body.pollQuestionType;
     const choices = req.body.choices;
     const pollId = req.body.pollId;
     try {
-        newPollQuestion = await PollQuestion.create({"poll_question": pollQuestion,"poll_question_type":pollQuestionType, "choices": choices, "pollId": pollId});
+        newPollQuestion = await PollQuestion.create({"pollQuestion": pollQuestion,"pollQuestionType":pollQuestionType, "choices": choices, "pollId": pollId});
         res.status(200).send({"_id":newPollQuestion._id});
 
     } catch (err) {

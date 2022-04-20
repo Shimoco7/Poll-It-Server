@@ -23,7 +23,7 @@ const mongoose = require("mongoose");
  *          type: string
  *          format: date-time
  *      example:
- *        poll_question: test  question
+ *        question: test  question
  *        multi_choice: [t1, t2, t3]
  */
 

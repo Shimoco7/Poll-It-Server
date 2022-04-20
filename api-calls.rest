@@ -82,8 +82,8 @@ Authorization: Bearer addAccessTokenHere
 Content-Type: application/json
 
 {
-    "poll_question": "test question?",
-    "poll_question_type": "Multi Choice",
+    "pollQuestion": "test question?",
+    "pollQuestionType": "Multi Choice",
     "choices": ["q1","q2","q3"],
     "pollId": "poll id"
 }
