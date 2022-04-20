@@ -4,10 +4,11 @@ const jwt = require('jsonwebtoken');
 const helpers = require("../common/helpers");
 
 const register = async (req, res) => {
+    const role = req.body.role;
     const email = req.body.email;
     const password = req.body.password;
     try {
-        const newAccount = await Account.create({ "email": email, "password": password });
+        const newAccount = await Account.create({"role": role, "email": email, "password": password });
         res.status(200).send();
 
     } catch (err) {
