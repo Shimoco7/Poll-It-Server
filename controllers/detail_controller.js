@@ -6,10 +6,10 @@ const create = async (req, res) => {
     const detailId = req.body._id;
     const answer = req.body.answer;
     const question = req.body.question;
-    const questionId = req.body.question_id;
-    const accountId = req.body.uid;
+    const questionId = req.body.questionId;
+    const accountId = req.body.accountId;
     try {
-        const newDetail = await Detail.findOneAndUpdate({ "_id": new ObjectId(detailId)},{"answer": answer, "question": question, "question_id":questionId, "uid": accountId}, { upsert: true});
+        const newDetail = await Detail.findOneAndUpdate({ "_id": new ObjectId(detailId)},{"answer": answer, "question": question, "questionId":questionId, "accountId": accountId}, { upsert: true});
         res.status(200).send();
 
     } catch (err) {
@@ -18,10 +18,10 @@ const create = async (req, res) => {
     }
 }
 
-const getDetailsByUid = async (req, res) => {
-    const accountId = req.params.uid;
+const getDetailsByAccountId = async (req, res) => {
+    const accountId = req.params.accountId;
     try {
-        const details = await Detail.find({"uid": accountId});
+        const details = await Detail.find({"accountId": accountId});
         res.status(200).send(details);
 
     } catch (err) {
@@ -32,5 +32,5 @@ const getDetailsByUid = async (req, res) => {
 
 module.exports = {
     create,
-    getDetailsByUid
+    getDetailsByAccountId
 }

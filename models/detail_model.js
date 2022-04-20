@@ -9,16 +9,16 @@ const mongoose = require("mongoose");
  *      required:
  *        - answer
  *        - question
- *        - question_id
- *        - uid
+ *        - questionId
+ *        - accountId
  *      properties:
  *        answer:
  *          type: string
  *        question:
  *          type: string
- *        question_id:
+ *        questionId:
  *          type: string
- *        uid:
+ *        accountId:
  *          type: string
  *        createdAt:
  *          type: string
@@ -29,8 +29,8 @@ const mongoose = require("mongoose");
  *      example:
  *        answer: test answer
  *        question: test question
- *        question_id: 625ae81de847b7c2701e0a38
- *        uid: 625ae81de847b7c2701e0a38       
+ *        questionId: 625ae81de847b7c2701e0a38
+ *        accountId: 625ae81de847b7c2701e0a38       
  */
 
 const detailSchema = new mongoose.Schema({
@@ -43,13 +43,13 @@ const detailSchema = new mongoose.Schema({
         type: String,
         required: [true, "Please enter a question"]
     },
-    question_id: {
+    questionId: {
         type: String,
         required: [true, "Please enter a question id"]
     },
-    uid: {
+    accountId: {
         type: String,
-        required: [true, "Please enter a uid"]
+        required: [true, "Please enter an account id"]
     }
 
 }, {timestamps:true});

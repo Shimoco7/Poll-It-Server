@@ -40,17 +40,17 @@ router.post('/create', authenticate([constants.USER]), Detail.create);
 
 /**
 * @swagger
-* /detail/getDetailsByUid/{uid}:
+* /detail/getDetailsByAccountId/{accountId}:
 *   get:
-*     summary: get details by user id
+*     summary: get details by account id
 *     tags: [Detail Api]
 *     parameters:
 *       - in: path
-*         name: uid
+*         name: accountId
 *         schema:
 *           type: string
 *         required: true
-*         description: The user id
+*         description: The account id
 *     responses:
 *       200:
 *         description: The details list
@@ -64,6 +64,6 @@ router.post('/create', authenticate([constants.USER]), Detail.create);
 *         description:  Not Found
 */
 
-router.get('/getDetailsByUid/:uid', authenticate([constants.USER, constants.CLIENT]), Detail.getDetailsByUid);
+router.get('/getDetailsByAccountId/:accountId', authenticate([constants.USER, constants.CLIENT]), Detail.getDetailsByAccountId);
 
 module.exports = router
