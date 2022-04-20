@@ -4,15 +4,15 @@ const mongoose = require("mongoose");
  * @swagger
  * components:
  *  schemas:
- *    Question:
+ *    DetailQuestion:
  *      type: object
  *      required:
- *        - question
+ *        - detailQuestion
  *      properties:
- *        question:
+ *        detailQuestion:
  *          type: string
  *          default: Age
- *        multi_choice:
+ *        choices:
  *          type: array
  *          items:
  *             type: string
@@ -23,20 +23,20 @@ const mongoose = require("mongoose");
  *          type: string
  *          format: date-time
  *      example:
- *        question: test  question
- *        multi_choice: [t1, t2, t3]
+ *        detailQuestion: test  question
+ *        choices: [t1, t2, t3]
  */
 
-const QuestionSchema = new mongoose.Schema({
+const DetailQuestionSchema = new mongoose.Schema({
 
-    question: {
+    detailQuestion: {
         type: String,
-        required: [true, "Please enter a question"]
+        required: [true, "Please enter a detail question"]
     },
-    multi_choice: {
+    choices: {
         type: [String]
     }
 
 }, {timestamps:true});
 
-module.exports = mongoose.model('Question', QuestionSchema);
+module.exports = mongoose.model('DetailQuestion', DetailQuestionSchema);

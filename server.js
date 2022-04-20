@@ -27,8 +27,8 @@ app.use('/poll_question', pollQuestionRouter);
 const detailRouter = require('./routes/detail_routes');
 app.use('/detail', detailRouter);
 
-const questionRouter = require('./routes/question_routes');
-app.use('/question', questionRouter);
+const detailQuestionRouter = require('./routes/detail_question_routes');
+app.use('/detail_question', detailQuestionRouter);
 
 const answerRouter = require('./routes/answer_routes');
 app.use('/answer', answerRouter);

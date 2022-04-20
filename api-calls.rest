@@ -111,24 +111,24 @@ Content-Type: application/json
 GET http://localhost:8000/detail/getDetailsByAccountId/{accountId}
 Authorization: Bearer addAccessTokenHere
 
-#Question----------------------------------------------------------------------
+#DetailQuestion----------------------------------------------------------------------
 
 ###
-POST http://localhost:8000/question/create
+POST http://localhost:8000/detail_question/create
 Authorization: Bearer addAccessTokenHere
 Content-Type: application/json
 
 {
-    "question": "test question?",
-    "multi_choice": ["q1","q2","q3"]
+    "detailQuestion": "test detail question?",
+    "choices": ["q1","q2","q3"]
 }
 
 ###
-GET http://localhost:8000/question/create
+GET http://localhost:8000/detail_question/create
 Authorization: Bearer addAccessTokenHere
 
 ###
-GET http://localhost:8000/question/getAllQuestions
+GET http://localhost:8000/detail_question/getAllDetailQuestions
 Authorization: Bearer addAccessTokenHere
 
 #Answer----------------------------------------------------------------------

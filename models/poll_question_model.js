@@ -58,4 +58,4 @@ const pollQuestionSchema = new mongoose.Schema({
 
 }, {timestamps:true});
 
-module.exports = mongoose.model('PollQuestion', pollQuestionSchema, "polls_questions");
+module.exports = mongoose.model('PollQuestion', pollQuestionSchema);
