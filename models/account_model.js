@@ -21,14 +21,14 @@ const bcryptjs = require('bcryptjs');
  *          type: string
  *        password:
  *          type: string
- *        refresh_token:
+ *        refreshToken:
  *          type: string
  *        name:
  *          type: string
  *        gender:
  *          type: string
  *          enum: [Male, Female, Don't Wish To Specify]
- *        profile_pic_url:
+ *        profilePicUrl:
  *          type: string   
  *        createdAt:
  *          type: string
@@ -60,7 +60,7 @@ const accountSchema = new mongoose.Schema({
         required: [true, 'Please enter a password'],
         match: [/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,100}$/,"Minimum 8 characters, at least one uppercase, at least one lower case, at least one digit, at least one special character"]  
     },
-    refresh_token: {
+    refreshToken: {
         type: String
     },
     name: {
@@ -73,7 +73,7 @@ const accountSchema = new mongoose.Schema({
         type: String,
         enum: {values:["Male", "Female", "Don't Wish To Specify"], message: "Please enter a valid gender"}
     },
-    profile_pic_url: {
+    profilePicUrl: {
         type: String
     }
 }, {timestamps:true});

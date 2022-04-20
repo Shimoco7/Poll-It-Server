@@ -29,8 +29,8 @@ const login = async (req, res) => {
         const account = await Account.login(email, password);
         const accessToken = generateAccessToken(account);
         const refreshToken = generateRefreshToken(account);
-        if (account.refresh_token != refreshToken) {
-            account.refresh_token = refreshToken;
+        if (account.refreshToken != refreshToken) {
+            account.refreshToken = refreshToken;
             await account.save();
         }
         if (account.role == constants.USER) {
@@ -48,7 +48,7 @@ const login = async (req, res) => {
 }
 
 const logout = async (req, res) => {
-    const token = req.body.refresh_token;
+    const token = req.body.refreshToken;
     if (token == null) return helpers.sendError(res, 401, 'No refresh token')
     jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, async (err, accountInfo) => {
 
@@ -57,12 +57,12 @@ const logout = async (req, res) => {
         try {
             const account = await Account.findById(accountId)
             if (account == null) return helpers.sendError(res, 403, 'Invalid request')
-            if (account.refresh_token != token) {
-                account.refresh_token = undefined;
+            if (account.refreshToken != token) {
+                account.refreshToken = undefined;
                 await account.save();
                 return helpers.sendError(res, 403, 'invalid request')
             }
-            account.refresh_token = undefined;
+            account.refreshToken = undefined;
             await account.save();
             res.status(200).send();
         } catch (err) {
@@ -73,7 +73,7 @@ const logout = async (req, res) => {
 }
 
 const refreshToken = async (req, res) => {
-    const token = req.body.refresh_token;
+    const token = req.body.refreshToken;
     if (token == null) return helpers.sendError(res, 401, 'No refresh token')
     jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, async (err, accountInfo) => {
 
@@ -82,16 +82,16 @@ const refreshToken = async (req, res) => {
         try {
             const account = await Account.findById(accountId)
             if (account == null) return helpers.sendError(res, 403, 'Invalid request');
-            if (account.refresh_token != token) {
-                account.refresh_token = undefined;
+            if (account.refreshToken != token) {
+                account.refreshToken = undefined;
                 await account.save();
                 return helpers.sendError(res, 403, 'Invalid request');
             }
 
             const accessToken = generateAccessToken(account);
             const refreshToken = generateRefreshToken(account);
-            if (account.refresh_token != refreshToken) {
-                account.refresh_token = refreshToken;
+            if (account.refreshToken != refreshToken) {
+                account.refreshToken = refreshToken;
                 await account.save();
             }
             res.status(200).send({ 'accessToken': accessToken, 'refreshToken': refreshToken });
