@@ -32,6 +32,8 @@ const constants = require('../common/constants');
 *         description: Unauthorized
 *       403:
 *         description:  Forbidden
+*       404:
+*         description:  Not Found
 */
 
 router.post('/create', authenticate([constants.USER]), Detail.create);
@@ -58,6 +60,8 @@ router.post('/create', authenticate([constants.USER]), Detail.create);
 *         description: Unauthorized
 *       403:
 *         description:  Forbidden
+*       404:
+*         description:  Not Found
 */
 
 router.get('/getDetailsByUid/:uid', authenticate([constants.USER, constants.CLIENT]), Detail.getDetailsByUid);

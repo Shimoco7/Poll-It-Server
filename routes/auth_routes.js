@@ -32,6 +32,9 @@ const constants = require('../common/constants');
 *         description: Unauthorized
 *       403:
 *         description:  Forbidden
+*       404:
+*         description:  Not Found
+
 *  get:
 *     summary: Register an account
 *     tags: [Account Api]
@@ -44,6 +47,8 @@ const constants = require('../common/constants');
 *         description: Unauthorized
 *       403:
 *         description:  Forbidden
+*       404:
+*         description:  Not Found
 */
 
 router.post('/register', Account.register);
@@ -70,6 +75,9 @@ router.get('/register', Account.getRegister);
 *         description: Unauthorized
 *       403:
 *         description:  Forbidden
+*       404:
+*         description:  Not Found
+
 *  get:
 *     summary: Login an account
 *     tags: [Account Api]
@@ -82,6 +90,8 @@ router.get('/register', Account.getRegister);
 *         description: Unauthorized
 *       403:
 *         description:  Forbidden
+*       404:
+*         description:  Not Found
 */
 
 router.post('/login', Account.login);
@@ -108,6 +118,8 @@ router.get('/login', Account.getLogin);
 *         description: Unauthorized
 *       403:
 *         description:  Forbidden
+*       404:
+*         description:  Not Found
 *  get:
 *     summary: Logout an account
 *     tags: [Account Api]
@@ -120,6 +132,8 @@ router.get('/login', Account.getLogin);
 *         description: Unauthorized
 *       403:
 *         description:  Forbidden
+*       404:
+*         description:  Not Found
 */
 
 router.post('/logout', authenticate([constants.USER, constants.CLIENT]), Account.logout);
@@ -146,6 +160,8 @@ router.get('/logout', authenticate([constants.USER, constants.CLIENT]), Account.
 *         description: Unauthorized
 *       403:
 *         description:  Forbidden
+*       404:
+*         description:  Not Found
 */
 
 router.post('/refreshToken', Account.refreshToken);
@@ -171,6 +187,8 @@ router.post('/refreshToken', Account.refreshToken);
 *         description: Unauthorized
 *       403:
 *         description:  Forbidden
+*       404:
+*         description:  Not Found
 */
 
 router.post('/update', authenticate([constants.USER, constants.CLIENT]), Account.update);

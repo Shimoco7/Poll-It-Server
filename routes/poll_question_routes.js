@@ -32,6 +32,8 @@ const constants = require('../common/constants');
 *         description: Unauthorized
 *       403:
 *         description:  Forbidden
+*       404:
+*         description:  Not Found
 *  get:
 *     summary: Create a poll question
 *     tags: [PollQuestion Api]
@@ -44,6 +46,8 @@ const constants = require('../common/constants');
 *         description: Unauthorized
 *       403:
 *         description:  Forbidden
+*       404:
+*         description:  Not Found
 */
 
 router.post('/create', authenticate([constants.CLIENT]), PollQuestion.create);

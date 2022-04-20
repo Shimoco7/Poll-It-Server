@@ -29,6 +29,8 @@ router.get('/create', authenticate(), Question.getCreate);
 *         description: Unauthorized
 *       403:
 *         description:  Forbidden
+*       404:
+*         description:  Not Found
 */
 
 router.get('/getAllQuestions', authenticate([constants.USER]), Question.getAllQuestions);
