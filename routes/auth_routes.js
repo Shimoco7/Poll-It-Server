@@ -104,11 +104,12 @@ router.get('/login', Account.getLogin);
 *     summary: Logout an account
 *     tags: [Account Api]
 *     requestBody:
-*        required: true
 *        content:
-*           application/json:
+*          application/json:
 *            schema:
-*                $ref: '#components/schemas/Account'
+*              $ref: '#components/schemas/Account'
+*            example:
+*              refresh_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjYwMWMxYzc5YjFjODUwODcxYjkwMmYiLCJyb2xlIjoiVXNlciIsImlhdCI6MTY1MDQ2NTgyOH0.wiMhRV3FvL_nTRDGpBOadUI5nM7EEGmyKIOttfLGs6s
 *     responses:
 *       200:
 *         description: Account has been logged out
@@ -146,11 +147,12 @@ router.get('/logout', authenticate([constants.USER, constants.CLIENT]), Account.
 *     summary: Generate a new token
 *     tags: [Account Api]
 *     requestBody:
-*        required: true
 *        content:
-*           application/json:
+*          application/json:
 *            schema:
-*                $ref: '#components/schemas/Account'
+*              $ref: '#components/schemas/Account'
+*            example:
+*              refresh_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjYwMWMxYzc5YjFjODUwODcxYjkwMmYiLCJyb2xlIjoiVXNlciIsImlhdCI6MTY1MDQ2NTgyOH0.wiMhRV3FvL_nTRDGpBOadUI5nM7EEGmyKIOttfLGs6s
 *     responses:
 *       200:
 *         description: Token has been generated
@@ -173,11 +175,15 @@ router.post('/refreshToken', Account.refreshToken);
 *     summary: Update an account
 *     tags: [Account Api]
 *     requestBody:
-*        required: true
 *        content:
-*           application/json:
+*          application/json:
 *            schema:
-*                $ref: '#components/schemas/Account'
+*              $ref: '#components/schemas/Account'
+*            example:
+*              _id: 62601c1c79b1c850871b902f
+*              name: Yossi
+*              address: Tel Aviv
+*              gender: Male
 *     responses:
 *       200:
 *         description: Account has been updated

@@ -37,7 +37,6 @@ const bcryptjs = require('bcryptjs');
  *          type: string
  *          format: date-time
  *      example:
- *        role: User
  *        email: test@test.com
  *        password: Test1234@
  */
