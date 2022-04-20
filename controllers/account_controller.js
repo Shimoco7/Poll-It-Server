@@ -2,6 +2,7 @@ const SCHEMA = "Account"
 const Account = require('../models/account_model');
 const jwt = require('jsonwebtoken');
 const helpers = require("../common/helpers");
+const constants = require('../common/constants');
 
 const register = async (req, res) => {
     const role = req.body.role;
@@ -32,7 +33,7 @@ const login = async (req, res) => {
             account.refresh_token = refreshToken;
             await account.save();
         }
-        if (account.role == "User") {
+        if (account.role == constants.USER) {
             if (account.name == null || account.address == null || account.gender == null) {
                 detailsFilled = false;
             }
