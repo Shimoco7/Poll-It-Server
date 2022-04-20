@@ -100,6 +100,7 @@ Authorization: Bearer addAccessTokenHere
 Content-Type: application/json
 
 {
+    "detail_id": "4eb6e7e7e9b7f4194e000003",
     "answer": "test answer",
     "question": "test question?",
     "question_id": "test question id",

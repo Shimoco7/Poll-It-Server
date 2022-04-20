@@ -1,14 +1,15 @@
 const SCHEMA = "Detail";
 const Detail = require('../models/detail_model');
 const helpers = require("../common/helpers");
-
+const { ObjectId } = require('mongodb');
 const create = async (req, res) => {
+    const detailId = req.body.detail_id;
     const answer = req.body.answer;
     const question = req.body.question;
     const questionId = req.body.question_id;
     const accountId = req.body.uid;
     try {
-        const newDetail = await Detail.create({ "answer": answer, "question": question, "question_id":questionId, "uid": accountId});
+        const newDetail = await Detail.create({ _id: new ObjectId(detailId),"answer": answer, "question": question, "question_id":questionId, "uid": accountId});
         res.status(200).send({"_id":newDetail._id});
 
     } catch (err) {
