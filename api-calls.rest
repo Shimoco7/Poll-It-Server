@@ -50,6 +50,7 @@ Content-Type: application/json
 
 ###
 POST http://localhost:8000/auth/update
+Authorization: Bearer addAccessTokenHere
 Content-Type: application/json
 
 {

@@ -103,8 +103,8 @@ const refreshToken = async (req, res) => {
 
 const update = async (req, res) => {
     try {
-        await Account.updateOne({ _id: req.body._id }, req.body, { multi: true });
-        res.status(200).send();
+        const updatedAccount = await Account.findOneAndUpdate({ _id: req.body._id }, req.body, { multi: true });
+        res.status(200).send(updatedAccount);
 
     } catch (err) {
         const erros = helpers.handleErrors(SCHEMA, err);
