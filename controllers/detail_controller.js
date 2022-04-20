@@ -9,8 +9,8 @@ const create = async (req, res) => {
     const questionId = req.body.question_id;
     const accountId = req.body.uid;
     try {
-        const newDetail = await Detail.create({ _id: new ObjectId(detailId),"answer": answer, "question": question, "question_id":questionId, "uid": accountId});
-        res.status(200).send({"_id":newDetail._id});
+        const newDetail = await Detail.create({ "_id": new ObjectId(detailId),"answer": answer, "question": question, "question_id":questionId, "uid": accountId});
+        res.status(200).send();
 
     } catch (err) {
         const erros = helpers.handleErrors(SCHEMA, err);
