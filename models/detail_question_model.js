@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+var timestamps = require('mongoose-unix-timestamp-plugin');
 
 /**
  * @swagger
@@ -17,17 +18,15 @@ const mongoose = require("mongoose");
  *          items:
  *             type: string
  *        createdAt:
- *          type: string
- *          format: date-time
+ *          type: integer
  *        updatedAt:
- *          type: string
- *          format: date-time
+ *          type: integer
  *      example:
  *        detailQuestion: test detail question
  *        choices: [t1, t2, t3]
  */
 
-const DetailQuestionSchema = new mongoose.Schema({
+const detailQuestionSchema = new mongoose.Schema({
 
     detailQuestion: {
         type: String,
@@ -37,6 +36,7 @@ const DetailQuestionSchema = new mongoose.Schema({
         type: [String]
     }
 
-}, {timestamps:true});
+});
 
-module.exports = mongoose.model('DetailQuestion', DetailQuestionSchema);
+detailQuestionSchema.plugin(timestamps);
+module.exports = mongoose.model('DetailQuestion', detailQuestionSchema);

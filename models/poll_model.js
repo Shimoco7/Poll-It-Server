@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+var timestamps = require('mongoose-unix-timestamp-plugin');
 
 /**
  * @swagger
@@ -12,11 +13,9 @@ const mongoose = require("mongoose");
  *        pollName:
  *          type: string
  *        createdAt:
- *          type: string
- *          format: date-time
+ *          type: integer
  *        updatedAt:
- *          type: string
- *          format: date-time
+ *          type: integer
  *      example:
  *        pollName: test poll name
  */
@@ -28,6 +27,7 @@ const pollSchema = new mongoose.Schema({
         required: [true, "Please enter a poll name"]
     }
 
-}, {timestamps:true});
+});
 
+pollSchema.plugin(timestamps);
 module.exports = mongoose.model('Poll', pollSchema);

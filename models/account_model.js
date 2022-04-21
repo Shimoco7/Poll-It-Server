@@ -31,11 +31,9 @@ var timestamps = require('mongoose-unix-timestamp-plugin');
  *        profilePicUrl:
  *          type: string   
  *        createdAt:
- *          type: string
- *          format: date-time
+ *          type: integer
  *        updatedAt:
- *          type: string
- *          format: date-time
+ *          type: integer
  *      example:
  *        email: test@test.com
  *        password: Test1234@

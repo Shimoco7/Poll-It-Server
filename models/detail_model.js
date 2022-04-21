@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+var timestamps = require('mongoose-unix-timestamp-plugin');
 
 /**
  * @swagger
@@ -21,11 +22,9 @@ const mongoose = require("mongoose");
  *        accountId:
  *          type: string
  *        createdAt:
- *          type: string
- *          format: date-time
+ *          type: integer
  *        updatedAt:
- *          type: string
- *          format: date-time
+ *          type: integer
  *      example:
  *        answer: test answer
  *        question: test question
@@ -52,6 +51,7 @@ const detailSchema = new mongoose.Schema({
         required: [true, "Please enter an account id"]
     }
 
-}, {timestamps:true});
+});
 
+detailSchema.plugin(timestamps);
 module.exports = mongoose.model('Detail', detailSchema);
