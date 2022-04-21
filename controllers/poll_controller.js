@@ -6,8 +6,8 @@ const helpers = require("../common/helpers");
 const create = async (req, res) => {
     const name = req.body.pollName;
     try {
-        newPoll = await Poll.create({ "pollName": name});
-        res.status(200).send({"_id":newPoll._id});
+        newPoll = await Poll.create({ pollName: name});
+        res.status(200).send({_id: newPoll._id});
 
     } catch (err) {
         const erros = helpers.handleErrors(SCHEMA, err);

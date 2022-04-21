@@ -9,7 +9,7 @@ const create = async (req, res) => {
     const questionId = req.body.questionId;
     const accountId = req.body.accountId;
     try {
-        const newDetail = await Detail.findOneAndUpdate({ "_id": new ObjectId(detailId)},{"answer": answer, "question": question, "questionId":questionId, "accountId": accountId}, { upsert: true});
+        const newDetail = await Detail.findOneAndUpdate({ _id: new ObjectId(detailId)},{answer: answer, question: question, questionId:questionId, accountId: accountId}, { upsert: true});
         res.status(200).send();
 
     } catch (err) {
@@ -21,7 +21,7 @@ const create = async (req, res) => {
 const getDetailsByAccountId = async (req, res) => {
     const accountId = req.params.accountId;
     try {
-        const details = await Detail.find({"accountId": accountId});
+        const details = await Detail.find({accountId: accountId});
         res.status(200).send(details);
 
     } catch (err) {

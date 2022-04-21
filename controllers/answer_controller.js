@@ -6,10 +6,10 @@ const create = async (req, res) => {
     const answer = req.body.answer;
     const pollId = req.body.pollId;
     const pollQuestionId = req.body.pollQuestionId;
-    const userId = req.body.accountId;
+    const accountId = req.body.accountId;
     try {
-        const newAnswer = await Answer.create({ "answer": answer, "pollId": pollId, "pollQuestionId": pollQuestionId, "accountId": userId });
-        res.status(200).send({ "_id": newAnswer._id });
+        const newAnswer = await Answer.create({ answer: answer, pollId: pollId, pollQuestionId: pollQuestionId, accountId: accountId });
+        res.status(200).send({ _id: newAnswer._id });
 
     } catch (err) {
         const erros = helpers.handleErrors(SCHEMA, err);

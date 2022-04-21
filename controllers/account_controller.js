@@ -9,7 +9,7 @@ const register = async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
     try {
-        const newAccount = await Account.create({"role": role, "email": email, "password": password });
+        const newAccount = await Account.create({role: role, email: email, password: password });
         res.status(200).send();
 
     } catch (err) {
@@ -39,7 +39,7 @@ const login = async (req, res) => {
             }
         }
 
-        res.status(200).send({ "accessToken": accessToken, "refreshToken": refreshToken, "account": account, "detailsFilled": detailsFilled });
+        res.status(200).send({ accessToken: accessToken, refreshToken: refreshToken, account: account, detailsFilled: detailsFilled });
 
     } catch (err) {
         return helpers.sendError(res, 400, err.message)
@@ -94,7 +94,7 @@ const refreshToken = async (req, res) => {
                 account.refreshToken = refreshToken;
                 await account.save();
             }
-            res.status(200).send({ 'accessToken': accessToken, 'refreshToken': refreshToken });
+            res.status(200).send({ accessToken: accessToken, refreshToken: refreshToken });
         } catch (err) {
             return helpers.sendError(res, 400, err.message);
         }

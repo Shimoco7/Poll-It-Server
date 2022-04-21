@@ -6,8 +6,8 @@ const create = async (req, res) => {
     const detailQuestion = req.body.detailQuestion;
     const choices = req.body.choices;
     try {
-        const newDetailQuestion = await DetailQuestion.create({"detailQuestion": detailQuestion, "choices": choices});
-        res.status(200).send({"_id":newDetailQuestion._id});
+        const newDetailQuestion = await DetailQuestion.create({detailQuestion: detailQuestion, choices: choices});
+        res.status(200).send({_id: newDetailQuestion._id});
 
     } catch (err) {
         const erros = helpers.handleErrors(SCHEMA, err);
