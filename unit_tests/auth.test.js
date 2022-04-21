@@ -28,7 +28,7 @@ describe('Testing Auth API',()=>{
     var refreshToken;
     var _id;
 
-    test('test register',async ()=>{
+    test('Test Tegister',async ()=>{
         const response = await request(app).post('/auth/register').send({
             email: email,
             password: pwd
@@ -36,7 +36,7 @@ describe('Testing Auth API',()=>{
         expect(response.statusCode).toEqual(200);
     })
 
-    test('test login',async ()=>{
+    test('Test Login',async ()=>{
         const response = await request(app).post('/auth/login').send({
             email: email,
             password: pwd
@@ -47,7 +47,7 @@ describe('Testing Auth API',()=>{
         _id = response.body.account._id;
     });
 
-    test('test refresh token',async ()=>{
+    test('Test Refresh Token',async ()=>{
         const response = await request(app).post('/auth/refreshToken').set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken).send({
             refreshToken: refreshToken
         });
@@ -56,7 +56,7 @@ describe('Testing Auth API',()=>{
         refreshToken = response.body.refreshToken;
     });
 
-    test('test update',async ()=>{
+    test('Test Update',async ()=>{
         const response = await request(app).post('/auth/update').set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken).send({
             _id: _id,
             gender: 'Male'
@@ -64,7 +64,7 @@ describe('Testing Auth API',()=>{
         expect(response.statusCode).toEqual(200);
     });
 
-    test('test logout',async ()=>{
+    test('Test Logout',async ()=>{
         const response = await request(app).post('/auth/logout').set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken).send({
             refreshToken: refreshToken
         });
