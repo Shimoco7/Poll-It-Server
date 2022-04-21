@@ -28,7 +28,7 @@ describe('Testing Auth API',()=>{
     var refreshToken;
     var _id;
 
-    test('Test Tegister',async ()=>{
+    test('Test Register',async ()=>{
         const response = await request(app).post('/auth/register').send({
             email: email,
             password: pwd
