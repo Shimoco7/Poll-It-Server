@@ -1,43 +1,74 @@
-const app = require('../server')
-const request = require('supertest')
-const mongoosse = require('mongoose')
-const { response } = require('../server')
-const Account = require('../models/account_model')
+const app = require('../server');
+const request = require('supertest');
+const mongoosse = require('mongoose');
+const { response } = require('../server');
+const Account = require('../models/account_model');
+const constants = require("../common/constants");
 
-const email = 'test@adar.com'
-const pwd = 'Adar1234@'
+const email = 'test@adar.com';
+const pwd = 'Adar1234@';
 
 beforeAll(done=>{
-    Account.remove({'email' : email}, (err)=>{
-        done()
-    })
+    Account.remove({email : email}, (err)=>{
+        done();
+    });
 });
 
 afterAll(done=>{
     Account.remove({email : email}, (err)=>{
-        mongoosse.connection.close()
-        done()
-    })
+        mongoosse.connection.close();
+        done();
+    });
 });
 
 
 
 describe('Testing Auth API',()=>{
+    var accessToken;
+    var refreshToken;
+    var _id;
 
-    test('test registration',async ()=>{
+    test('test register',async ()=>{
         const response = await request(app).post('/auth/register').send({
-            email : email,
+            email: email,
             password: pwd
-        })
-        expect(response.statusCode).toEqual(200)
+        });
+        expect(response.statusCode).toEqual(200);
     })
 
     test('test login',async ()=>{
         const response = await request(app).post('/auth/login').send({
-            email : email,
+            email: email,
             password: pwd
-        })
-        expect(response.statusCode).toEqual(200)
-    })
+        });
+        expect(response.statusCode).toEqual(200);
+        accessToken = response.body.accessToken;
+        refreshToken = response.body.refreshToken;
+        _id = response.body.account._id;
+    });
+
+    test('test refresh token',async ()=>{
+        const response = await request(app).post('/auth/refreshToken').set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken).send({
+            refreshToken: refreshToken
+        });
+        expect(response.statusCode).toEqual(200);
+        accessToken = response.body.accessToken;
+        refreshToken = response.body.refreshToken;
+    });
+
+    test('test update',async ()=>{
+        const response = await request(app).post('/auth/update').set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken).send({
+            _id: _id,
+            gender: 'Male'
+        });
+        expect(response.statusCode).toEqual(200);
+    });
+
+    test('test logout',async ()=>{
+        const response = await request(app).post('/auth/logout').set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken).send({
+            refreshToken: refreshToken
+        });
+        expect(response.statusCode).toEqual(200);
+    });
    
 })

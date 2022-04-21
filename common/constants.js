@@ -1,5 +1,7 @@
 module.exports = Object.freeze({
-    //ROLES
+    //AUTH
     USER: 'User',
-    CLIENT: 'Client'
+    CLIENT: 'Client',
+    BEARER:'Bearer',
+    AUTHORIZATION: 'Authorization'
 });
