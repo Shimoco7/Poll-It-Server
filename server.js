@@ -12,7 +12,7 @@ const detailRouter = require('./routes/detail_routes');
 const detailQuestionRouter = require('./routes/detail_question_routes');
 const answerRouter = require('./routes/answer_routes');
 
-app.use("/public", express.static(path.resolve(__dirname + '/public')));
+app.use("/storage", express.static(path.resolve(__dirname + '/storage')));
 
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true });
 const db = mongoose.connection;
