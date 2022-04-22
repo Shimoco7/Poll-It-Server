@@ -1,6 +1,7 @@
 const dotenv = require('dotenv').config();
 const express = require('express');
 const app = express();
+const path = require('path');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const appRouter = require('./routes/router');
@@ -11,6 +12,7 @@ const detailRouter = require('./routes/detail_routes');
 const detailQuestionRouter = require('./routes/detail_question_routes');
 const answerRouter = require('./routes/answer_routes');
 
+app.use("/public", express.static(path.resolve(__dirname + '/public')));
 
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true });
 const db = mongoose.connection;
