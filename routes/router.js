@@ -1,18 +1,8 @@
 const express = require('express');
 const router = express.Router();
-var multer = require('multer');
 const authenticate = require('../common/auth_middleware');
+const upload = require('../common/upload_middleware');
 const constants = require('../common/constants');
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, 'storage/images')
-    },
-    filename: function (req, file, cb) {
-      cb(null, Date.now() + '.jpg')
-    }
-  })
-  
-  var upload = multer({ storage: storage });
 
 router.get('/',(req,res)=>{
     res.send("HELLO!");
