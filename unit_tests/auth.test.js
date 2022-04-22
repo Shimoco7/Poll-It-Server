@@ -62,6 +62,7 @@ describe('Testing Auth API',()=>{
             gender: 'Male'
         });
         expect(response.statusCode).toEqual(200);
+        expect(response.body.gender).toEqual('Male');
     });
 
     test('Test Logout',async ()=>{
