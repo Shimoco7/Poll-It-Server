@@ -5,18 +5,15 @@ const { response } = require('../server');
 const Account = require('../models/account_model');
 const constants = require("../common/constants");
 
-const email = 'test@test.com';
-const password = 'Test1234@';
-
 beforeAll(done=>{
     console.log("\x1b[35m", "*******************DetailQuestion API Tests*******************");
-    Account.remove({email : email}, (err)=>{
+    Account.remove({email : constants.TEST_EMAIL}, (err)=>{
         done();
     });
 });
 
 afterAll(done=>{
-    Account.remove({email: email}, (err)=>{
+    Account.remove({email: constants.TEST_EMAIL}, (err)=>{
         mongoosse.connection.close();
         done();
     });
@@ -24,16 +21,15 @@ afterAll(done=>{
 
 describe('Testing DetailQuestion API',()=>{
     var accessToken;
-    var accountId;
     test('Test Get All Detail Questions',async ()=>{
         console.log("\x1b[34m", "Starting Test: Get All Detail Questions...");
         await request(app).post('/auth/register').send({
-            email: email,
-            password: password
+            email: constants.TEST_EMAIL,
+            password: constants.TEST_PASSWORD
         });
         const loginResult = await request(app).post('/auth/login').send({
-            email: email,
-            password: password
+            email: constants.TEST_EMAIL,
+            password: constants.TEST_PASSWORD
         });
         accessToken = loginResult.body.accessToken;
 
