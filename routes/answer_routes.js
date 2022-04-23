@@ -7,7 +7,7 @@ const constants = require('../common/constants');
 /**
 * @swagger
 * tags:
-*   name: Answer Api
+*   name: Answer API
 *   description: The Answer API
 */
 

@@ -14,6 +14,7 @@ const question = "Education Level";
 const questionId = "4eb6e7e7e9b7f4194e000004";
 
 beforeAll(done=>{
+    console.log("\x1b[35m", "*******************Detail API Tests*******************");
     Account.remove({email : email}, (err)=>{
         done();
     });
@@ -30,6 +31,7 @@ afterAll(done=>{
     Detail.remove({_id : _id}, (err)=>{
         mongoosse.connection.close();
         done();
+
     });
 
 });
@@ -39,6 +41,7 @@ describe('Testing Auth API',()=>{
     var accountId;
 
     test('Test Create Detail',async ()=>{
+        console.log("\x1b[34m", "Starting Test Create Detail...");
         await request(app).post('/auth/register').send({
             email: email,
             password: pwd
@@ -59,16 +62,14 @@ describe('Testing Auth API',()=>{
             accountId: accountId
         });
         expect(response.statusCode).toEqual(200);
+        console.log("\x1b[34m", "Finishing Test Create Detail...");
     })
 
-    // test('Test Get Detail By AccountID',async ()=>{
-    //     const response = await request(app).post('/auth/login').send({
-    //         email: email,
-    //         password: pwd
-    //     });
-    //     expect(response.statusCode).toEqual(200);
-    //     accessToken = response.body.accessToken;
-    //     refreshToken = response.body.refreshToken;
-    //     _id = response.body.account._id;
-    // });
+    test('Test Get Detail By AccountID',async ()=>{
+        console.log("\x1b[34m", "Starting Test Get Detail By AccountID...");
+        const response = await request(app).get('/detail/getDetailsByAccountId/'+accountId).set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken);
+        expect(response.statusCode).toEqual(200);
+        expect(response.body[0].answer).toEqual(answer);
+        console.log("\x1b[34m", "Finishing Test Get Detail By AccountID...");
+    });
 })
