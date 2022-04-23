@@ -1,11 +1,12 @@
 var multer = require('multer');
+var path = require('path')
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, 'storage/images')
     },
     filename: function (req, file, cb) {
-      cb(null, Date.now() + '.jpg')
+      cb(null, file.originalname)
     }
 })
   

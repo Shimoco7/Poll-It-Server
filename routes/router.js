@@ -8,10 +8,10 @@ router.get('/',(req,res)=>{
     res.send("HELLO!");
 });
 
-router.post('/upload',authenticate([constants.USER,constants.CLIENT]),upload.single('file'),(req,res)=>{
+router.post('/upload',authenticate([constants.USER,constants.CLIENT]),upload.single('file'),(req,res)=>{                                                                     
     res.status(200).send({
         url: process.env.SERVER_URL +"/"+req.file.path.replace(/\\/g, "/")
     });
 })
 
-module.exports = router;
+module.exports = router;                                              
