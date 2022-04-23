@@ -6,7 +6,7 @@ const Account = require('../models/account_model');
 const constants = require("../common/constants");
 
 const email = 'test@adar.com';
-const pwd = 'Adar1234@';
+const password = 'Adar1234@';
 
 beforeAll(done=>{
     console.log("\x1b[35m", "*******************Account API Tests*******************");
@@ -33,7 +33,7 @@ describe('Testing Account API',()=>{
         console.log("\x1b[34m", "Starting Test Register...");
         const response = await request(app).post('/auth/register').send({
             email: email,
-            password: pwd
+            password: password
         });
         expect(response.statusCode).toEqual(200);
         console.log("\x1b[34m", "Finishing Test Register...");
@@ -43,7 +43,7 @@ describe('Testing Account API',()=>{
         console.log("\x1b[34m", "Starting Test Login...");
         const response = await request(app).post('/auth/login').send({
             email: email,
-            password: pwd
+            password: password
         });
         expect(response.statusCode).toEqual(200);
         accessToken = response.body.accessToken;
