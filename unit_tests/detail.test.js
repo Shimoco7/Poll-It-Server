@@ -63,6 +63,6 @@ describe('Testing Detail API',()=>{
         const response = await request(app).get('/detail/getDetailsByAccountId/'+accountId).set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken);
         expect(response.statusCode).toEqual(200);
         expect(response.body[0].answer).toEqual(constants.TEST_ANSWER);
-        console.log("\x1b[34m", "Finishing Test: Get Details By AccountID...");
+        console.log("\x1b[34m", "Finishing Test: Get Details By Account ID...");
     });
 })
