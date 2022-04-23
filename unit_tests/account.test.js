@@ -5,8 +5,8 @@ const { response } = require('../server');
 const Account = require('../models/account_model');
 const constants = require("../common/constants");
 
-const email = 'test@adar.com';
-const password = 'Adar1234@';
+const email = 'test@test.com';
+const password = 'Test1234@';
 
 beforeAll(done=>{
     console.log("\x1b[35m", "*******************Account API Tests*******************");
@@ -46,6 +46,7 @@ describe('Testing Account API',()=>{
             password: password
         });
         expect(response.statusCode).toEqual(200);
+        expect(response.body.account.email).toEqual(email);
         accessToken = response.body.accessToken;
         refreshToken = response.body.refreshToken;
         _id = response.body.account._id;
