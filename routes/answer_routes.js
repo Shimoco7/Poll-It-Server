@@ -16,7 +16,7 @@ const constants = require('../common/constants');
 * /answer/create:
 *  post:
 *     summary: Create an answer
-*     tags: [Answer Api]
+*     tags: [Answer API]
 *     requestBody:
 *        required: true
 *        content:
@@ -36,7 +36,7 @@ const constants = require('../common/constants');
 *         description:  Not Found
 *  get:
 *     summary: Create an answer
-*     tags: [Answer Api]
+*     tags: [Answer API]
 *     responses:
 *       200:
 *         description: Answer has been created

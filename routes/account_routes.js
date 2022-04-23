@@ -16,7 +16,7 @@ const constants = require('../common/constants');
 * /auth/register:
 *  post:
 *     summary: Register an account
-*     tags: [Account Api]
+*     tags: [Account API]
 *     requestBody:
 *        required: true
 *        content:
@@ -37,7 +37,7 @@ const constants = require('../common/constants');
 
 *  get:
 *     summary: Register an account
-*     tags: [Account Api]
+*     tags: [Account API]
 *     responses:
 *       200:
 *         description: Register an account
@@ -59,7 +59,7 @@ router.get('/register', Account.getRegister);
 * /auth/login:
 *  post:
 *     summary: Login an account
-*     tags: [Account Api]
+*     tags: [Account API]
 *     requestBody:
 *        required: true
 *        content:
@@ -80,7 +80,7 @@ router.get('/register', Account.getRegister);
 
 *  get:
 *     summary: Login an account
-*     tags: [Account Api]
+*     tags: [Account API]
 *     responses:
 *       200:
 *         description: Login an account
@@ -102,7 +102,7 @@ router.get('/login', Account.getLogin);
 * /auth/logout:
 *  post:
 *     summary: Logout an account
-*     tags: [Account Api]
+*     tags: [Account API]
 *     requestBody:
 *        content:
 *          application/json:
@@ -123,7 +123,7 @@ router.get('/login', Account.getLogin);
 *         description:  Not Found
 *  get:
 *     summary: Logout an account
-*     tags: [Account Api]
+*     tags: [Account API]
 *     responses:
 *       200:
 *         description: Logout an account
@@ -145,7 +145,7 @@ router.get('/logout', authenticate([constants.USER, constants.CLIENT]), Account.
 * /auth/refreshToken:
 *  post:
 *     summary: Generate a new token
-*     tags: [Account Api]
+*     tags: [Account API]
 *     requestBody:
 *        content:
 *          application/json:
@@ -173,7 +173,7 @@ router.post('/refreshToken', Account.refreshToken);
 * /auth/update:
 *  post:
 *     summary: Update an account
-*     tags: [Account Api]
+*     tags: [Account API]
 *     requestBody:
 *        content:
 *          application/json:

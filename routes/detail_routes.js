@@ -16,7 +16,7 @@ const constants = require('../common/constants');
 * /detail/create:
 *  post:
 *     summary: Create a detail
-*     tags: [Detail Api]
+*     tags: [Detail API]
 *     requestBody:
 *        required: true
 *        content:
@@ -43,7 +43,7 @@ router.post('/create', authenticate([constants.USER]), Detail.create);
 * /detail/getDetailsByAccountId/{accountId}:
 *   get:
 *     summary: get details by account id
-*     tags: [Detail Api]
+*     tags: [Detail API]
 *     parameters:
 *       - in: path
 *         name: accountId

@@ -16,7 +16,7 @@ const constants = require('../common/constants');
 * /poll/create:
 *  post:
 *     summary: Create a poll
-*     tags: [Poll Api]
+*     tags: [Poll API]
 *     requestBody:
 *        required: true
 *        content:
@@ -36,7 +36,7 @@ const constants = require('../common/constants');
 *         description:  Not Found
 *  get:
 *     summary: Create a poll
-*     tags: [Poll Api]
+*     tags: [Poll API]
 *     responses:
 *       200:
 *         description: Poll has been created
