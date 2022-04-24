@@ -76,6 +76,7 @@ const accountSchema = new mongoose.Schema({
     }
 });
 accountSchema.plugin(timestamps);
+
 accountSchema.pre('save', async function(next){
     if (!this.isModified('password')) return next();
     const salt = await bcryptjs.genSalt();
@@ -92,5 +93,18 @@ accountSchema.statics.login = async function (email, password){
 
     return account;
 }
+
+
+accountSchema.pre('findOneAndUpdate', async function (next) {
+    try {
+        if (this._update.password) {
+            this._update.password = await bcryptjs.hash(this._update.password, 10)
+        }
+        next();
+    } catch (err) {
+        return next(err);
+    }
+});
+
 
 module.exports = mongoose.model('Account', accountSchema);
