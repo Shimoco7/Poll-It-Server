@@ -103,7 +103,7 @@ const refreshToken = async (req, res) => {
 
 const update = async (req, res) => {
     try {
-        const updatedAccount = await Account.findOneAndUpdate({ _id: req.body._id }, req.body, { returnOriginal: false });
+        const updatedAccount = await Account.findOneAndUpdate({ _id: req.body._id }, req.body, { returnOriginal: false, runValidators: true  });
         res.status(200).send(updatedAccount);
 
     } catch (err) {

@@ -98,7 +98,8 @@ accountSchema.statics.login = async function (email, password){
 accountSchema.pre('findOneAndUpdate', async function (next) {
     try {
         if (this._update.password) {
-            this._update.password = await bcryptjs.hash(this._update.password, 10)
+            const salt = await bcryptjs.genSalt();
+            this._update.password = await bcryptjs.hash(this._update.password, salt)
         }
         next();
     } catch (err) {

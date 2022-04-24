@@ -9,7 +9,7 @@ const create = async (req, res) => {
     const questionId = req.body.questionId;
     const accountId = req.body.accountId;
     try {
-        const newDetail = await Detail.findOneAndUpdate({ _id: new ObjectId(detailId)},{answer: answer, question: question, questionId:questionId, accountId: accountId}, { upsert: true});
+        const newDetail = await Detail.findOneAndUpdate({ _id: new ObjectId(detailId)},{answer: answer, question: question, questionId:questionId, accountId: accountId}, { upsert: true, runValidators: true  });
         res.status(200).send();
 
     } catch (err) {
