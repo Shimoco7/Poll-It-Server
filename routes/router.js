@@ -14,4 +14,7 @@ router.post('/upload',authenticate([constants.USER,constants.CLIENT]),upload.sin
     });
 })
 
+router.get('/download/:image',authenticate([constants.CLIENT]),(req,res)=>{
+    res.download(constants.STORAGE_PATH+req.params.image);
+});                                                               
 module.exports = router;                                              

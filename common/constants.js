@@ -13,4 +13,7 @@ module.exports = Object.freeze({
     TEST_ANSWER: 'test answer',
     TEST_ID: '4eb6e7e7e9b7f4194e000003',
     TEST_ID2: '4eb6e7e7e9b7f4194e000004',
+
+    //STORAGE
+    STORAGE_PATH: 'storage/images/'
 });
