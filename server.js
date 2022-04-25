@@ -14,7 +14,7 @@ const answerRouter = require('./routes/answer_routes');
 const authenticate = require("./common/auth_middleware");
 const constants = require("./common/constants");
 
-app.use("/storage", express.static(path.resolve(__dirname + '/storage')));
+app.use("/storage",authenticate([constants.USER]), express.static(path.resolve(__dirname + '/storage')));
 
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true });
 const db = mongoose.connection;
