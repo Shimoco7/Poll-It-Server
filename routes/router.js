@@ -41,6 +41,7 @@ router.get('/',(req,res)=>{
 * /upload:
 *  post:
 *     summary: Upload an image
+*     description: "Roles: [User, Client]"
 *     tags: [General API]
 *     requestBody:
 *        required: true
@@ -78,6 +79,7 @@ router.post('/upload',authenticate([constants.USER,constants.CLIENT]),upload.sin
 * /download/{imageName}:
 *   get:
 *     summary: Download an image
+*     description: "Roles: [Client]"
 *     tags: [General API]
 *     parameters:
 *       - in: path

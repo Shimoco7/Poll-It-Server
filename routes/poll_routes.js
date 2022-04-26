@@ -16,6 +16,7 @@ const constants = require('../common/constants');
 * /poll/create:
 *  post:
 *     summary: Create a poll
+*     description: "Roles: [Client]"
 *     tags: [Poll API]
 *     requestBody:
 *        required: true
@@ -36,6 +37,7 @@ const constants = require('../common/constants');
 *         description:  Not Found
 *  get:
 *     summary: Create a poll
+*     description: "Roles: [Client]"
 *     tags: [Poll API]
 *     responses:
 *       200:
@@ -59,6 +61,7 @@ router.get('/create', authenticate([constants.CLIENT]), Poll.getCreate);
 * /poll/getAllPolls:
 *   get:
 *     summary: Get all polls
+*     description: "Roles: [User]"
 *     tags: [Poll API]
 *     responses:
 *       200:

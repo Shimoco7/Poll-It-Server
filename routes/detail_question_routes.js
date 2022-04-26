@@ -19,6 +19,7 @@ router.get('/create', authenticate(), DetailQuestion.getCreate);
 * /detail_question/getAllDetailQuestions:
 *   get:
 *     summary: Get all detail questions
+*     description: "Roles: [User]"
 *     tags: [DetailQuestion API]
 *     responses:
 *       200:

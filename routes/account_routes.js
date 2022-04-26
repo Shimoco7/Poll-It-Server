@@ -16,6 +16,7 @@ const constants = require('../common/constants');
 * /auth/register:
 *  post:
 *     summary: Register an account
+*     description: "Roles: [User, Client]"
 *     tags: [Account API]
 *     requestBody:
 *        required: true
@@ -37,6 +38,7 @@ const constants = require('../common/constants');
 
 *  get:
 *     summary: Register an account
+*     description: "Roles: [User, Client]"
 *     tags: [Account API]
 *     responses:
 *       200:
@@ -59,6 +61,7 @@ router.get('/register', Account.getRegister);
 * /auth/login:
 *  post:
 *     summary: Login an account
+*     description: "Roles: [User, Client]"
 *     tags: [Account API]
 *     requestBody:
 *        required: true
@@ -80,6 +83,7 @@ router.get('/register', Account.getRegister);
 
 *  get:
 *     summary: Login an account
+*     description: "Roles: [User, Client]"
 *     tags: [Account API]
 *     responses:
 *       200:
@@ -102,6 +106,7 @@ router.get('/login', Account.getLogin);
 * /auth/logout:
 *  post:
 *     summary: Logout an account
+*     description: "Roles: [User, Client]"
 *     tags: [Account API]
 *     requestBody:
 *        content:
@@ -123,6 +128,7 @@ router.get('/login', Account.getLogin);
 *         description:  Not Found
 *  get:
 *     summary: Logout an account
+*     description: "Roles: [User, Client]"
 *     tags: [Account API]
 *     responses:
 *       200:
@@ -145,6 +151,7 @@ router.get('/logout', authenticate([constants.USER, constants.CLIENT]), Account.
 * /auth/refreshToken:
 *  post:
 *     summary: Generate a new token
+*     description: "Roles: [User, Client]"
 *     tags: [Account API]
 *     requestBody:
 *        content:
@@ -173,6 +180,7 @@ router.post('/refreshToken', Account.refreshToken);
 * /auth/update:
 *  post:
 *     summary: Update an account
+*     description: "Roles: [User, Client]"
 *     tags: [Account API]
 *     requestBody:
 *        content:
