@@ -22,8 +22,20 @@ const getCreate = async (req, res) => {
     res.send("//TODO: implement poll question create page");
 }
 
+const getPollQuestionsByPollId = async (req, res) => {
+    const pollId = req.params.pollId;
+    try {
+        const pollQuestions = await PollQuestion.find({pollId: pollId});
+        res.status(200).send(pollQuestions);
+
+    } catch (err) {
+        const erros = helpers.handleErrors(SCHEMA, err);
+        res.status(400).json({ erros });
+    }
+}
 
 module.exports = {
     create,
-    getCreate
+    getCreate,
+    getPollQuestionsByPollId
 }

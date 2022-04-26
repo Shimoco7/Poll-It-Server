@@ -54,4 +54,32 @@ router.post('/create', authenticate([constants.CLIENT]), PollQuestion.create);
 
 router.get('/create', authenticate([constants.CLIENT]), PollQuestion.getCreate);
 
+/**
+* @swagger
+* /poll_question/getPollQuestionsByPollId/{pollId}:
+*   get:
+*     summary: get poll questions by poll id
+*     tags: [PollQuestion API]
+*     parameters:
+*       - in: path
+*         name: pollId
+*         schema:
+*           type: string
+*         required: true
+*         description: The poll id
+*     responses:
+*       200:
+*         description: The poll question list
+*       400:
+*         description: Bad Request
+*       401:
+*         description: Unauthorized
+*       403:
+*         description:  Forbidden
+*       404:
+*         description:  Not Found
+*/
+
+router.get('/getPollQuestionsByPollId/:pollId', authenticate([constants.USER]), PollQuestion.getPollQuestionsByPollId);
+
 module.exports = router

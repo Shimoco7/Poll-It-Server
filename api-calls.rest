@@ -75,6 +75,10 @@ Content-Type: application/json
 GET http://localhost:8000/poll/create
 Authorization: Bearer addAccessTokenHere
 
+###
+GET http://localhost:8000/poll/getAllPolls
+Authorization: Bearer addAccessTokenHere
+
 #PollQuestion----------------------------------------------------------------------
 
 ###
@@ -91,6 +95,10 @@ Content-Type: application/json
 
 ###
 GET http://localhost:8000/poll_question/create
+Authorization: Bearer addAccessTokenHere
+
+###
+GET http://localhost:8000/poll_question/getPollQuestionsByPollId/{pollId}
 Authorization: Bearer addAccessTokenHere
 
 #Detail----------------------------------------------------------------------

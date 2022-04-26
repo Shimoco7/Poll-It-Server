@@ -54,4 +54,26 @@ router.post('/create', authenticate([constants.CLIENT]), Poll.create);
 
 router.get('/create', authenticate([constants.CLIENT]), Poll.getCreate);
 
+/**
+* @swagger
+* /poll/getAllPolls:
+*   get:
+*     summary: Get all polls
+*     tags: [Poll API]
+*     responses:
+*       200:
+*         description: The polls list
+*       400:
+*         description: Bad Request
+*       401:
+*         description: Unauthorized
+*       403:
+*         description:  Forbidden
+*       404:
+*         description:  Not Found
+*/
+
+
+router.get('/getAllPolls', authenticate([constants.USER]), Poll.getAllPolls);
+
 module.exports = router

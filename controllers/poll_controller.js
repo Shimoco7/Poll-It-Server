@@ -20,7 +20,20 @@ const getCreate = async (req, res) => {
 }
 
 
+const getAllPolls = async (req, res) => {
+    try {
+        const polls = await Poll.find();
+        res.status(200).send(polls);
+
+    } catch (err) {
+        const erros = helpers.handleErrors(SCHEMA, err);
+        res.status(400).json({ erros });
+    }
+}
+
+
 module.exports = {
     create,
-    getCreate
+    getCreate,
+    getAllPolls
 }
