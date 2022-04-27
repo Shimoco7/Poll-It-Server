@@ -1,6 +1,6 @@
 const app = require('../server');
 const request = require('supertest');
-const mongoosse = require('mongoose');
+const mongoose = require('mongoose');
 const { response } = require('../server');
 const Account = require('../models/account_model');
 const Poll = require('../models/poll_model');
@@ -28,7 +28,7 @@ afterAll(done=>{
         done();
     });
     Poll.deleteOne({pollName : constants.TEST_POLL_NAME}, (err)=>{
-        mongoosse.connection.close();
+        mongoose.connection.close();
         done();
 
     });

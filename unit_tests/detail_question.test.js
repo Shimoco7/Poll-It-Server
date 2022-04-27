@@ -1,6 +1,6 @@
 const app = require('../server');
 const request = require('supertest');
-const mongoosse = require('mongoose');
+const mongoose = require('mongoose');
 const { response } = require('../server');
 const Account = require('../models/account_model');
 const constants = require("../common/constants");
@@ -14,7 +14,7 @@ beforeAll(done=>{
 
 afterAll(done=>{
     Account.deleteOne({email: constants.TEST_EMAIL}, (err)=>{
-        mongoosse.connection.close();
+        mongoose.connection.close();
         done();
     });
 });
