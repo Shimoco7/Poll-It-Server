@@ -67,7 +67,6 @@ router.get('/',(req,res)=>{
 */
 
 router.post('/upload',authenticate([constants.USER,constants.CLIENT]),upload.single('file'),(req,res)=>{                                                                     
-    console.log(req)
     res.status(200).send({
         url: process.env.SERVER_URL +"/"+req.file.path.replace(/\\/g, "/")
     });
