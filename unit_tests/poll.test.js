@@ -73,7 +73,7 @@ describe('Testing Poll API',()=>{
         const response = await request(app).get('/poll/getAllPolls').set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken);
         expect(response.statusCode).toEqual(200);
         expect(response.body.length).toBeGreaterThanOrEqual(1);
-        console.log("\x1b[34m", "Finishing Test: Get All Detail Questions...");
+        console.log("\x1b[34m", "Finishing Test: Get All Polls...");
     });
 
 
