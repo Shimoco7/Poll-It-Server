@@ -7,13 +7,13 @@ const constants = require("../common/constants");
 
 beforeAll(done=>{
     console.log("\x1b[35m", "*******************Account API Tests*******************");
-    Account.remove({email : constants.TEST_EMAIL}, (err)=>{
+    Account.deleteOne({email : constants.TEST_EMAIL}, (err)=>{
         done();
     });
 });
 
 afterAll(done=>{
-    Account.remove({email : constants.TEST_EMAIL}, (err)=>{
+    Account.deleteOne({email : constants.TEST_EMAIL}, (err)=>{
         mongoosse.connection.close();
         done();
     });

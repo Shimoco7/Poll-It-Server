@@ -8,20 +8,20 @@ const constants = require("../common/constants");
 
 beforeAll(done=>{
     console.log("\x1b[35m", "*******************Detail API Tests*******************");
-    Account.remove({email : constants.TEST_EMAIL}, (err)=>{
+    Account.deleteOne({email : constants.TEST_EMAIL}, (err)=>{
         done();
     });
-    Detail.remove({_id : constants.TEST_ID}, (err)=>{
+    Detail.deleteOne({_id : constants.TEST_ID}, (err)=>{
         done();
     });
 
 });
 
 afterAll(done=>{
-    Account.remove({email: constants.TEST_EMAIL}, (err)=>{
+    Account.deleteOne({email: constants.TEST_EMAIL}, (err)=>{
         done();
     });
-    Detail.remove({_id : constants.TEST_ID}, (err)=>{
+    Detail.deleteOne({_id : constants.TEST_ID}, (err)=>{
         mongoosse.connection.close();
         done();
 
