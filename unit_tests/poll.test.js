@@ -8,10 +8,10 @@ const constants = require("../common/constants");
 
 beforeAll(done=>{
     console.log("\x1b[35m", "*******************Poll API Tests*******************");
-    Account.deleteOne({email : constants.TEST_EMAIL}, (err)=>{
-        done();
-    });
-    Account.deleteOne({email: constants.TEST_EMAIL2}, (err)=>{
+    Account.deleteMany({email : {$in: [
+        constants.TEST_EMAIL,
+        constants.TEST_EMAIL2
+      ]}}, (err)=>{
         done();
     });
     Poll.deleteOne({pollName : constants.TEST_POLL_NAME}, (err)=>{
@@ -21,10 +21,10 @@ beforeAll(done=>{
 });
 
 afterAll(done=>{
-    Account.deleteOne({email: constants.TEST_EMAIL}, (err)=>{
-        done();
-    });
-    Account.deleteOne({email: constants.TEST_EMAIL2}, (err)=>{
+    Account.deleteMany({email : {$in: [
+        constants.TEST_EMAIL,
+        constants.TEST_EMAIL2
+      ]}}, (err)=>{
         done();
     });
     Poll.deleteOne({pollName : constants.TEST_POLL_NAME}, (err)=>{
