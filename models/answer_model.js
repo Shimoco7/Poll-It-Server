@@ -9,16 +9,12 @@ var timestamps = require('mongoose-unix-timestamp-plugin');
  *      type: object
  *      required:
  *        - answer
- *        - isDeleted
  *        - pollId
  *        - pollQuestionId
  *        - accountId
  *      properties:
  *        answer:
  *          type: string
- *        isDeleted:
- *          type: boolean
- *          default: false
  *        pollId:
  *          type: string
  *        pollQuestionId:
@@ -41,11 +37,6 @@ const answerSchema = new mongoose.Schema({
     answer: {
         type: String,
         required: [true, "Please enter an answer"]
-    },
-    isDeleted: {
-        type: Boolean,
-        required: true,
-        default: false
     },
     pollId: {
         type: String,
