@@ -56,4 +56,91 @@ const constants = require('../common/constants');
 router.post('/create', authenticate([constants.USER]), Answer.create);
 router.get('/create', authenticate([constants.USER]), Answer.getCreate);
 
+/**
+* @swagger
+* /answer/getAnswerById/{_id}:
+*   get:
+*     summary: get answer by id
+*     description: "Roles: [Client]"
+*     tags: [Answer API]
+*     parameters:
+*       - in: path
+*         name: _id
+*         schema:
+*           type: string
+*         required: true
+*         description: The answer id
+*     responses:
+*       200:
+*         description: The answer
+*       400:
+*         description: Bad Request
+*       401:
+*         description: Unauthorized
+*       403:
+*         description:  Forbidden
+*       404:
+*         description:  Not Found
+*/
+
+router.get('/getAnswerById/:_id', authenticate([constants.CLIENT]), Answer.getAnswerById);
+
+/**
+* @swagger
+* /answer/getAnswersByPollId/{pollId}:
+*   get:
+*     summary: get answers by pollId
+*     description: "Roles: [Client]"
+*     tags: [Answer API]
+*     parameters:
+*       - in: path
+*         name: pollId
+*         schema:
+*           type: string
+*         required: true
+*         description: The answers list
+*     responses:
+*       200:
+*         description: The answer
+*       400:
+*         description: Bad Request
+*       401:
+*         description: Unauthorized
+*       403:
+*         description:  Forbidden
+*       404:
+*         description:  Not Found
+*/
+
+router.get('/getAnswersByPollId/:pollId', authenticate([constants.CLIENT]), Answer.getAnswersByPollId);
+
+/**
+* @swagger
+* /answer/getAnswersByAccountId/{accountId}:
+*   get:
+*     summary: get answers by accountId
+*     description: "Roles: [Client]"
+*     tags: [Answer API]
+*     parameters:
+*       - in: path
+*         name: accountId
+*         schema:
+*           type: string
+*         required: true
+*         description: The answers list
+*     responses:
+*       200:
+*         description: The answer
+*       400:
+*         description: Bad Request
+*       401:
+*         description: Unauthorized
+*       403:
+*         description:  Forbidden
+*       404:
+*         description:  Not Found
+*/
+
+router.get('/getAnswersByAccountId/:accountId', authenticate([constants.CLIENT]), Answer.getAnswersByAccountId);
+
 module.exports = router

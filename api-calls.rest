@@ -155,5 +155,17 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8000/answer/create
+GET http://localhost:8000/answer/getAnswerById
+Authorization: Bearer addAccessTokenHere
+
+###
+GET http://localhost:8000/answer/getAnswersByPollId/{accountId}
+Authorization: Bearer addAccessTokenHere
+
+###
+GET http://localhost:8000/answer/getAnswersByAccountId/{pollId}
+Authorization: Bearer addAccessTokenHere
+
+###
+GET http://localhost:8000/answer/getDetailsByAccountId/{accountId}
 Authorization: Bearer addAccessTokenHere
