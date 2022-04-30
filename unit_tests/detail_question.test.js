@@ -21,8 +21,8 @@ afterAll(done=>{
 
 describe('Testing DetailQuestion API',()=>{
     var accessToken;
-    test('Test Get All Detail Questions',async ()=>{
-        console.log("\x1b[34m", "Starting Test: Get All Detail Questions...");
+    test('Test getAllDetailQuestions',async ()=>{
+        console.log("\x1b[34m", "Starting Test: getAllDetailQuestions...");
         await request(app).post('/auth/register').send({
             email: constants.TEST_EMAIL,
             password: constants.TEST_PASSWORD
@@ -35,6 +35,6 @@ describe('Testing DetailQuestion API',()=>{
 
         const response = await request(app).get('/detail_question/getAllDetailQuestions').set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken);
         expect(response.statusCode).toEqual(200);
-        console.log("\x1b[34m", "Finishing Test: Get All Detail Questions...");
+        console.log("\x1b[34m", "Finishing Test: getAllDetailQuestions...");
     });
 })

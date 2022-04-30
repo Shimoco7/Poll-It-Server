@@ -26,18 +26,18 @@ describe('Testing Account API',()=>{
     var refreshToken;
     var _id;
 
-    test('Test Account Register',async ()=>{
-        console.log("\x1b[34m", "Starting Test: Account Register...");
+    test('Test accountRegister',async ()=>{
+        console.log("\x1b[34m", "Starting Test: accountRegister...");
         const response = await request(app).post('/auth/register').send({
             email: constants.TEST_EMAIL,
             password: constants.TEST_PASSWORD
         });
         expect(response.statusCode).toEqual(200);
-        console.log("\x1b[34m", "Finishing Test: Account Register...");
+        console.log("\x1b[34m", "Finishing Test: accountRegister...");
     })
 
-    test('Test Account Login',async ()=>{
-        console.log("\x1b[34m", "Starting Test: Account Login...");
+    test('Test accountLogin',async ()=>{
+        console.log("\x1b[34m", "Starting Test: accountLogin...");
         const response = await request(app).post('/auth/login').send({
             email: constants.TEST_EMAIL,
             password: constants.TEST_PASSWORD
@@ -47,38 +47,38 @@ describe('Testing Account API',()=>{
         accessToken = response.body.accessToken;
         refreshToken = response.body.refreshToken;
         _id = response.body.account._id;
-        console.log("\x1b[34m", "Finishing Test: Account Login...");
+        console.log("\x1b[34m", "Finishing Test: accountLogin...");
     });
 
-    test('Test Refresh Token',async ()=>{
-        console.log("\x1b[34m", "Starting Test: Refresh Token...");
+    test('Test refreshToken',async ()=>{
+        console.log("\x1b[34m", "Starting Test: refreshToken...");
         const response = await request(app).post('/auth/refreshToken').set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken).send({
             refreshToken: refreshToken
         });
         expect(response.statusCode).toEqual(200);
         accessToken = response.body.accessToken;
         refreshToken = response.body.refreshToken;
-        console.log("\x1b[34m", "Finishing Test: Refresh Token...");
+        console.log("\x1b[34m", "Finishing Test: refreshToken...");
     });
 
-    test('Test Account Update',async ()=>{
-        console.log("\x1b[34m", "Starting Test: Account Update...");
+    test('Test accountUpdate',async ()=>{
+        console.log("\x1b[34m", "Starting Test: accountUpdate...");
         const response = await request(app).post('/auth/update').set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken).send({
             _id: _id,
             gender: 'Male'
         });
         expect(response.statusCode).toEqual(200);
         expect(response.body.gender).toEqual('Male');
-        console.log("\x1b[34m", "Finishing Test: Account Update...");
+        console.log("\x1b[34m", "Finishing Test: accountUpdate...");
     });
 
-    test('Test Account Logout',async ()=>{
-        console.log("\x1b[34m", "Starting Test: Account Logout...");
+    test('Test accountLogoutt',async ()=>{
+        console.log("\x1b[34m", "Starting Test: accountLogout...");
         const response = await request(app).post('/auth/logout').set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken).send({
             refreshToken: refreshToken
         });
         expect(response.statusCode).toEqual(200);
-        console.log("\x1b[34m", "Finishing Test: Account Logout...");
+        console.log("\x1b[34m", "Finishing Test: accountLogout...");
     });
    
 })

@@ -33,8 +33,8 @@ describe('Testing Detail API',()=>{
     var accessToken;
     var accountId;
 
-    test('Test Create Detail',async ()=>{
-        console.log("\x1b[34m", "Starting Test: Create Detail...");
+    test('Test createDetail',async ()=>{
+        console.log("\x1b[34m", "Starting Test: createDetail...");
         await request(app).post('/auth/register').send({
             email: constants.TEST_EMAIL,
             password: constants.TEST_PASSWORD
@@ -55,14 +55,14 @@ describe('Testing Detail API',()=>{
             accountId: accountId
         });
         expect(response.statusCode).toEqual(200);
-        console.log("\x1b[34m", "Finishing Test: Create Detail...");
+        console.log("\x1b[34m", "Finishing Test: createDetail...");
     })
 
-    test('Test Get Details By AccountID',async ()=>{
-        console.log("\x1b[34m", "Starting Test: Get Details By Account ID...");
+    test('Test getDetailsByAccountId',async ()=>{
+        console.log("\x1b[34m", "Starting Test: getDetailsByAccountId...");
         const response = await request(app).get('/detail/getDetailsByAccountId/'+accountId).set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken);
         expect(response.statusCode).toEqual(200);
         expect(response.body[0].answer).toEqual(constants.TEST_ANSWER);
-        console.log("\x1b[34m", "Finishing Test: Get Details By Account ID...");
+        console.log("\x1b[34m", "Finishing Test: getDetailsByAccountId...");
     });
 })
