@@ -46,22 +46,10 @@ const getAnswersByPollId = async (req, res) => {
     }
 }
 
-const getAnswersByAccountId = async (req, res) => {
-    const accountId = req.params.accountId;
-    try {
-        const answers = await Answer.find({accountId: accountId});
-        res.status(200).send(answers);
-
-    } catch (err) {
-        const erros = helpers.handleErrors(SCHEMA, err);
-        res.status(400).json({ erros });
-    }
-}
 
 module.exports = {
     create,
     getCreate,
     getAnswerById,
-    getAnswersByPollId,
-    getAnswersByAccountId
+    getAnswersByPollId
 }

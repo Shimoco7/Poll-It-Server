@@ -101,7 +101,7 @@ router.get('/getAnswerById/:_id', authenticate([constants.CLIENT]), Answer.getAn
 *         description: The answers list
 *     responses:
 *       200:
-*         description: The answer
+*         description: The answers list
 *       400:
 *         description: Bad Request
 *       401:
@@ -113,34 +113,5 @@ router.get('/getAnswerById/:_id', authenticate([constants.CLIENT]), Answer.getAn
 */
 
 router.get('/getAnswersByPollId/:pollId', authenticate([constants.CLIENT]), Answer.getAnswersByPollId);
-
-/**
-* @swagger
-* /answer/getAnswersByAccountId/{accountId}:
-*   get:
-*     summary: get answers by accountId
-*     description: "Roles: [Client]"
-*     tags: [Answer API]
-*     parameters:
-*       - in: path
-*         name: accountId
-*         schema:
-*           type: string
-*         required: true
-*         description: The answers list
-*     responses:
-*       200:
-*         description: The answer
-*       400:
-*         description: Bad Request
-*       401:
-*         description: Unauthorized
-*       403:
-*         description:  Forbidden
-*       404:
-*         description:  Not Found
-*/
-
-router.get('/getAnswersByAccountId/:accountId', authenticate([constants.CLIENT]), Answer.getAnswersByAccountId);
 
 module.exports = router

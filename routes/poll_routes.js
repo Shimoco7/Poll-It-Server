@@ -79,4 +79,34 @@ router.get('/create', authenticate([constants.CLIENT]), Poll.getCreate);
 
 router.get('/getAllPolls', authenticate([constants.USER]), Poll.getAllPolls);
 
+/**
+* @swagger
+* /poll/getPollsByAccountId/{accountId}:
+*   get:
+*     summary: get polls by accountId
+*     description: "Roles: [Client]"
+*     tags: [Poll API]
+*     parameters:
+*       - in: path
+*         name: accountId
+*         schema:
+*           type: string
+*         required: true
+*         description: The polls list
+*     responses:
+*       200:
+*         description: The polls list
+*       400:
+*         description: Bad Request
+*       401:
+*         description: Unauthorized
+*       403:
+*         description:  Forbidden
+*       404:
+*         description:  Not Found
+*/
+
+
+router.get('/getPollsByAccountId/:accountId', authenticate([constants.CLIENT]), Poll.getPollsByAccountId);
+
 module.exports = router

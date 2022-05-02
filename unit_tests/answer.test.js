@@ -80,14 +80,6 @@ afterAll(done=>{
         expect(response.body.answer).toEqual(constants.TEST_ANSWER);
         console.log("\x1b[34m", "Finishing Test: getAnswerById...");
     });
-    
-    test('Test getAnswersByAccountId',async ()=>{
-        console.log("\x1b[34m", "Starting Test: getAnswersByAccountId...");
-        const response = await request(app).get('/answer/getAnswersByAccountId/'+accountId).set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken);
-        expect(response.statusCode).toEqual(200);
-        expect(response.body.length).toBeGreaterThanOrEqual(1);
-        console.log("\x1b[34m", "Finishing Test: getAnswersByAccountId...");
-    });
 
     test('Test getAnswersByPollId',async ()=>{
         console.log("\x1b[34m", "Starting Test: getAnswersByPollId...");

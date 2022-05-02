@@ -68,7 +68,8 @@ Authorization: Bearer addAccessTokenHere
 Content-Type: application/json
 
 {
-"pollName": "poll name"
+    "pollName": "poll name",
+    "accountId": "account test id"
 }
 
 ###
@@ -77,6 +78,10 @@ Authorization: Bearer addAccessTokenHere
 
 ###
 GET http://localhost:8000/poll/getAllPolls
+Authorization: Bearer addAccessTokenHere
+
+###
+GET http://localhost:8000/poll/getPollsByAccountId/{accountId}
 Authorization: Bearer addAccessTokenHere
 
 #PollQuestion----------------------------------------------------------------------
@@ -155,17 +160,9 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8000/answer/getAnswerById
+GET http://localhost:8000/answer/getAnswerById/{_id}
 Authorization: Bearer addAccessTokenHere
 
 ###
-GET http://localhost:8000/answer/getAnswersByPollId/{accountId}
-Authorization: Bearer addAccessTokenHere
-
-###
-GET http://localhost:8000/answer/getAnswersByAccountId/{pollId}
-Authorization: Bearer addAccessTokenHere
-
-###
-GET http://localhost:8000/answer/getDetailsByAccountId/{accountId}
+GET http://localhost:8000/answer/getAnswersByPollId/{pollId}
 Authorization: Bearer addAccessTokenHere

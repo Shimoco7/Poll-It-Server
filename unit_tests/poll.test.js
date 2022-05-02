@@ -37,6 +37,7 @@ afterAll(done=>{
 
 describe('Testing Poll API',()=>{
     var accessToken;
+    var accountId;
     test('Test createPoll',async ()=>{
         console.log("\x1b[34m", "Starting Test: createPoll...");
         await request(app).post('/auth/register').send({
@@ -50,13 +51,22 @@ describe('Testing Poll API',()=>{
         });
 
         accessToken = loginResult.body.accessToken;
-
+        accountId = loginResult.body.account._id;
         const response = await request(app).post('/poll/create').set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken).send({
-            pollName: constants.TEST_POLL_NAME
+            pollName: constants.TEST_POLL_NAME,
+            accountId: accountId
         });
         expect(response.statusCode).toEqual(200);
         console.log("\x1b[34m", "Finishing Test: createPoll...");
     })
+
+    test('Test getPollsByAccountId',async ()=>{
+        console.log("\x1b[34m", "Starting Test: getPollsByAccountId...");
+        const response = await request(app).get('/poll/getPollsByAccountId/'+accountId).set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken);
+        expect(response.statusCode).toEqual(200);
+        expect(response.body.length).toBeGreaterThanOrEqual(1);
+        console.log("\x1b[34m", "Finishing Test: getPollsByAccountId...");
+    });
 
     test('Test getAllPolls',async ()=>{
         console.log("\x1b[34m", "Starting Test: getAllPolls...");
@@ -75,7 +85,6 @@ describe('Testing Poll API',()=>{
         expect(response.body.length).toBeGreaterThanOrEqual(1);
         console.log("\x1b[34m", "Finishing Test: getAllPolls...");
     });
-
 
 
 });

@@ -18,7 +18,7 @@ var timestamps = require('mongoose-unix-timestamp-plugin');
  *          type: string
  *        pollQuestionType:
  *          type: enum
- *          enum: [Multi Choice, Image Answers, Image Question]
+ *          enum: [Multi Choice, Image Answers, Image Question, Scorll Down Answers]
  *          default: Multi Choice
  *        choices:
  *          type: array
@@ -49,7 +49,7 @@ const pollQuestionSchema = new mongoose.Schema({
     pollQuestionType: {
         type: String,
         required: [true, "Please enter a poll question type"],
-        enum: {values:["Multi Choice", "Image Answers", "Image Question"], message: "Please enter a valid poll question type"},
+        enum: {values:["Multi Choice", "Image Answers", "Image Question", "Scorll Down Answers"], message: "Please enter a valid poll question type"},
         default: "Multi Choice"
     },
     choices: {

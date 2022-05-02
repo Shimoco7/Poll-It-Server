@@ -9,8 +9,11 @@ var timestamps = require('mongoose-unix-timestamp-plugin');
  *      type: object
  *      required:
  *        - pollName
+ *        - accountId
  *      properties:
  *        pollName:
+ *          type: string
+ *        accountId:
  *          type: string
  *        createdAt:
  *          type: integer
@@ -25,7 +28,11 @@ const pollSchema = new mongoose.Schema({
     pollName: {
         type: String,
         required: [true, "Please enter a poll name"]
-    }
+    },
+    accountId: {
+        type: String,
+        required: [true, "Please enter an account id"]
+    },
 
 });
 
