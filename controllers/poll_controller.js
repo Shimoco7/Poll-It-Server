@@ -44,10 +44,10 @@ const getPollsByClientId = async (req, res) => {
     }
 }
 
-const getPollsByUserId = async (req, res) => {
+const getPollsByUserId = async (req, res) => { //TODO: query polls according to sample group
     const accountId = req.params.accountId;
     try {
-        const polls = await Poll.find({accountId: accountId});
+        const polls = await Poll.find({});
         res.status(200).send(polls);
 
     } catch (err) {
