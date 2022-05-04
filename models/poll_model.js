@@ -21,9 +21,9 @@ var timestamps = require('mongoose-unix-timestamp-plugin');
  *             type: string
  *          example: ["Male", "Female", "Don't Wish To Specify"]
  *        minAge:
- *          type: integer
+ *          type: string
  *        maxAge:
- *          type: integer
+ *          type: string
  *        createdAt:
  *          type: integer
  *        updatedAt:

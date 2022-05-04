@@ -155,8 +155,8 @@ router.get('/getPollsByUserId/:accountId', authenticate([constants.USER]), Poll.
 *            example:
 *              _id: 62601c1c79b1c850871b902f
 *              gender: ['Male']
-*              minAge: 20
-*              maxAge: 30
+*              minAge: '20'
+*              maxAge: '30'
 *     responses:
 *       200:
 *         description: Poll has been updated
