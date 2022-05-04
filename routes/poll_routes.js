@@ -83,7 +83,7 @@ router.get('/getAllPolls', authenticate([constants.USER]), Poll.getAllPolls);
 * @swagger
 * /poll/getPollsByClientId/{accountId}:
 *   get:
-*     summary: get polls by accountId
+*     summary: get polls by clientId
 *     description: "Roles: [Client]"
 *     tags: [Poll API]
 *     parameters:
@@ -114,7 +114,7 @@ router.get('/getPollsByClientId/:accountId', authenticate([constants.CLIENT]), P
 * @swagger
 * /poll/getPollsByUserId/{accountId}:
 *   get:
-*     summary: get polls by accountId
+*     summary: get polls by userId
 *     description: "Roles: [User]"
 *     tags: [Poll API]
 *     parameters:
