@@ -85,7 +85,12 @@ GET http://localhost:8000/poll/getAllPolls
 Authorization: Bearer addAccessTokenHere
 
 ###
-GET http://localhost:8000/poll/getPollsByAccountId/accountId
+GET http://localhost:8000/poll/getPollsByClientId/accountId
+Authorization: Bearer addAccessTokenHere
+
+
+###
+GET http://localhost:8000/poll/getPollsByUserId/accountId
 Authorization: Bearer addAccessTokenHere
 
 ###

@@ -94,11 +94,19 @@ describe('Testing Poll API',()=>{
             password: constants.TEST_PASSWORD
         });
         accessToken = loginResult.body.accessToken;
-
         const response = await request(app).get('/poll/getAllPolls').set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken);
         expect(response.statusCode).toEqual(200);
         expect(response.body.length).toBeGreaterThanOrEqual(1);
         console.log("\x1b[34m", "Finishing Test: getAllPolls...");
+    });
+
+
+    test('Test getPollsByUserId',async ()=>{
+        console.log("\x1b[34m", "Starting Test: getPollsByUserId...");
+        const response = await request(app).get('/poll/getPollsByUserId/'+accountId).set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken);
+        expect(response.statusCode).toEqual(200);
+        expect(response.body.length).toBeGreaterThanOrEqual(1);
+        console.log("\x1b[34m", "Finishing Test: getPollsByUserId...");
     });
 
 
