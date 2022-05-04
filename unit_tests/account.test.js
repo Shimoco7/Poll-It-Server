@@ -72,13 +72,21 @@ describe('Testing Account API',()=>{
         console.log("\x1b[34m", "Finishing Test: accountUpdate...");
     });
 
-    test('Test accountLogoutt',async ()=>{
+    test('Test accountLogout',async ()=>{
         console.log("\x1b[34m", "Starting Test: accountLogout...");
         const response = await request(app).post('/auth/logout').set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken).send({
             refreshToken: refreshToken
         });
         expect(response.statusCode).toEqual(200);
         console.log("\x1b[34m", "Finishing Test: accountLogout...");
+    });
+
+    test('Test getAccountById',async ()=>{
+        console.log("\x1b[34m", "Starting Test: getAccountById...");
+        const response = await request(app).get('/auth/getAccountById/'+_id).set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken);
+        expect(response.statusCode).toEqual(200);
+        expect(response.body._id).toEqual(_id);
+        console.log("\x1b[34m", "Finishing Test: getAccountById...");
     });
    
 })

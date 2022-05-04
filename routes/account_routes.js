@@ -207,4 +207,33 @@ router.post('/refreshToken', Account.refreshToken);
 
 router.post('/update', authenticate([constants.USER, constants.CLIENT]), Account.update);
 
+/**
+* @swagger
+* /auth/getAccountById/{_id}:
+*   get:
+*     summary: get account by id
+*     description: "Roles: [Client, User]"
+*     tags: [Account API]
+*     parameters:
+*       - in: path
+*         name: _id
+*         schema:
+*           type: string
+*         required: true
+*         description: The account id
+*     responses:
+*       200:
+*         description: The account
+*       400:
+*         description: Bad Request
+*       401:
+*         description: Unauthorized
+*       403:
+*         description:  Forbidden
+*       404:
+*         description:  Not Found
+*/
+
+router.get('/getAccountById/:_id', authenticate([constants.USER, constants.CLIENT]), Account.getAccountById);
+
 module.exports = router

@@ -25,6 +25,8 @@ var timestamps = require('mongoose-unix-timestamp-plugin');
  *          type: string
  *        name:
  *          type: string
+ *        address:
+ *          type: string
  *        gender:
  *          type: string
  *          enum: [Male, Female, Don't Wish To Specify]

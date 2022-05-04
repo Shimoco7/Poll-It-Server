@@ -5,11 +5,14 @@ const helpers = require("../common/helpers");
 const constants = require('../common/constants');
 
 const register = async (req, res) => {
-    const role = req.body.role;
     const email = req.body.email;
     const password = req.body.password;
+    const role = req.body.role;
+    const name = req.body.name;
+    const address = req.body.address;
+    const gender = req.body.gender;
     try {
-        const newAccount = await Account.create({role: role, email: email, password: password });
+        const newAccount = await Account.create({ email: email, password: password, role: role, name: name, address: address,gender: gender });
         res.status(200).send();
 
     } catch (err) {
@@ -126,6 +129,18 @@ const getLogout = async (req, res) => {
     res.send("//TODO: implement logout page");
 }
 
+const getAccountById = async (req, res) => {
+    const accountId = req.params._id;
+    try {
+        const account = await Account.findOne({_id: accountId});
+        res.status(200).send(account);
+
+    } catch (err) {
+        const erros = helpers.handleErrors(SCHEMA, err);
+        res.status(400).json({ erros });
+    }
+}
+
 function generateAccessToken(account) {
     return jwt.sign(
         { _id: account._id, role: account.role },
@@ -149,5 +164,6 @@ module.exports = {
     update,
     getRegister,
     getLogin,
-    getLogout
+    getLogout,
+    getAccountById
 }
