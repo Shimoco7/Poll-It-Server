@@ -32,7 +32,7 @@ const getAllPolls = async (req, res) => {
     }
 }
 
-const getPollsByAccountId = async (req, res) => {
+const getPollsByClientId = async (req, res) => {
     const accountId = req.params.accountId;
     try {
         const polls = await Poll.find({accountId: accountId});
@@ -44,10 +44,34 @@ const getPollsByAccountId = async (req, res) => {
     }
 }
 
+const getPollsByUserId = async (req, res) => {
+    const accountId = req.params.accountId;
+    try {
+        const polls = await Poll.find({accountId: accountId});
+        res.status(200).send(polls);
 
+    } catch (err) {
+        const erros = helpers.handleErrors(SCHEMA, err);
+        res.status(400).json({ erros });
+    }
+}
+
+const update = async (req, res) => {
+    try {
+        const updatedPoll = await Poll.findOneAndUpdate({ _id: req.body._id }, req.body, { returnOriginal: false, runValidators: true  });
+        res.status(200).send(updatedPoll);
+
+    } catch (err) {
+        const erros = helpers.handleErrors(SCHEMA, err);
+        res.status(400).json({ erros });
+    }
+
+}
 module.exports = {
     create,
     getCreate,
     getAllPolls,
-    getPollsByAccountId
+    getPollsByClientId,
+    getPollsByUserId,
+    update
 }

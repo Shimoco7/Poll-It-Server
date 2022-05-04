@@ -88,6 +88,19 @@ Authorization: Bearer addAccessTokenHere
 GET http://localhost:8000/poll/getPollsByAccountId/accountId
 Authorization: Bearer addAccessTokenHere
 
+###
+POST http://localhost:8000/poll/update
+Authorization: Bearer addAccessTokenHere
+Content-Type: application/json
+
+{
+    "_id": "account id",
+    "gender": ["Male"],
+    "minAge": "10",
+    "maxAge": "20"
+}
+
+
 #PollQuestion----------------------------------------------------------------------
 
 ###

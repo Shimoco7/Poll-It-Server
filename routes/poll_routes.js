@@ -81,7 +81,7 @@ router.get('/getAllPolls', authenticate([constants.USER]), Poll.getAllPolls);
 
 /**
 * @swagger
-* /poll/getPollsByAccountId/{accountId}:
+* /poll/getPollsByClientId/{accountId}:
 *   get:
 *     summary: get polls by accountId
 *     description: "Roles: [Client]"
@@ -107,6 +107,39 @@ router.get('/getAllPolls', authenticate([constants.USER]), Poll.getAllPolls);
 */
 
 
-router.get('/getPollsByAccountId/:accountId', authenticate([constants.CLIENT]), Poll.getPollsByAccountId);
+router.get('/getPollsByClientId/:accountId', authenticate([constants.CLIENT]), Poll.getPollsByClientId);
+
+/**
+* @swagger
+* /poll/update:
+*  post:
+*     summary: Update a poll
+*     description: "Roles: [Client]"
+*     tags: [Poll API]
+*     requestBody:
+*        content:
+*          application/json:
+*            schema:
+*              $ref: '#components/schemas/Poll'
+*            example:
+*              _id: 62601c1c79b1c850871b902f
+*              gender: ['Male']
+*              minAge: 20
+*              maxAge: 30
+*     responses:
+*       200:
+*         description: Poll has been updated
+*       400:
+*         description: Bad Request
+*       401:
+*         description: Unauthorized
+*       403:
+*         description:  Forbidden
+*       404:
+*         description:  Not Found
+*/
+
+router.post('/update', authenticate([constants.CLIENT]), Poll.update);
+
 
 module.exports = router

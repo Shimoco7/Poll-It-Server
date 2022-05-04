@@ -38,6 +38,7 @@ afterAll(done=>{
 describe('Testing Poll API',()=>{
     var accessToken;
     var accountId;
+    var pollId;
     test('Test createPoll',async ()=>{
         console.log("\x1b[34m", "Starting Test: createPoll...");
         await request(app).post('/auth/register').send({
@@ -60,12 +61,26 @@ describe('Testing Poll API',()=>{
         console.log("\x1b[34m", "Finishing Test: createPoll...");
     })
 
-    test('Test getPollsByAccountId',async ()=>{
-        console.log("\x1b[34m", "Starting Test: getPollsByAccountId...");
-        const response = await request(app).get('/poll/getPollsByAccountId/'+accountId).set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken);
+    test('Test getPollsByClientId',async ()=>{
+        console.log("\x1b[34m", "Starting Test: getPollsByClientId...");
+        const response = await request(app).get('/poll/getPollsByClientId/'+accountId).set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken);
         expect(response.statusCode).toEqual(200);
         expect(response.body.length).toBeGreaterThanOrEqual(1);
-        console.log("\x1b[34m", "Finishing Test: getPollsByAccountId...");
+        pollId = response.body[0]._id;
+        console.log("\x1b[34m", "Finishing Test: getPollsByClientId...");
+    });
+
+    test('Test pollUpdate',async ()=>{
+        console.log("\x1b[34m", "Starting Test: pollUpdate...");
+        const response = await request(app).post('/poll/update').set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken).send({
+            _id: pollId,
+            gender: ['Male'],
+            minAge: "10",
+            maxAge: "20"
+        });
+        expect(response.statusCode).toEqual(200);
+        expect(response.body.minAge).toEqual("10");
+        console.log("\x1b[34m", "Finishing Test: pollUpdate...");
     });
 
     test('Test getAllPolls',async ()=>{
