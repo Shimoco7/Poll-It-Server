@@ -32,7 +32,7 @@ const constants = require('../common/constants');
 */
 
 router.get('/',(req,res)=>{
-    res.send("HELLO!");
+    return res.send("HELLO!");
 });
 
 
@@ -67,7 +67,7 @@ router.get('/',(req,res)=>{
 */
 
 router.post('/upload',authenticate([constants.USER,constants.CLIENT]),upload.single('file'),(req,res)=>{                                                                     
-    res.status(200).send({
+    return res.status(200).send({
         url: process.env.SERVER_URL +"/"+req.file.path.replace(/\\/g, "/")
     });
 })
@@ -106,6 +106,6 @@ router.post('/upload',authenticate([constants.USER,constants.CLIENT]),upload.sin
 */
 
 router.get('/download/:image',authenticate([constants.CLIENT]),(req,res)=>{
-    res.download(constants.STORAGE_PATH+req.params.image);
+    return res.download(constants.STORAGE_PATH+req.params.image);
 });                                                               
 module.exports = router;                                              

@@ -10,11 +10,11 @@ const create = async (req, res) => {
     const accountId = req.body.accountId;
     try {
         const newDetail = await Detail.findOneAndUpdate({ _id: new ObjectId(detailId)},{answer: answer, question: question, questionId:questionId, accountId: accountId}, { upsert: true, runValidators: true  });
-        res.status(200).send();
+        return res.status(200).send();
 
     } catch (err) {
         const erros = helpers.handleErrors(SCHEMA, err);
-        res.status(400).json({ erros });
+        return res.status(400).json({ erros });
     }
 }
 
@@ -22,11 +22,11 @@ const getDetailsByAccountId = async (req, res) => {
     const accountId = req.params.accountId;
     try {
         const details = await Detail.find({accountId: accountId});
-        res.status(200).send(details);
+        return res.status(200).send(details);
 
     } catch (err) {
         const erros = helpers.handleErrors(SCHEMA, err);
-        res.status(400).json({ erros });
+        return res.status(400).json({ erros });
     }
 }
 

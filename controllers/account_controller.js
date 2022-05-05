@@ -13,11 +13,11 @@ const register = async (req, res) => {
     const gender = req.body.gender;
     try {
         const newAccount = await Account.create({ email: email, password: password, role: role, name: name, address: address,gender: gender });
-        res.status(200).send();
+        return res.status(200).send();
 
     } catch (err) {
         const erros = helpers.handleErrors(SCHEMA, err);
-        res.status(400).json({ erros });
+        return res.status(400).json({ erros });
     }
 }
 
@@ -42,7 +42,7 @@ const login = async (req, res) => {
             }
         }
 
-        res.status(200).send({ accessToken: accessToken, refreshToken: refreshToken, account: account, detailsFilled: detailsFilled });
+        return res.status(200).send({ accessToken: accessToken, refreshToken: refreshToken, account: account, detailsFilled: detailsFilled });
 
     } catch (err) {
         return helpers.sendError(res, 400, err.message)
@@ -67,7 +67,7 @@ const logout = async (req, res) => {
             }
             account.refreshToken = undefined;
             await account.save();
-            res.status(200).send();
+            return res.status(200).send();
         } catch (err) {
             return helpers.sendError(res, 400, err.message)
         }
@@ -97,7 +97,7 @@ const refreshToken = async (req, res) => {
                 account.refreshToken = refreshToken;
                 await account.save();
             }
-            res.status(200).send({ accessToken: accessToken, refreshToken: refreshToken });
+            return res.status(200).send({ accessToken: accessToken, refreshToken: refreshToken });
         } catch (err) {
             return helpers.sendError(res, 400, err.message);
         }
@@ -107,37 +107,37 @@ const refreshToken = async (req, res) => {
 const update = async (req, res) => {
     try {
         const updatedAccount = await Account.findOneAndUpdate({ _id: req.body._id }, req.body, { returnOriginal: false, runValidators: true  });
-        res.status(200).send(updatedAccount);
+        return res.status(200).send(updatedAccount);
 
     } catch (err) {
         const erros = helpers.handleErrors(SCHEMA, err);
-        res.status(400).json({ erros });
+        return res.status(400).json({ erros });
     }
 
 }
 
 
 const getRegister = async (req, res) => {
-    res.send("//TODO: implement register page");
+    return res.send("//TODO: implement register page");
 }
 
 const getLogin = async (req, res) => {
-    res.send("//TODO: implement login page");
+    return res.send("//TODO: implement login page");
 }
 
 const getLogout = async (req, res) => {
-    res.send("//TODO: implement logout page");
+    return res.send("//TODO: implement logout page");
 }
 
 const getAccountById = async (req, res) => {
     const accountId = req.params._id;
     try {
         const account = await Account.findOne({_id: accountId});
-        res.status(200).send(account);
+        return res.status(200).send(account);
 
     } catch (err) {
         const erros = helpers.handleErrors(SCHEMA, err);
-        res.status(400).json({ erros });
+        return res.status(400).json({ erros });
     }
 }
 
