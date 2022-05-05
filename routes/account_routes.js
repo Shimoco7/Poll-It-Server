@@ -3,6 +3,7 @@ const router = express.Router();
 const Account = require('../controllers/account_controller');
 const authenticate = require("../common/auth_middleware");
 const constants = require('../common/constants');
+const passport = require('passport');  
 
 /**
 * @swagger
@@ -235,5 +236,21 @@ router.post('/update', authenticate([constants.USER, constants.CLIENT]), Account
 */
 
 router.get('/getAccountById/:_id', authenticate([constants.USER, constants.CLIENT]), Account.getAccountById);
+
+
+// router.get('/facebook',
+//   passport.authenticate('facebook'));
+
+// router.get('/facebook/callback',
+//   passport.authenticate('facebook', {
+//     scope: ['email'],
+//     session: false,
+//     failureRedirect: '/login'
+//   }), (req, res) => {
+//     res.json({
+//       token: req.user.jwtoken
+//     })
+//   }
+// )
 
 module.exports = router
