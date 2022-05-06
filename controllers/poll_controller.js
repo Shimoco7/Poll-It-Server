@@ -3,7 +3,6 @@ const Poll = require('../models/poll_model');
 const Account = require('../models/account_model');
 const Answer = require('../models/answer_model');
 const Detail = require('../models/detail_model');
-const handleErrors = require("../common/helpers");
 const helpers = require("../common/helpers");
 const constants = require("../common/constants");
 
