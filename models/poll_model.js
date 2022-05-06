@@ -15,11 +15,21 @@ var timestamps = require('mongoose-unix-timestamp-plugin');
  *          type: string
  *        accountId:
  *          type: string
+ *        age:
+ *          type: array
+ *          items:
+ *             type: string
+ *          example: ["11-20", "21-30", "31-40", "41-50","51-60", "61-70", "71-80", "81-90", "More than 90"]
  *        gender:
  *          type: array
  *          items:
  *             type: string
  *          example: ["Male", "Female", "Don't Wish To Specify"]
+ *        educationLevel:
+ *          type: array
+ *          items:
+ *             type: string
+ *          example: ["Preschool", "Elementary", "Middle School", "High School", "During Bachelor's", "Bachelor's or Higher"]
  *        maritalStatus:
  *          type: array
  *          items:
@@ -35,11 +45,11 @@ var timestamps = require('mongoose-unix-timestamp-plugin');
  *          items:
  *             type: string
  *          example: ["Yes", "No"]
- *        individualIncome:
+ *        income:
  *          type: array
  *          items:
  *             type: string
- *          example: ["0-5,000", "5,000-10,000", "10,000-20,000", "20,000-30,000", "More than 30,000"]
+ *          example: ["0-5,000", "5,001-10,000", "10,001-20,000", "20,001-30,000", "More than 30,000"]
  *        createdAt:
  *          type: integer
  *        updatedAt:
@@ -58,10 +68,20 @@ const pollSchema = new mongoose.Schema({
         type: String,
         required: [true, "Please enter an account id"]
     },
+    age: {
+        type: [String],
+        enum: ["11-20", "21-30", "31-40", "41-50","51-60", "61-70", "71-80", "81-90", "More than 90"],
+        default: ["11-20", "21-30", "31-40", "41-50","51-60", "61-70", "71-80", "81-90", "More than 90"]
+    },
     gender: {
         type: [String],
         enum: ["Male", "Female", "Don't Wish To Specify"],
         default: ["Male", "Female", "Don't Wish To Specify"]
+    },
+    educationLevel: {
+        type: [String],
+        enum: ["Preschool", "Elementary", "Middle School", "High School", "During Bachelor's", "Bachelor's or Higher"],
+        default: ["Preschool", "Elementary", "Middle School", "High School", "During Bachelor's", "Bachelor's or Higher"]
     },
     maritalStatus: {
         type: [String],
@@ -77,10 +97,11 @@ const pollSchema = new mongoose.Schema({
         type: [String],
         enum: ["Yes", "No"],
         default:  ["Yes", "No"]
-    },individualIncome: {
+    },
+    income: {
         type: [String],
-        enum: ["0-5,000", "5,000-10,000", "10,000-20,000", "20,000-30,000", "More than 30,000"],
-        default: ["0-5,000", "5,000-10,000", "10,000-20,000", "20,000-30,000", "More than 30,000"]
+        enum: ["0-5,000", "5,001-10,000", "10,001-20,000", "20,001-30,000", "More than 30,000"],
+        default: ["0-5,000", "5,001-10,000", "10,001-20,000", "20,001-30,000", "More than 30,000"]
     }
     
 });

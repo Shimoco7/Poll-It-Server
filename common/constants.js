@@ -17,7 +17,17 @@ module.exports = Object.freeze({
     TEST_POLL_NAME: 'Test Poll',
     TEST_POLL_QUESTION_TYPE: 'Multi Choice',
 
-
     //STORAGE
-    STORAGE_PATH: 'storage/images/'
+    STORAGE_PATH: 'storage/images/',
+
+    //detailQuestionMap
+    
+    AGE: "age",
+    EDUCATION_LEVEL: "educationLevel",
+    GENDER : "gender",
+    MARITAL_STATUS: "maritalStatus",
+    NUMBER_OF_CHILDRENS: "numberOfChildrens",
+    PERMANENT_JOB: "permanentJob",
+    INCOME: "income",
+
 });
