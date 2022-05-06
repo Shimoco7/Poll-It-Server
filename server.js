@@ -13,13 +13,13 @@ const detailQuestionRouter = require('./routes/detail_question_routes');
 const answerRouter = require('./routes/answer_routes');
 const authenticate = require("./common/auth_middleware");
 const constants = require("./common/constants");
-// const Account = require('./models/account_model');
-// const passport = require('passport')
-// const passportJWT = require("passport-jwt")
-// const JWTStrategy = passportJWT.Strategy
-// const ExtractJWT = passportJWT.ExtractJwt
-// const FacebookStrategy = require('passport-facebook').Strategy
-// const { ObjectId } = require('mongodb');
+const Account = require('./models/account_model');
+const passport = require('passport')
+const passportJWT = require("passport-jwt")
+const JWTStrategy = passportJWT.Strategy
+const ExtractJWT = passportJWT.ExtractJwt
+const FacebookStrategy = require('passport-facebook').Strategy
+const { ObjectId } = require('mongodb');
 
 
 // passport.use(new FacebookStrategy({
@@ -30,7 +30,7 @@ const constants = require("./common/constants");
 //   profileFields: ['id', 'email', 'displayName'] //This
 // },
 //   function (req, accessToken, refreshToken, profile, done) {
-//     //console.log("req "+ req.body,"accesstoken: " + accessToken + "refreshToken " + refreshToken + "profile: " +profile.emails[0].value)
+//     console.log("profile " + profile._json+", access token: "+accessToken)
 //     Account.findOne({
 //       email: profile.emails[0].value
 //     }, function (err, account) {
