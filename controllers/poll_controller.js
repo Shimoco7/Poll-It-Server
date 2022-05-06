@@ -10,10 +10,12 @@ const create = async (req, res) => {
     const pollName = req.body.pollName;
     const accountId = req.body.accountId;
     const gender = req.body.gender;
-    const minAge = req.body.minAge;
-    const maxAge = req.body.maxAge;
+    const maritalStatus = req.body.maritalStatus;
+    const numberOfChildrens = req.body.numberOfChildrens;
+    const permanentJob = req.body.permanentJob;
+    const individualIncome = req.body.individualIncome;
     try {
-        newPoll = await Poll.create({ pollName: pollName, accountId: accountId, gender: gender, minAge: minAge, maxAge: maxAge});
+        newPoll = await Poll.create({ pollName: pollName, accountId: accountId, gender: gender, maritalStatus: maritalStatus, numberOfChildrens: numberOfChildrens, permanentJob: permanentJob , individualIncome: individualIncome});
         return res.status(200).send({_id: newPoll._id});
 
     } catch (err) {

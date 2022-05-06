@@ -74,12 +74,9 @@ describe('Testing Poll API',()=>{
         console.log("\x1b[34m", "Starting Test: pollUpdate...");
         const response = await request(app).post('/poll/update').set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken).send({
             _id: pollId,
-            gender: ['Male'],
-            minAge: "10",
-            maxAge: "20"
+            gender: ['Male']
         });
         expect(response.statusCode).toEqual(200);
-        expect(response.body.minAge).toEqual("10");
         console.log("\x1b[34m", "Finishing Test: pollUpdate...");
     });
 
