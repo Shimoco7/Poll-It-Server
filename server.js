@@ -27,7 +27,7 @@ const constants = require("./common/constants");
 //   clientSecret: "a415b995610ccf9f30e1e4fc2e5dbdee",
 //   callbackURL: "http://localhost:8000/auth/facebook/callback",
 //   passReqToCallback : true,
-//   profileFields: ['id', 'emails', 'name']
+//   profileFields: ['id', 'email', 'name'] //This
 // },
 // function(req, accessToken, refreshToken, profile, done) {
 //   console.log("req "+ req.body,"accesstoken: " + accessToken + "refreshToken " + refreshToken + "profile: " +profile.emails[0].value)
@@ -106,5 +106,4 @@ if (process.env.NODE_ENV == "development") {
   const specs = swaggerJsDoc(options);
   app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs, { explorer: true }));
 }
-
 module.exports = app;

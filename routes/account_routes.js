@@ -252,5 +252,4 @@ router.get('/getAccountById/:_id', authenticate([constants.USER, constants.CLIEN
 //     })
 //   }
 // )
-
 module.exports = router
