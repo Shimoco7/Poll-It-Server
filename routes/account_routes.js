@@ -248,7 +248,7 @@ router.get('/getAccountById/:_id', authenticate([constants.USER, constants.CLIEN
 //     failureRedirect: '/login'
 //   }), (req, res) => {
 //     res.json({
-//       token: req.user.jwtoken
+//       token: req.user
 //     })
 //   }
 // )

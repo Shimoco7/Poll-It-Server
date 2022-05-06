@@ -21,41 +21,41 @@ const constants = require("./common/constants");
 // const FacebookStrategy = require('passport-facebook').Strategy
 // const { ObjectId } = require('mongodb');
 
- 
+
 // passport.use(new FacebookStrategy({
 //   clientID: "516510840018543",
 //   clientSecret: "a415b995610ccf9f30e1e4fc2e5dbdee",
-//   callbackURL: "http://localhost:8000/auth/facebook/callback",
-//   passReqToCallback : true,
-//   profileFields: ['id', 'email', 'name'] //This
+//   callbackURL: "/auth/facebook/callback",
+//   passReqToCallback: true,
+//   profileFields: ['id', 'email', 'displayName'] //This
 // },
-// function(req, accessToken, refreshToken, profile, done) {
-//   console.log("req "+ req.body,"accesstoken: " + accessToken + "refreshToken " + refreshToken + "profile: " +profile.emails[0].value)
-//    Account.findOne({
-//           'facebookId': profile.id 
-//       }, function(err, account) {
-//           if (err) {
-//               return done(err);
-//           }
-//           if (!account) {
-//              account = new Account({
-//              facebookID: profile.id,
-//              name: profile.displayName,
-//               provider: 'facebook',
-//               facebook: profile._json
-//               });
-//               account.save(function(err) {
-//                   if (err) console.log(err);
-//                   return done(err, account);
-//               });
-//           } else {
-//               return done(err, account);
-//           }
-//       });
-// }
+//   function (req, accessToken, refreshToken, profile, done) {
+//     //console.log("req "+ req.body,"accesstoken: " + accessToken + "refreshToken " + refreshToken + "profile: " +profile.emails[0].value)
+//     Account.findOne({
+//       email: profile.emails[0].value
+//     }, function (err, account) {
+//       if (err) {
+//         return done(err);
+//       }
+//       if (!account) {
+//         account = new Account({
+//           email: profile.emails[0].value,
+//           password: "Test1234@",
+//           name: profile.displayName,
+//           profilePicUrl: profile.profileUrl
+//         });
+//         account.save(function (err) {
+//           if (err) console.log(err);
+//           return done(err, account);
+//         });
+//       } else {
+//         return done(err, account);
+//       }
+//     });
+//   }
 // ));
 
-app.use("/storage",authenticate([constants.USER]), express.static(path.resolve(__dirname + '/storage')));
+app.use("/storage", authenticate([constants.USER]), express.static(path.resolve(__dirname + '/storage')));
 
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true });
 const db = mongoose.connection;
