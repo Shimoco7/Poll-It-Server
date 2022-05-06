@@ -7,16 +7,6 @@ const handleErrors = require("../common/helpers");
 const helpers = require("../common/helpers");
 const constants = require("../common/constants");
 
-const detailQuestionMap = {
-     "Age": constants.AGE,
-     "Education Level": constants.EDUCATION_LEVEL,
-     "Gender" : constants.GENDER,
-     "Marital Status": constants.MARITAL_STATUS,
-     "Number of Childrens": constants.NUMBER_OF_CHILDRENS,
-     "Permanent Job": constants.PERMANENT_JOB,
-     "Income per Month (NIS)": constants.INCOME,
-  };
-
 const create = async (req, res) => {
     const pollName = req.body.pollName;
     const accountId = req.body.accountId;
@@ -74,7 +64,7 @@ const getPollsByUserId = async (req, res) => {
         if (!account) return helpers.sendError(res, 400, 'account not found')
         const details = await Detail.find({ accountId : account._id});
         for (const detail of details){
-            detailsMap[detailQuestionMap[detail.question]]= detail.answer;
+            detailsMap[constants.DETAIL_QUESTION_MAP[detail.question]]= detail.answer;
         }
         const polls = await Poll
         .find({ 

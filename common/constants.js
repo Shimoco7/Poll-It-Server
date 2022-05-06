@@ -20,7 +20,7 @@ module.exports = Object.freeze({
     //STORAGE
     STORAGE_PATH: 'storage/images/',
 
-    //detailQuestionMap
+    //detailQuestions
     
     AGE: "age",
     EDUCATION_LEVEL: "educationLevel",
@@ -29,5 +29,18 @@ module.exports = Object.freeze({
     NUMBER_OF_CHILDRENS: "numberOfChildrens",
     PERMANENT_JOB: "permanentJob",
     INCOME: "income",
+
+    //detailQuestionMap
+
+    DETAIL_QUESTION_MAP: Object.freeze({
+        "Age": "age",
+        "Education Level": "educationLevel",
+        "Gender": "gender",
+        "Marital Status": "maritalStatus",
+        "Number of Childrens": "numberOfChildrens",
+        "Permanent Job": "permanentJob",
+        "Income per Month (NIS)": "income"
+
+      }),
 
 });
