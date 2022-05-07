@@ -270,6 +270,9 @@ router.put('/updatePassword', authenticate([constants.USER, constants.CLIENT]), 
 router.get('/getAccountById/:_id', authenticate([constants.USER, constants.CLIENT]), Account.getAccountById);
 
 
+
+router.post('/facebook', Account.facebook);
+
 // router.get('/facebook',
 //   passport.authenticate('facebook'));
 

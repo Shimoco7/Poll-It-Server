@@ -32,6 +32,8 @@ var timestamps = require('mongoose-unix-timestamp-plugin');
  *          enum: [Male, Female, Don't Wish To Specify]
  *        profilePicUrl:
  *          type: string   
+ *        facebookId:
+ *          type: string 
  *        createdAt:
  *          type: integer
  *        updatedAt:
@@ -75,6 +77,10 @@ const accountSchema = new mongoose.Schema({
     },
     profilePicUrl: {
         type: String
+    },
+    facebookId: {
+        type: String,
+        unique: true
     }
 });
 accountSchema.plugin(timestamps);
@@ -93,9 +99,16 @@ accountSchema.statics.login = async function (email, password){
     const match = await bcryptjs.compare(password, account.password)
     if (!match) throw Error("Incorrect Password");
 
+    if (account.facebookId) throw Error("There's already a Facebook account associated with your email, please login with your facebook account");
     return account;
 }
 
+accountSchema.statics.facebookLogin = async function (email){
+    const account = await this.findOne({email});
+    if (account == null) throw Error("Incorrect Email");
+    if (!account.facebookId) throw Error("There's no account associated with your Facebook account");
+    return account;
+}
 
 accountSchema.pre('findOneAndUpdate', async function (next) {
     try {

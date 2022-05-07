@@ -4,7 +4,7 @@ const handleErrors = (schema, err) => {
     if (err.code === 11000) {
         errors[Object.keys(err.keyPattern)] = "already exist";
     }
-    if (err.message.includes(schema+" validation failed")) {
+    else if (err.message.includes(schema+" validation failed")) {
         Object.values(err.errors).forEach(({ properties }) => {
             errors[properties.path] = properties.message;
         });

@@ -142,6 +142,42 @@ const updatePassword = async (req, res) => {
 }
 
 
+const facebook = async (req, res) => {
+    const email = req.body.email;
+    const name = req.body.name;
+    const facebookId = req.body.facebookId;
+    const role = req.body.role;
+    try {
+        const account = await Account.findOne({ email: email });
+        if(!account){
+            await Account.create({ email: email, password: "Test1234@", name: name, facebookId: facebookId, role: role});
+        }
+        if(account && !account.facebookId){
+            return helpers.sendError(res, 400, "There's already an account associated with your email")
+        }
+        const loggedAccount = await Account.facebookLogin(email);
+        const accessToken = generateAccessToken(loggedAccount);
+        const refreshToken = generateRefreshToken(loggedAccount);
+        if (loggedAccount.refreshToken != refreshToken) {
+            loggedAccount.refreshToken = refreshToken;
+            await loggedAccount.save();
+        }
+        if (loggedAccount.role == constants.USER) {
+            if (loggedAccount.name == null || loggedAccount.address == null || loggedAccount.gender == null) {
+                detailsFilled = false;
+            }
+        }
+
+        return res.status(200).send({ accessToken: accessToken, refreshToken: refreshToken, account: loggedAccount, detailsFilled: detailsFilled });
+
+    } catch (err) {
+        const erros = helpers.handleErrors(SCHEMA, err);
+        return res.status(400).json({ erros });
+    }
+
+}
+
+
 const getRegister = async (req, res) => {
     return res.send("//TODO: implement register page");
 }
@@ -191,5 +227,6 @@ module.exports = {
     getRegister,
     getLogin,
     getLogout,
-    getAccountById
+    getAccountById,
+    facebook
 }
