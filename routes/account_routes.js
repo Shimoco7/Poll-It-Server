@@ -81,7 +81,7 @@ router.get('/register', Account.getRegister);
 *         description:  Forbidden
 *       404:
 *         description:  Not Found
-
+*
 *  get:
 *     summary: Login an account
 *     description: "Roles: [User, Client]"

@@ -148,9 +148,10 @@ const facebook = async (req, res) => {
     const facebookId = req.body.facebookId;
     const role = req.body.role;
     try {
+        if(!facebookId || !email || facebookId == "" || email == "") return helpers.sendError(res, 400, "Missing email or facebookId")
         const account = await Account.findOne({ email: email });
         if(!account){
-            await Account.create({ email: email, password: "Test1234@", name: name, facebookId: facebookId, role: role});
+            await Account.create({ email: email, password: process.env.FB_PASSWORD , name: name, facebookId: facebookId, role: role});
         }
         if(account && !account.facebookId){
             return helpers.sendError(res, 400, "There's already an account associated with your email")

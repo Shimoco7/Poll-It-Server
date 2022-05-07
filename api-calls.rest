@@ -75,6 +75,16 @@ Content-Type: application/json
 GET http://localhost:8000/auth/getAccountById/_id
 Authorization: Bearer addAccessTokenHere
 
+###
+POST  http://localhost:8000/auth/facebook
+Content-Type: application/json
+
+{
+    "facebookId": "",
+    "email": "test1@test.com",
+    "name": "test name"
+}
+
 #Poll----------------------------------------------------------------------
 
 ###
