@@ -83,7 +83,7 @@ router.get('/getAllPolls', authenticate([constants.USER]), Poll.getAllPolls);
 * @swagger
 * /poll/getPollsByClientId/{accountId}:
 *   get:
-*     summary: get polls by clientId
+*     summary: Get polls by clientId
 *     description: "Roles: [Client]"
 *     tags: [Poll API]
 *     parameters:
@@ -114,7 +114,7 @@ router.get('/getPollsByClientId/:accountId', authenticate([constants.CLIENT]), P
 * @swagger
 * /poll/getPollsByUserId/{accountId}:
 *   get:
-*     summary: get polls by userId
+*     summary: Get polls by userId
 *     description: "Roles: [User]"
 *     tags: [Poll API]
 *     parameters:
@@ -143,7 +143,7 @@ router.get('/getPollsByUserId/:accountId', authenticate([constants.USER]), Poll.
 /**
 * @swagger
 * /poll/update:
-*  post:
+*  put:
 *     summary: Update a poll
 *     description: "Roles: [Client]"
 *     tags: [Poll API]
@@ -170,7 +170,7 @@ router.get('/getPollsByUserId/:accountId', authenticate([constants.USER]), Poll.
 *         description:  Not Found
 */
 
-router.post('/update', authenticate([constants.CLIENT]), Poll.update);
+router.put('/update', authenticate([constants.CLIENT]), Poll.update);
 
 
 module.exports = router

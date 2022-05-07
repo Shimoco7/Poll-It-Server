@@ -60,7 +60,7 @@ router.get('/create', authenticate([constants.USER]), Answer.getCreate);
 * @swagger
 * /answer/getAnswerById/{_id}:
 *   get:
-*     summary: get answer by id
+*     summary: Get answer by id
 *     description: "Roles: [Client]"
 *     tags: [Answer API]
 *     parameters:
@@ -89,7 +89,7 @@ router.get('/getAnswerById/:_id', authenticate([constants.CLIENT]), Answer.getAn
 * @swagger
 * /answer/getAnswersByPollId/{pollId}:
 *   get:
-*     summary: get answers by pollId
+*     summary: Get answers by pollId
 *     description: "Roles: [Client]"
 *     tags: [Answer API]
 *     parameters:

@@ -179,7 +179,7 @@ router.post('/refreshToken', Account.refreshToken);
 /**
 * @swagger
 * /auth/update:
-*  post:
+*  put:
 *     summary: Update an account
 *     description: "Roles: [User, Client]"
 *     tags: [Account API]
@@ -206,13 +206,45 @@ router.post('/refreshToken', Account.refreshToken);
 *         description:  Not Found
 */
 
-router.post('/update', authenticate([constants.USER, constants.CLIENT]), Account.update);
+router.put('/update', authenticate([constants.USER, constants.CLIENT]), Account.update);
+
+
+/**
+* @swagger
+* /auth/updatePassword:
+*  put:
+*     summary: Update an account password
+*     description: "Roles: [User, Client]"
+*     tags: [Account API]
+*     requestBody:
+*        content:
+*          application/json:
+*            schema:
+*              $ref: '#components/schemas/Account'
+*            example:
+*              _id: 62601c1c79b1c850871b902f
+*              oldPassword: Test1234@
+*              newPassword: Test1234!
+*     responses:
+*       200:
+*         description: Account password has been updated
+*       400:
+*         description: Bad Request
+*       401:
+*         description: Unauthorized
+*       403:
+*         description:  Forbidden
+*       404:
+*         description:  Not Found
+*/
+
+router.put('/updatePassword', authenticate([constants.USER, constants.CLIENT]), Account.updatePassword);
 
 /**
 * @swagger
 * /auth/getAccountById/{_id}:
 *   get:
-*     summary: get account by id
+*     summary: Get account by id
 *     description: "Roles: [Client, User]"
 *     tags: [Account API]
 *     parameters:

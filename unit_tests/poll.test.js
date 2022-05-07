@@ -72,7 +72,7 @@ describe('Testing Poll API',()=>{
 
     test('Test pollUpdate',async ()=>{
         console.log("\x1b[34m", "Starting Test: pollUpdate...");
-        const response = await request(app).post('/poll/update').set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken).send({
+        const response = await request(app).put('/poll/update').set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken).send({
             _id: pollId,
             gender: ['Male']
         });

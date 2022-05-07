@@ -43,7 +43,7 @@ router.post('/create', authenticate([constants.USER]), Detail.create);
 * @swagger
 * /detail/getDetailsByAccountId/{accountId}:
 *   get:
-*     summary: get details by account id
+*     summary: Get details by account id
 *     description: "Roles: [User]"
 *     tags: [Detail API]
 *     parameters:

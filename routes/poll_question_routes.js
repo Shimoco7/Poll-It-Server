@@ -60,7 +60,7 @@ router.get('/create', authenticate([constants.CLIENT]), PollQuestion.getCreate);
 * @swagger
 * /poll_question/getPollQuestionsByPollId/{pollId}:
 *   get:
-*     summary: get poll questions by poll id
+*     summary: Get poll questions by poll id
 *     description: "Roles: [User]"
 *     tags: [PollQuestion API]
 *     parameters:

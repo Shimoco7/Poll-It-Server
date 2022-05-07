@@ -50,6 +50,16 @@ describe('Testing Account API',()=>{
         console.log("\x1b[34m", "Finishing Test: accountLogin...");
     });
 
+    test('Test accountUpdatePassword',async ()=>{
+        console.log("\x1b[34m", "Starting Test: accountUpdatePassword...");
+        const response = await request(app).put('/auth/updatePassword').set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken).send({
+            _id: _id,
+            oldPassword: constants.TEST_PASSWORD,
+        });
+        expect(response.statusCode).toEqual(200);
+        console.log("\x1b[34m", "Finishing Test: accountUpdatePassword...");
+    });
+
     test('Test refreshToken',async ()=>{
         console.log("\x1b[34m", "Starting Test: refreshToken...");
         const response = await request(app).post('/auth/refreshToken').set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken).send({
@@ -63,7 +73,7 @@ describe('Testing Account API',()=>{
 
     test('Test accountUpdate',async ()=>{
         console.log("\x1b[34m", "Starting Test: accountUpdate...");
-        const response = await request(app).post('/auth/update').set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken).send({
+        const response = await request(app).put('/auth/update').set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken).send({
             _id: _id,
             gender: 'Male'
         });
