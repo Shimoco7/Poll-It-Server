@@ -100,6 +100,9 @@ accountSchema.statics.login = async function (email, password){
 accountSchema.pre('findOneAndUpdate', async function (next) {
     try {
         if (this._update.password) {
+            if(!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,100}$/.test(this._update.password)) {
+                throw Error("Minimum 8 characters, at least one uppercase, at least one lower case, at least one digit, at least one special character")
+            }
             const salt = await bcryptjs.genSalt();
             this._update.password = await bcryptjs.hash(this._update.password, salt)
         }

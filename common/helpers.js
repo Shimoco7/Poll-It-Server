@@ -9,6 +9,9 @@ const handleErrors = (schema, err) => {
             errors[properties.path] = properties.message;
         });
     }
+    else{
+        errors.error =  err.message
+    }
     return errors;
 }
 
