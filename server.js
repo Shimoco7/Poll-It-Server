@@ -13,47 +13,6 @@ const detailQuestionRouter = require('./routes/detail_question_routes');
 const answerRouter = require('./routes/answer_routes');
 const authenticate = require("./common/auth_middleware");
 const constants = require("./common/constants");
-const Account = require('./models/account_model');
-const passport = require('passport')
-const passportJWT = require("passport-jwt")
-const JWTStrategy = passportJWT.Strategy
-const ExtractJWT = passportJWT.ExtractJwt
-const FacebookStrategy = require('passport-facebook').Strategy
-const { ObjectId } = require('mongodb');
-
-
-// passport.use(new FacebookStrategy({
-//   clientID: "516510840018543",
-//   clientSecret: "a415b995610ccf9f30e1e4fc2e5dbdee",
-//   callbackURL: "/auth/facebook/callback",
-//   passReqToCallback: true,
-//   profileFields: ['id', 'email', 'displayName'] //This
-// },
-//   function (req, accessToken, refreshToken, profile, done) {
-//     console.log("profile " + profile._json+", access token: "+accessToken)
-//     Account.findOne({
-//       email: profile.emails[0].value
-//     }, function (err, account) {
-//       if (err) {
-//         return done(err);
-//       }
-//       if (!account) {
-//         account = new Account({
-//           email: profile.emails[0].value,
-//           password: "Test1234@",
-//           name: profile.displayName,
-//           profilePicUrl: profile.profileUrl
-//         });
-//         account.save(function (err) {
-//           if (err) console.log(err);
-//           return done(err, account);
-//         });
-//       } else {
-//         return done(err, account);
-//       }
-//     });
-//   }
-// ));
 
 app.use("/storage", authenticate([constants.USER]), express.static(path.resolve(__dirname + '/storage')));
 

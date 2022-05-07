@@ -269,22 +269,37 @@ router.put('/updatePassword', authenticate([constants.USER, constants.CLIENT]), 
 
 router.get('/getAccountById/:_id', authenticate([constants.USER, constants.CLIENT]), Account.getAccountById);
 
+/**
+* @swagger
+* /auth/facebook:
+*  post:
+*     summary: Login an account using facebook
+*     description: "Roles: [User, Client]"
+*     tags: [Account API]
+*     requestBody:
+*        required: true
+*        content:
+*           application/json:
+*            schema:
+*                $ref: '#components/schemas/Account'
+*            example:
+*               facebookId: 1234567890
+*               email: facebook@test.com
+*               name: test name
+*     responses:
+*       200:
+*         description: Account has been login
+*       400:
+*         description: Bad Request
+*       401:
+*         description: Unauthorized
+*       403:
+*         description:  Forbidden
+*       404:
+*         description:  Not Found
+*/
 
 
 router.post('/facebook', Account.facebook);
 
-// router.get('/facebook',
-//   passport.authenticate('facebook'));
-
-// router.get('/facebook/callback',
-//   passport.authenticate('facebook', {
-//     scope: ['email'],
-//     session: false,
-//     failureRedirect: '/login'
-//   }), (req, res) => {
-//     res.json({
-//       token: req.user
-//     })
-//   }
-// )
 module.exports = router
