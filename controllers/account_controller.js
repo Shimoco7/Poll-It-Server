@@ -148,7 +148,7 @@ const facebook = async (req, res) => {
     const name = req.body.name;
     const facebookId = req.body.facebookId;
     const role = req.body.role;
-    var profilePicUrl = req.body.profilePicUrl;
+    const profilePicUrl = req.body.profilePicUrl;
     try {
         if(!facebookId || !email || facebookId == "" || email == "") return helpers.sendError(res, 400, "Missing email or facebookId")
         const account = await Account.findOne({ email: email });
