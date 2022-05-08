@@ -143,15 +143,17 @@ const updatePassword = async (req, res) => {
 
 
 const facebook = async (req, res) => {
+    var detailsFilled = true;
     const email = req.body.email;
     const name = req.body.name;
     const facebookId = req.body.facebookId;
     const role = req.body.role;
+    var profilePicUrl = req.body.profilePicUrl;
     try {
         if(!facebookId || !email || facebookId == "" || email == "") return helpers.sendError(res, 400, "Missing email or facebookId")
         const account = await Account.findOne({ email: email });
         if(!account){
-            await Account.create({ email: email, password: process.env.FB_PASSWORD , name: name, facebookId: facebookId, role: role});
+            await Account.create({ email: email, password: process.env.FB_PASSWORD , name: name, facebookId: facebookId, role: role, profilePicUrl: profilePicUrl});
         }
         if(account && !account.facebookId){
             return helpers.sendError(res, 400, "There's already an account associated with your email")
