@@ -4,6 +4,8 @@ const jwt = require('jsonwebtoken');
 const helpers = require("../common/helpers");
 const constants = require('../common/constants');
 const bcryptjs = require('bcryptjs');
+const  fs = require('fs');
+const request = require('request');
 
 const register = async (req, res) => {
     const email = req.body.email;
@@ -148,10 +150,16 @@ const facebook = async (req, res) => {
     const name = req.body.name;
     const facebookId = req.body.facebookId;
     const role = req.body.role;
-    const profilePicUrl = req.body.profilePicUrl;
+    var profilePicUrl = req.body.profilePicUrl;
     try {
         if(!facebookId || !email || facebookId == "" || email == "") return helpers.sendError(res, 400, "Missing email or facebookId")
         const account = await Account.findOne({ email: email });
+        if(profilePicUrl){
+            download(profilePicUrl, constants.STORAGE_PATH+facebookId+".jpg", function(){
+                console.log('done');
+            });
+            profilePicUrl = constants.STORAGE_PATH+facebookId+".jpg";
+        }
         if(!account){
             await Account.create({ email: email, password: process.env.FB_PASSWORD , name: name, facebookId: facebookId, role: role, profilePicUrl: profilePicUrl});
         }
@@ -219,6 +227,12 @@ function generateRefreshToken(account) {
         process.env.REFRESH_TOKEN_SECRET
     )
 }
+
+var download = function(uri, filename, callback){
+    request.head(uri, function(err, res, body){
+      request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
+    });
+  };
 
 module.exports = {
     login,
