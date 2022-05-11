@@ -61,7 +61,7 @@ router.get('/create', authenticate([constants.CLIENT]), PollQuestion.getCreate);
 * /poll_question/getPollQuestionsByPollId/{pollId}:
 *   get:
 *     summary: Get poll questions by poll id
-*     description: "Roles: [User]"
+*     description: "Roles: [Client, User]"
 *     tags: [PollQuestion API]
 *     parameters:
 *       - in: path
@@ -83,6 +83,6 @@ router.get('/create', authenticate([constants.CLIENT]), PollQuestion.getCreate);
 *         description:  Not Found
 */
 
-router.get('/getPollQuestionsByPollId/:pollId', authenticate([constants.USER]), PollQuestion.getPollQuestionsByPollId);
+router.get('/getPollQuestionsByPollId/:pollId', authenticate([constants.CLIENT, constants.USER]), PollQuestion.getPollQuestionsByPollId);
 
 module.exports = router

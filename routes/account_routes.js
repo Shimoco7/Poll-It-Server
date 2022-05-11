@@ -193,6 +193,7 @@ router.post('/refreshToken', Account.refreshToken);
 *              name: Yossi
 *              address: Tel Aviv
 *              gender: Male
+*              profilePicUrl: url
 *     responses:
 *       200:
 *         description: Account has been updated
@@ -286,6 +287,7 @@ router.get('/getAccountById/:_id', authenticate([constants.USER, constants.CLIEN
 *               facebookId: 1234567890
 *               email: facebook@test.com
 *               name: test name
+*               profilePicUrl: url
 *     responses:
 *       200:
 *         description: Account has been login
