@@ -154,18 +154,19 @@ const facebook = async (req, res) => {
     try {
         if(!facebookId || !email || facebookId == "" || email == "") return helpers.sendError(res, 400, "Missing email or facebookId")
         const account = await Account.findOne({ email: email });
+        if(account && !account.facebookId){
+            return helpers.sendError(res, 400, "There's already an account associated with your email")
+        }
         if(profilePicUrl){
-            download(profilePicUrl, constants.STORAGE_PATH+facebookId+".jpg", function(){
-                console.log('done');
-            });
-            profilePicUrl = constants.STORAGE_PATH+facebookId+".jpg";
+            var image = undefined;
+            image = constants.STORAGE_PATH+facebookId+".jpg"
+            download(profilePicUrl, image, function(){});
+            profilePicUrl = process.env.SERVER_URL+"/"+image;
         }
         if(!account){
             await Account.create({ email: email, password: process.env.FB_PASSWORD , name: name, facebookId: facebookId, role: role, profilePicUrl: profilePicUrl});
         }
-        if(account && !account.facebookId){
-            return helpers.sendError(res, 400, "There's already an account associated with your email")
-        }
+
         const loggedAccount = await Account.facebookLogin(email);
         const accessToken = generateAccessToken(loggedAccount);
         const refreshToken = generateRefreshToken(loggedAccount);
