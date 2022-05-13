@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const helpers = require("../common/helpers");
 const constants = require('../common/constants');
 const bcryptjs = require('bcryptjs');
+const path = require('path');
 
 const register = async (req, res) => {
     const email = req.body.email;
@@ -161,7 +162,8 @@ const facebook = async (req, res) => {
         }
         if(profilePicUrl){
             var image = undefined;
-            image = constants.STORAGE_PATH+facebookId+".jpg"
+            var ext = path.extname(profilePicUrl);
+            image = constants.STORAGE_PATH+facebookId+ext
             helpers.download(profilePicUrl, image, function(){});
             profilePicUrl = process.env.SERVER_URL+"/"+image;
         }
