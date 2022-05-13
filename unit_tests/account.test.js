@@ -10,10 +10,16 @@ beforeAll(done=>{
     Account.deleteOne({email : constants.TEST_EMAIL}, (err)=>{
         done();
     });
+    Account.deleteOne({facebookId : constants.TEST_FACEBOOKID}, (err)=>{
+        done();
+    });
 });
 
 afterAll(done=>{
     Account.deleteOne({email : constants.TEST_EMAIL}, (err)=>{
+        done();
+    });
+    Account.deleteOne({facebookId : constants.TEST_FACEBOOKID}, (err)=>{
         mongoose.connection.close();
         done();
     });
@@ -48,6 +54,17 @@ describe('Testing Account API',()=>{
         refreshToken = response.body.refreshToken;
         _id = response.body.account._id;
         console.log("\x1b[34m", "Finishing Test: accountLogin...");
+    });
+
+    test('Test accountFacebook',async ()=>{
+        console.log("\x1b[34m", "Starting Test: accountFacebook...");
+        const response = await request(app).post('/auth/facebook').send({
+            email: constants.TEST_EMAIL2,
+            facebookId: constants.TEST_FACEBOOKID
+        });
+        expect(response.statusCode).toEqual(200);
+        expect(response.body.account.email).toEqual(constants.TEST_EMAIL2);
+        console.log("\x1b[34m", "Finishing Test: accountFacebook...");
     });
 
     test('Test accountUpdatePassword',async ()=>{

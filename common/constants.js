@@ -16,6 +16,7 @@ module.exports = Object.freeze({
   TEST_ID2: '4eb6e7e7e9b7f4194e000004',
   TEST_POLL_NAME: 'Test Poll',
   TEST_POLL_QUESTION_TYPE: 'Multi Choice',
+  TEST_FACEBOOKID: "123123123",
 
   //STORAGE
   STORAGE_PATH: 'storage/images/',
