@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 const {isEmail} = require("validator");
 const bcryptjs = require('bcryptjs');
 var timestamps = require('mongoose-unix-timestamp-plugin');
+const constants = require('../common/constants');
+
 /**
  * @swagger
  * components:
@@ -125,4 +127,4 @@ accountSchema.pre('findOneAndUpdate', async function (next) {
 });
 
 
-module.exports = mongoose.model('Account', accountSchema);
+module.exports = mongoose.model(constants.ACCOUNT, accountSchema);

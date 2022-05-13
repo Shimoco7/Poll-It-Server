@@ -8,7 +8,12 @@ const handleErrors = (schema, err) => {
     }
     else if (err.message.includes(schema+" validation failed")) {
         Object.values(err.errors).forEach(({ properties }) => {
-            errors[properties.path] = properties.message;
+            if(properties){
+                errors[properties.path] = properties.message;
+            }
+            else{
+                errors.error =  err.message
+            }
         });
     }
     else{

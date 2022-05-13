@@ -1,7 +1,8 @@
-const SCHEMA = "Answer";
 const Answer = require('../models/answer_model');
 const helpers = require("../common/helpers");
+const constants = require("../common/constants");
 const { ObjectId } = require('mongodb');
+
 const create = async (req, res) => {
     const answerId = req.body._id;
     const answer = req.body.answer;
@@ -13,7 +14,7 @@ const create = async (req, res) => {
         return res.status(200).send();
 
     } catch (err) {
-        const erros = helpers.handleErrors(SCHEMA, err);
+        const erros = helpers.handleErrors(constants.ANSWER, err);
         return res.status(400).json({ erros });
     }
 }
@@ -29,7 +30,7 @@ const getAnswerById = async (req, res) => {
         return res.status(200).send(answer);
 
     } catch (err) {
-        const erros = helpers.handleErrors(SCHEMA, err);
+        const erros = helpers.handleErrors(constants.ANSWER, err);
         return res.status(400).json({ erros });
     }
 }
@@ -41,7 +42,7 @@ const getAnswersByPollId = async (req, res) => {
         return res.status(200).send(answers);
 
     } catch (err) {
-        const erros = helpers.handleErrors(SCHEMA, err);
+        const erros = helpers.handleErrors(constants.ANSWER, err);
         return res.status(400).json({ erros });
     }
 }
@@ -54,7 +55,7 @@ const getAnswersByPollQuestionId = async (req, res) => {
         return res.status(200).send(answers);
 
     } catch (err) {
-        const erros = helpers.handleErrors(SCHEMA, err);
+        const erros = helpers.handleErrors(constants.ANSWER, err);
         return res.status(400).json({ erros });
     }
 }

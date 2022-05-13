@@ -47,4 +47,13 @@ module.exports = Object.freeze({
 
   }),
 
+  // SCHEMAS
+
+  ACCOUNT : 'Account',
+  ANSWER : 'Answer',
+  DETAIL : 'Detail',
+  DETAIL_QUESTION : 'DetailQuestion',
+  POLL : 'Poll',
+  POLL_QUESTION : 'PollQuestion'
+
 });

@@ -1,6 +1,6 @@
-const SCHEMA = "DetailQuestion";
 const DetailQuestion = require('../models/detail_question_model');
 const helpers = require("../common/helpers");
+const constants = require("../common/constants");
 
 const create = async (req, res) => {
     const detailQuestion = req.body.detailQuestion;
@@ -10,7 +10,7 @@ const create = async (req, res) => {
         return res.status(200).send({_id: newDetailQuestion._id});
 
     } catch (err) {
-        const erros = helpers.handleErrors(SCHEMA, err);
+        const erros = helpers.handleErrors(constants.DETAIL_QUESTION, err);
         return res.status(400).json({ erros });
     }
 }
@@ -25,7 +25,7 @@ const getAllDetailQuestions = async (req, res) => {
         return res.status(200).send(detailQuestions);
 
     } catch (err) {
-        const erros = helpers.handleErrors(SCHEMA, err);
+        const erros = helpers.handleErrors(constants.DETAIL_QUESTION, err);
         return res.status(400).json({ erros });
     }
 }

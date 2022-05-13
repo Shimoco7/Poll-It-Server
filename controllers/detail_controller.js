@@ -1,7 +1,8 @@
-const SCHEMA = "Detail";
 const Detail = require('../models/detail_model');
 const helpers = require("../common/helpers");
+const constants = require("../common/constants");
 const { ObjectId } = require('mongodb');
+
 const create = async (req, res) => {
     const detailId = req.body._id;
     const answer = req.body.answer;
@@ -13,7 +14,7 @@ const create = async (req, res) => {
         return res.status(200).send();
 
     } catch (err) {
-        const erros = helpers.handleErrors(SCHEMA, err);
+        const erros = helpers.handleErrors(constants.DETAIL, err);
         return res.status(400).json({ erros });
     }
 }
@@ -25,7 +26,7 @@ const getDetailsByAccountId = async (req, res) => {
         return res.status(200).send(details);
 
     } catch (err) {
-        const erros = helpers.handleErrors(SCHEMA, err);
+        const erros = helpers.handleErrors(constants.DETAIL, err);
         return res.status(400).json({ erros });
     }
 }

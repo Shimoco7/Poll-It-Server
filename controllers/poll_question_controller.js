@@ -1,6 +1,6 @@
-const SCHEMA = "PollQuestion";
 const PollQuestion = require('../models/poll_question_model');
 const helpers = require("../common/helpers");
+const constants = require("../common/constants");
 
 const create = async (req, res) => {
     const pollQuestion = req.body.pollQuestion;
@@ -13,7 +13,7 @@ const create = async (req, res) => {
         return res.status(200).send({_id: newPollQuestion._id});
 
     } catch (err) {
-        const erros = helpers.handleErrors(SCHEMA, err);
+        const erros = helpers.handleErrors(constants.POLL_QUESTION, err);
         return res.status(400).json({ erros });
     }
 }
@@ -29,7 +29,7 @@ const getPollQuestionsByPollId = async (req, res) => {
         return res.status(200).send(pollQuestions);
 
     } catch (err) {
-        const erros = helpers.handleErrors(SCHEMA, err);
+        const erros = helpers.handleErrors(constants.POLL_QUESTION, err);
         return res.status(400).json({ erros });
     }
 }

@@ -1,4 +1,3 @@
-const SCHEMA = "Poll";
 const Poll = require('../models/poll_model');
 const Account = require('../models/account_model');
 const Answer = require('../models/answer_model');
@@ -21,7 +20,7 @@ const create = async (req, res) => {
         return res.status(200).send({ _id: newPoll._id });
 
     } catch (err) {
-        const erros = helpers.handleErrors(SCHEMA, err);
+        const erros = helpers.handleErrors(constants.POLL, err);
         return res.status(400).json({ erros });
     }
 }
@@ -37,7 +36,7 @@ const getAllPolls = async (req, res) => {
         return res.status(200).send(polls);
 
     } catch (err) {
-        const erros = helpers.handleErrors(SCHEMA, err);
+        const erros = helpers.handleErrors(constants.POLL, err);
         return res.status(400).json({ erros });
     }
 }
@@ -49,7 +48,7 @@ const getPollsByClientId = async (req, res) => {
         return res.status(200).send(polls);
 
     } catch (err) {
-        const erros = helpers.handleErrors(SCHEMA, err);
+        const erros = helpers.handleErrors(constants.POLL, err);
         return res.status(400).json({ erros });
     }
 }
@@ -91,7 +90,7 @@ const getPollsByUserId = async (req, res) => {
         return res.status(200).send(matchedPolls);
 
     } catch (err) {
-        const erros = helpers.handleErrors(SCHEMA, err);
+        const erros = helpers.handleErrors(constants.POLL, err);
         return res.status(400).json({ erros });
     }
 }
@@ -102,7 +101,7 @@ const update = async (req, res) => {
         return res.status(200).send(updatedPoll);
 
     } catch (err) {
-        const erros = helpers.handleErrors(SCHEMA, err);
+        const erros = helpers.handleErrors(constants.POLL, err);
         return res.status(400).json({ erros });
     }
 

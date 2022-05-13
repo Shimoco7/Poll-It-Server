@@ -1,4 +1,3 @@
-const SCHEMA = "Account"
 const Account = require('../models/account_model');
 const jwt = require('jsonwebtoken');
 const helpers = require("../common/helpers");
@@ -18,7 +17,7 @@ const register = async (req, res) => {
         return res.status(200).send();
 
     } catch (err) {
-        const erros = helpers.handleErrors(SCHEMA, err);
+        const erros = helpers.handleErrors(constants.ACCOUNT, err);
         return res.status(400).json({ erros });
     }
 }
@@ -112,7 +111,7 @@ const update = async (req, res) => {
         return res.status(200).send(updatedAccount);
 
     } catch (err) {
-        const erros = helpers.handleErrors(SCHEMA, err);
+        const erros = helpers.handleErrors(constants.ACCOUNT, err);
         return res.status(400).json({ erros });
     }
 
@@ -136,7 +135,7 @@ const updatePassword = async (req, res) => {
         return res.status(200).send();
 
     } catch (err) {
-        const erros = helpers.handleErrors(SCHEMA, err);
+        const erros = helpers.handleErrors(constants.ACCOUNT, err);
         return res.status(400).json({ erros });
     }
 
@@ -187,7 +186,7 @@ const facebook = async (req, res) => {
         return res.status(200).send({ accessToken: accessToken, refreshToken: refreshToken, account: loggedAccount, detailsFilled: detailsFilled });
 
     } catch (err) {
-        const erros = helpers.handleErrors(SCHEMA, err);
+        const erros = helpers.handleErrors(constants.ACCOUNT, err);
         return res.status(400).json({ erros });
     }
 
@@ -213,7 +212,7 @@ const getAccountById = async (req, res) => {
         return res.status(200).send(account);
 
     } catch (err) {
-        const erros = helpers.handleErrors(SCHEMA, err);
+        const erros = helpers.handleErrors(constants.ACCOUNT, err);
         return res.status(400).json({ erros });
     }
 }

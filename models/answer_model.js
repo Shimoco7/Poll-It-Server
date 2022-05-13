@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 var timestamps = require('mongoose-unix-timestamp-plugin');
+const constants = require('../common/constants');
 
 /**
  * @swagger
@@ -39,19 +40,22 @@ const answerSchema = new mongoose.Schema({
         required: [true, "Please enter an answer"]
     },
     pollId: {
-        type: String,
-        required: [true, "Please enter a poll id"]
+        type: mongoose.Schema.Types.ObjectId,
+        ref: constants.POLL,
+        required:  [true, "Please enter a poll id"]
     },
     pollQuestionId: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: constants.POLL_QUESTION,
         required: [true, "Please enter a poll question id"]
     },
     accountId: {
-        type: String,
-        required: [true, "Please enter an account id"]
+        type: mongoose.Schema.Types.ObjectId,
+        ref: constants.ACCOUNT,
+        required:  [true, "Please enter an account id"]
     },
 
 });
 
 answerSchema.plugin(timestamps);
-module.exports = mongoose.model('Answer', answerSchema);
+module.exports = mongoose.model(constants.ANSWER, answerSchema);
