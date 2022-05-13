@@ -20,7 +20,7 @@ POST http://localhost:8000/auth/login
 Content-Type: application/json
 
 {
-    "email" : "test@test.com",
+    "email" : "client@client.com",
     "password" : "Test1234@"
 }
 
@@ -208,4 +208,8 @@ Authorization: Bearer addAccessTokenHere
 
 ###
 GET http://localhost:8000/answer/getAnswersByPollId/pollId
+Authorization: Bearer addAccessTokenHere
+
+###
+GET http://localhost:8000/answer/getAnswersByPollQuestionId/pollQuestionId
 Authorization: Bearer addAccessTokenHere
