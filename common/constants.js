@@ -7,8 +7,8 @@ module.exports = Object.freeze({
 
 
   //TESTS
-  TEST_EMAIL: 'test@test.com',
-  TEST_EMAIL2: 'test@test2.com',
+  TEST_EMAIL: 'test@unittest.com',
+  TEST_EMAIL2: 'test@unittest2.com',
   TEST_PASSWORD: 'Test1234@',
   TEST_QUESTION: "test question?",
   TEST_ANSWER: 'test answer',

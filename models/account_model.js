@@ -41,7 +41,7 @@ const constants = require('../common/constants');
  *        updatedAt:
  *          type: integer
  *      example:
- *        email: test@test.com
+ *        email: test@swaggertest.com
  *        password: Test1234@
  */
 
