@@ -1,10 +1,10 @@
 ###
-GET http://localhost:8000/
+GET https://localhost:8000/
 
 #Auth----------------------------------------------------------------------
 
 ###
-POST http://localhost:8000/auth/register
+POST https://localhost:8000/auth/register
 Content-Type: application/json
 
 {
@@ -13,10 +13,10 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8000/auth/register
+GET https://localhost:8000/auth/register
 
 ###
-POST http://localhost:8000/auth/login
+POST https://localhost:8000/auth/login
 Content-Type: application/json
 
 {
@@ -25,10 +25,10 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8000/auth/login
+GET https://localhost:8000/auth/login
 
 ###
-POST http://localhost:8000/auth/logout
+POST https://localhost:8000/auth/logout
 Authorization: Bearer addAccessTokenHere
 Content-Type: application/json
 
@@ -37,11 +37,11 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8000/auth/logout
+GET https://localhost:8000/auth/logout
 Authorization: Bearer addAccessTokenHere
 
 ###
-POST http://localhost:8000/auth/refreshToken
+POST https://localhost:8000/auth/refreshToken
 Content-Type: application/json
 
 {
@@ -49,7 +49,7 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:8000/auth/update
+PUT https://localhost:8000/auth/update
 Authorization: Bearer addAccessTokenHere
 Content-Type: application/json
 
@@ -61,7 +61,7 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:8000/auth/updatePassword
+PUT https://localhost:8000/auth/updatePassword
 Authorization: Bearer addAccessTokenHere
 Content-Type: application/json
 
@@ -72,11 +72,11 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8000/auth/getAccountById/_id
+GET https://localhost:8000/auth/getAccountById/_id
 Authorization: Bearer addAccessTokenHere
 
 ###
-POST  http://localhost:8000/auth/facebook
+POST  https://localhost:8000/auth/facebook
 Content-Type: application/json
 
 {
@@ -88,7 +88,7 @@ Content-Type: application/json
 #Poll----------------------------------------------------------------------
 
 ###
-POST http://localhost:8000/poll/create
+POST https://localhost:8000/poll/create
 Authorization: Bearer addAccessTokenHere
 Content-Type: application/json
 
@@ -98,24 +98,24 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8000/poll/create
+GET https://localhost:8000/poll/create
 Authorization: Bearer addAccessTokenHere
 
 ###
-GET http://localhost:8000/poll/getAllPolls
+GET https://localhost:8000/poll/getAllPolls
 Authorization: Bearer addAccessTokenHere
 
 ###
-GET http://localhost:8000/poll/getPollsByClientId/accountId
+GET https://localhost:8000/poll/getPollsByClientId/accountId
 Authorization: Bearer addAccessTokenHere
 
 
 ###
-GET http://localhost:8000/poll/getPollsByUserId/accountId
+GET https://localhost:8000/poll/getPollsByUserId/accountId
 Authorization: Bearer addAccessTokenHere
 
 ###
-PUT http://localhost:8000/poll/update
+PUT https://localhost:8000/poll/update
 Authorization: Bearer addAccessTokenHere
 Content-Type: application/json
 
@@ -130,7 +130,7 @@ Content-Type: application/json
 #PollQuestion----------------------------------------------------------------------
 
 ###
-POST http://localhost:8000/poll_question/create
+POST https://localhost:8000/poll_question/create
 Authorization: Bearer addAccessTokenHere
 Content-Type: application/json
 
@@ -142,17 +142,17 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8000/poll_question/create
+GET https://localhost:8000/poll_question/create
 Authorization: Bearer addAccessTokenHere
 
 ###
-GET http://localhost:8000/poll_question/getPollQuestionsByPollId/pollId
+GET https://localhost:8000/poll_question/getPollQuestionsByPollId/pollId
 Authorization: Bearer addAccessTokenHere
 
 #Detail----------------------------------------------------------------------
 
 ###
-POST http://localhost:8000/detail/create
+POST https://localhost:8000/detail/create
 Authorization: Bearer addAccessTokenHere
 Content-Type: application/json
 
@@ -165,13 +165,13 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8000/detail/getDetailsByAccountId/accountId
+GET https://localhost:8000/detail/getDetailsByAccountId/accountId
 Authorization: Bearer addAccessTokenHere
 
 #DetailQuestion----------------------------------------------------------------------
 
 ###
-POST http://localhost:8000/detail_question/create
+POST https://localhost:8000/detail_question/create
 Authorization: Bearer addAccessTokenHere
 Content-Type: application/json
 
@@ -181,17 +181,17 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8000/detail_question/create
+GET https://localhost:8000/detail_question/create
 Authorization: Bearer addAccessTokenHere
 
 ###
-GET http://localhost:8000/detail_question/getAllDetailQuestions
+GET https://localhost:8000/detail_question/getAllDetailQuestions
 Authorization: Bearer addAccessTokenHere
 
 #Answer----------------------------------------------------------------------
 
 ###
-POST http://localhost:8000/answer/create
+POST https://localhost:8000/answer/create
 Authorization: Bearer addAccessTokenHere
 Content-Type: application/json
 
@@ -203,13 +203,13 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8000/answer/getAnswerById/_id
+GET https://localhost:8000/answer/getAnswerById/_id
 Authorization: Bearer addAccessTokenHere
 
 ###
-GET http://localhost:8000/answer/getAnswersByPollId/pollId
+GET https://localhost:8000/answer/getAnswersByPollId/pollId
 Authorization: Bearer addAccessTokenHere
 
 ###
-GET http://localhost:8000/answer/getAnswersByPollQuestionId/pollQuestionId
+GET https://localhost:8000/answer/getAnswersByPollQuestionId/pollQuestionId
 Authorization: Bearer addAccessTokenHere
