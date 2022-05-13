@@ -21,6 +21,9 @@ module.exports = Object.freeze({
   //STORAGE
   STORAGE_PATH: 'storage/images/',
 
+  //CER
+  CER_PATH: '/CSSTUD/CSSTUD.pfx',
+  
   //detailQuestions
 
   AGE: "age",
