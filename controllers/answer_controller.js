@@ -47,9 +47,22 @@ const getAnswersByPollId = async (req, res) => {
 }
 
 
+const getAnswersByPollQuestionId = async (req, res) => {
+    const pollQuestionId = req.params.pollQuestionId;
+    try {
+        const answers = await Answer.find({pollQuestionId: pollQuestionId});
+        return res.status(200).send(answers);
+
+    } catch (err) {
+        const erros = helpers.handleErrors(SCHEMA, err);
+        return res.status(400).json({ erros });
+    }
+}
+
 module.exports = {
     create,
     getCreate,
     getAnswerById,
-    getAnswersByPollId
+    getAnswersByPollId,
+    getAnswersByPollQuestionId
 }

@@ -89,4 +89,12 @@ afterAll(done=>{
         console.log("\x1b[34m", "Finishing Test: getAnswersByPollId...");
     });
 
+    
+    test('Test getAnswersByPollQuestionId',async ()=>{
+        console.log("\x1b[34m", "Starting Test: getAnswersByPollQuestionId...");
+        const response = await request(app).get('/answer/getAnswersByPollQuestionId/'+constants.TEST_ID2).set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken);
+        expect(response.statusCode).toEqual(200);
+        console.log("\x1b[34m", "Finishing Test: getAnswersByPollQuestionId...");
+    });
+
 });
