@@ -4,8 +4,6 @@ const jwt = require('jsonwebtoken');
 const helpers = require("../common/helpers");
 const constants = require('../common/constants');
 const bcryptjs = require('bcryptjs');
-const  fs = require('fs');
-const request = require('request');
 
 const register = async (req, res) => {
     const email = req.body.email;
@@ -33,8 +31,8 @@ const login = async (req, res) => {
 
     try {
         const account = await Account.login(email, password);
-        const accessToken = generateAccessToken(account);
-        const refreshToken = generateRefreshToken(account);
+        const accessToken = helpers.generateAccessToken(account);
+        const refreshToken = helpers.generateRefreshToken(account);
         if (account.refreshToken != refreshToken) {
             account.refreshToken = refreshToken;
             await account.save();
@@ -94,8 +92,8 @@ const refreshToken = async (req, res) => {
                 return helpers.sendError(res, 403, 'Invalid request');
             }
 
-            const accessToken = generateAccessToken(account);
-            const refreshToken = generateRefreshToken(account);
+            const accessToken = helpers.generateAccessToken(account);
+            const refreshToken = helpers.generateRefreshToken(account);
             if (account.refreshToken != refreshToken) {
                 account.refreshToken = refreshToken;
                 await account.save();
@@ -160,7 +158,7 @@ const facebook = async (req, res) => {
         if(profilePicUrl){
             var image = undefined;
             image = constants.STORAGE_PATH+facebookId+".jpg"
-            download(profilePicUrl, image, function(){});
+            helpers.download(profilePicUrl, image, function(){});
             profilePicUrl = process.env.SERVER_URL+"/"+image;
         }
         if(!account){
@@ -168,8 +166,8 @@ const facebook = async (req, res) => {
         }
 
         const loggedAccount = await Account.facebookLogin(email);
-        const accessToken = generateAccessToken(loggedAccount);
-        const refreshToken = generateRefreshToken(loggedAccount);
+        const accessToken = helpers.generateAccessToken(loggedAccount);
+        const refreshToken = helpers.generateRefreshToken(loggedAccount);
         if (loggedAccount.refreshToken != refreshToken) {
             loggedAccount.refreshToken = refreshToken;
             await loggedAccount.save();
@@ -213,27 +211,6 @@ const getAccountById = async (req, res) => {
         return res.status(400).json({ erros });
     }
 }
-
-function generateAccessToken(account) {
-    return jwt.sign(
-        { _id: account._id, role: account.role },
-        process.env.ACCESS_TOKEN_SECRET,
-        { expiresIn: process.env.JWT_TOKEN_EXPIRATION }
-    )
-}
-
-function generateRefreshToken(account) {
-    return jwt.sign(
-        { _id: account._id, role: account.role },
-        process.env.REFRESH_TOKEN_SECRET
-    )
-}
-
-var download = function(uri, filename, callback){
-    request.head(uri, function(err, res, body){
-      request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
-    });
-  };
 
 module.exports = {
     login,
