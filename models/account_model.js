@@ -79,8 +79,7 @@ const accountSchema = new mongoose.Schema({
         type: String
     },
     facebookId: {
-        type: String,
-        unique: true
+        type: String
     }
 });
 accountSchema.plugin(timestamps);

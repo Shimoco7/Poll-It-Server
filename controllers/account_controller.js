@@ -152,8 +152,12 @@ const facebook = async (req, res) => {
     try {
         if(!facebookId || !email || facebookId == "" || email == "") return helpers.sendError(res, 400, "Missing email or facebookId")
         const account = await Account.findOne({ email: email });
-        if(account && !account.facebookId){
+        if(account && facebookId != account.facebookId){
             return helpers.sendError(res, 400, "There's already an account associated with your email")
+        }
+        const accountByFacebookId = await Account.findOne({ facebookId: facebookId });
+        if(accountByFacebookId && accountByFacebookId.email!=email){
+            return helpers.sendError(res, 400, "There's already an account associated with your facebookId")
         }
         if(profilePicUrl){
             var image = undefined;
