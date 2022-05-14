@@ -94,7 +94,8 @@ Content-Type: application/json
 
 {
     "pollName": "poll name",
-    "accountId": "account test id"
+    "accountId": "4eb6e7e7e9b7f4194e000003",
+    "pollQuestions": ["4eb6e7e7e9b7f4194e000004"]
 }
 
 ###
@@ -136,7 +137,7 @@ Content-Type: application/json
     "pollQuestion": "test question?",
     "pollQuestionType": "Multi Choice",
     "choices": ["q1","q2","q3"],
-    "pollId": "poll id"
+    "pollId": "62750ff36cf117f40010803b"
 }
 
 ###

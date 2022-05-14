@@ -8,6 +8,7 @@ const constants = require("../common/constants");
 const create = async (req, res) => {
     const pollName = req.body.pollName;
     const accountId = req.body.accountId;
+    const pollQuestions = req.body.pollQuestions;
     const gender = req.body.gender;
     const age = req.body.age;
     const educationLevel = req.body.educationLevel;
@@ -16,7 +17,7 @@ const create = async (req, res) => {
     const permanentJob = req.body.permanentJob;
     const income = req.body.income;
     try {
-        newPoll = await Poll.create({ pollName: pollName, accountId: accountId, gender: gender, maritalStatus: maritalStatus, numberOfChildrens: numberOfChildrens, permanentJob: permanentJob, income: income, age: age, educationLevel: educationLevel });
+        const newPoll = await Poll.create({ pollName: pollName, accountId: accountId,pollQuestions: pollQuestions, gender: gender, maritalStatus: maritalStatus, numberOfChildrens: numberOfChildrens, permanentJob: permanentJob, income: income, age: age, educationLevel: educationLevel });
         return res.status(200).send({ _id: newPoll._id });
 
     } catch (err) {

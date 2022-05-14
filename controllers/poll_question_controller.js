@@ -1,4 +1,5 @@
 const PollQuestion = require('../models/poll_question_model');
+const Poll = require('../models/poll_model');
 const helpers = require("../common/helpers");
 const constants = require("../common/constants");
 
@@ -9,7 +10,10 @@ const create = async (req, res) => {
     const choices = req.body.choices;
     const pollId = req.body.pollId;
     try {
+        const poll = await Poll.findOne({ _id: pollId });
+        if(!poll) return helpers.sendError(res, 400, 'Poll not found')
         newPollQuestion = await PollQuestion.create({pollQuestion: pollQuestion,pollQuestionType: pollQuestionType, choices: choices, pollId: pollId, pollQuestionImage: pollQuestionImage});
+        await Poll.findOneAndUpdate({ _id: pollId }, { '$push': { pollQuestions: newPollQuestion._id }});
         return res.status(200).send({_id: newPollQuestion._id});
 
     } catch (err) {
