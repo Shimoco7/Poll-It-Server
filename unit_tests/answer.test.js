@@ -55,7 +55,8 @@ afterAll(done=>{
             _id: constants.TEST_ID,
             answer: constants.TEST_ANSWER,
             accountId: accountId,
-            pollId: constants.TEST_ID2
+            pollId: constants.TEST_POLL_ID,
+            pollQuestionId: constants.TEST_POLL_QUESTION_ID
 
 
         });
@@ -83,7 +84,7 @@ afterAll(done=>{
 
     test('Test getAnswersByPollId',async ()=>{
         console.log("\x1b[34m", "Starting Test: getAnswersByPollId...");
-        const response = await request(app).get('/answer/getAnswersByPollId/'+constants.TEST_ID2).set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken);
+        const response = await request(app).get('/answer/getAnswersByPollId/'+constants.TEST_POLL_ID).set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken);
         expect(response.statusCode).toEqual(200);
         expect(response.body.length).toBeGreaterThanOrEqual(1);
         console.log("\x1b[34m", "Finishing Test: getAnswersByPollId...");
@@ -92,7 +93,7 @@ afterAll(done=>{
     
     test('Test getAnswersByPollQuestionId',async ()=>{
         console.log("\x1b[34m", "Starting Test: getAnswersByPollQuestionId...");
-        const response = await request(app).get('/answer/getAnswersByPollQuestionId/'+constants.TEST_ID2).set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken);
+        const response = await request(app).get('/answer/getAnswersByPollQuestionId/'+constants.TEST_POLL_QUESTION_ID).set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken);
         expect(response.statusCode).toEqual(200);
         console.log("\x1b[34m", "Finishing Test: getAnswersByPollQuestionId...");
     });

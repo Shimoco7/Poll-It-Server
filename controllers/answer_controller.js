@@ -1,4 +1,7 @@
 const Answer = require('../models/answer_model');
+const Account = require('../models/account_model');
+const Poll = require('../models/poll_model');
+const PollQuestion = require('../models/poll_question_model');
 const helpers = require("../common/helpers");
 const constants = require("../common/constants");
 const { ObjectId } = require('mongodb');
@@ -10,6 +13,12 @@ const create = async (req, res) => {
     const pollQuestionId = req.body.pollQuestionId;
     const accountId = req.body.accountId;
     try {
+        const account = await Account.findOne({ _id: accountId });
+        if(!account) return helpers.sendError(res, 400, constants.ACCOUNT+' not found')
+        const poll = await Poll.findOne({ _id: pollId });
+        if(!poll) return helpers.sendError(res, 400, constants.POLL+' not found')
+        const pollQuestion = await PollQuestion.findOne({ _id: pollQuestionId });
+        if(!pollQuestion) return helpers.sendError(res, 400, constants.POLL_QUESTION+' not found')
         const newAnswer = await Answer.findOneAndUpdate({ _id: new ObjectId(answerId)},{ answer: answer, pollId: pollId, pollQuestionId: pollQuestionId, accountId: accountId }, { upsert: true, runValidators: true  });
         return res.status(200).send();
 

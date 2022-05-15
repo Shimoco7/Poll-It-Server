@@ -1,4 +1,6 @@
 const Detail = require('../models/detail_model');
+const DetailQuestion = require('../models/detail_question_model');
+const Account = require('../models/account_model');
 const helpers = require("../common/helpers");
 const constants = require("../common/constants");
 const { ObjectId } = require('mongodb');
@@ -10,6 +12,10 @@ const create = async (req, res) => {
     const questionId = req.body.questionId;
     const accountId = req.body.accountId;
     try {
+        const account = await Account.findOne({ _id: accountId });
+        if(!account) return helpers.sendError(res, 400, constants.ACCOUNT+' not found')
+        const detailQuestion = await DetailQuestion.findOne({ _id: questionId });
+        if(!detailQuestion) return helpers.sendError(res, 400, constants.DETAIL_QUESTION+' not found')
         const newDetail = await Detail.findOneAndUpdate({ _id: new ObjectId(detailId)},{answer: answer, question: question, questionId:questionId, accountId: accountId}, { upsert: true, runValidators: true  });
         return res.status(200).send();
 

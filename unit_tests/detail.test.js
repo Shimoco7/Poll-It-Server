@@ -50,8 +50,8 @@ describe('Testing Detail API',()=>{
         const response = await request(app).post('/detail/create').set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken).send({
             _id: constants.TEST_ID,
             answer: constants.TEST_ANSWER,
-            question: constants.TEST_QUESTION,
-            questionId: constants.TEST_ID2,
+            question: constants.TEST_DETAIL_QUESTION,
+            questionId: constants.TEST_DETAIL_QUESTION_ID,
             accountId: accountId
         });
         expect(response.statusCode).toEqual(200);

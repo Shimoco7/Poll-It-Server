@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const { response } = require('../server');
 const Account = require('../models/account_model');
 const PollQuestion = require('../models/poll_question_model');
+const Poll = require('../models/poll_model');
 const constants = require("../common/constants");
 
 beforeAll(done=>{
@@ -17,7 +18,9 @@ beforeAll(done=>{
     PollQuestion.deleteOne({pollQuestion: constants.TEST_QUESTION}, (err)=>{
         done();
     });
-
+    Poll.deleteOne({pollName : constants.TEST_POLL_NAME}, (err)=>{
+        done();
+    });
 });
 
 afterAll(done=>{
@@ -28,16 +31,18 @@ afterAll(done=>{
         done();
     });
     PollQuestion.deleteOne({pollQuestion: constants.TEST_QUESTION}, (err)=>{
+        done();
+    });
+    Poll.deleteOne({pollName : constants.TEST_POLL_NAME}, (err)=>{
         mongoose.connection.close();
         done();
-
     });
-
 
 });
     describe('Testing PollQuestion API',()=>{
     var accessToken;
     var accountId;
+    var pollId;
     test('Test createPollQuestion',async ()=>{
         console.log("\x1b[34m", "Starting Test: createPollQuestion...");
         await request(app).post('/auth/register').send({
@@ -49,12 +54,17 @@ afterAll(done=>{
             email: constants.TEST_EMAIL,
             password: constants.TEST_PASSWORD
         });
-
+        accountId = loginResult.body.account._id
         accessToken = loginResult.body.accessToken;
+        const poll = await request(app).post('/poll/create').set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken).send({
+            pollName: constants.TEST_POLL_NAME,
+            accountId: accountId
+        });
+        pollId = poll.body._id;
         const response = await request(app).post('/poll_question/create').set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken).send({
             pollQuestion: constants.TEST_QUESTION,
             pollQuestionType: constants.TEST_POLL_QUESTION_TYPE,
-            pollId: constants.TEST_ID
+            pollId: pollId
 
 
         });
@@ -73,7 +83,7 @@ afterAll(done=>{
         });
         accessToken = loginResult.body.accessToken;
         console.log("\x1b[34m", "Starting Test: getPollQuestionsByPollId...");
-        const response = await request(app).get('/poll_question/getPollQuestionsByPollId/'+constants.TEST_ID).set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken);
+        const response = await request(app).get('/poll_question/getPollQuestionsByPollId/'+pollId).set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken);
         expect(response.statusCode).toEqual(200);
         expect(response.body.length).toBeGreaterThanOrEqual(1);
         console.log("\x1b[34m", "Finishing Test: getPollQuestionsByPollId...");
