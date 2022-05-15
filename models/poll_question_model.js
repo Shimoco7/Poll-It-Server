@@ -10,32 +10,37 @@ const constants = require('../common/constants');
  *      type: object
  *      required:
  *        - pollQuestion
- *        - pollQuestionType
  *        - pollId
+ *        - pollQuestionType
  *      properties:
  *        pollQuestion:
  *          type: string
- *        pollQuestionImage:
+ *        pollId:
  *          type: string
  *        pollQuestionType:
  *          type: enum
  *          enum: [Multi Choice, Image Answers, Image Question, Scroll Down]
  *          default: Multi Choice
+ *        pollQuestionImage:
+ *          type: string
  *        choices:
  *          type: array
  *          items:
  *             type: string
- *        pollId:
- *          type: string
+ *        answers:
+ *          type: array
+ *          items:
+ *             type: string
+ *          example: ["4eb6e7e7e9b7f4194e000003"]
  *        createdAt:
  *          type: integer
  *        updatedAt:
  *          type: integer
  *      example:
  *        pollQuestion: test poll question
+ *        pollId: 625ae81de847b7c2701e0a38
  *        pollQuestionType: Multi Choice
  *        choices: [t1, t2, t3]
- *        pollId: 625ae81de847b7c2701e0a38
  */
 
 const pollQuestionSchema = new mongoose.Schema({
@@ -43,9 +48,11 @@ const pollQuestionSchema = new mongoose.Schema({
     pollQuestion: {
         type: String,
         required: [true, "Please enter a poll question"]
-    },
-    pollQuestionImage: {
-        type: String
+    },    
+    pollId:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: constants.POLL,
+        required:  [true, "Please enter a poll id"]
     },
     pollQuestionType: {
         type: String,
@@ -53,15 +60,18 @@ const pollQuestionSchema = new mongoose.Schema({
         enum: {values:["Multi Choice", "Image Answers", "Image Question", "Scroll Down"], message: "Please enter a valid poll question type"},
         default: "Multi Choice"
     },
+    pollQuestionImage: {
+        type: String
+    },
     choices: {
         type: [String]
-    },
-    pollId:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: constants.POLL,
-        required:  [true, "Please enter a poll id"]
-    }
-
+    },    
+    answers:[
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: constants.ANSWER
+        }
+    ]
 });
 
 pollQuestionSchema.plugin(timestamps);

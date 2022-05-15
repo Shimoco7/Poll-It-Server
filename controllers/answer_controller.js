@@ -19,7 +19,8 @@ const create = async (req, res) => {
         if(!poll) return helpers.sendError(res, 400, constants.POLL+' not found')
         const pollQuestion = await PollQuestion.findOne({ _id: pollQuestionId });
         if(!pollQuestion) return helpers.sendError(res, 400, constants.POLL_QUESTION+' not found')
-        const newAnswer = await Answer.findOneAndUpdate({ _id: new ObjectId(answerId)},{ answer: answer, pollId: pollId, pollQuestionId: pollQuestionId, accountId: accountId }, { upsert: true, runValidators: true  });
+        const newAnswer = await Answer.findOneAndUpdate({ _id: new ObjectId(answerId)},{ answer: answer, pollId: pollId, pollQuestionId: pollQuestionId, accountId: accountId }, { upsert: true, runValidators: true, returnOriginal:false  });
+        await PollQuestion.findOneAndUpdate({ _id: pollQuestionId }, { '$push': { answers: newAnswer._id }});
         return res.status(200).send();
 
     } catch (err) {

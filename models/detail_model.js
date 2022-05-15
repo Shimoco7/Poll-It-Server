@@ -41,7 +41,7 @@ const detailSchema = new mongoose.Schema({
     },
     question: {
         type: String,
-        required: [true, "Please enter a question"]
+        required: [true, "Please enter a detail question"]
     },
     questionId: {
         type: mongoose.Schema.Types.ObjectId,
