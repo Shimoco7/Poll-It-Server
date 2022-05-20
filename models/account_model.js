@@ -17,7 +17,7 @@ const constants = require('../common/constants');
  *      properties:
  *        role:
  *          type: string
- *          enum: [User, Client]
+ *          enum: [User, Client, Admin]
  *          default: User
  *        email:
  *          type: string
@@ -48,7 +48,7 @@ const constants = require('../common/constants');
 const accountSchema = new mongoose.Schema({
     role: {
         type: String,
-        enum: [constants.USER, constants.CLIENT],
+        enum: [constants.USER, constants.CLIENT, constants.ADMIN],
         required: [true, 'Please choose a role'],
         default: constants.USER
     },

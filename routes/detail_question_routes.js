@@ -10,9 +10,9 @@ const constants = require('../common/constants');
 *   description: The DetailQuestion API
 */
 
-router.post('/create', authenticate(), DetailQuestion.create);
+router.post('/create', authenticate([constants.ADMIN]), DetailQuestion.create);
 
-router.get('/create', authenticate(), DetailQuestion.getCreate);
+router.get('/create', authenticate([constants.ADMIN]), DetailQuestion.getCreate);
 
 /**
 * @swagger

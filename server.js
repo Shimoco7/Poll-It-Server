@@ -11,6 +11,7 @@ const pollQuestionRouter = require('./routes/poll_question_routes');
 const detailRouter = require('./routes/detail_routes');
 const detailQuestionRouter = require('./routes/detail_question_routes');
 const answerRouter = require('./routes/answer_routes');
+const rewardRouter = require('./routes/reward_routes');
 const authenticate = require("./common/auth_middleware");
 const constants = require("./common/constants");
 
@@ -32,6 +33,7 @@ app.use('/poll_question', pollQuestionRouter);
 app.use('/detail', detailRouter);
 app.use('/detail_question', detailQuestionRouter);
 app.use('/answer', answerRouter);
+app.use('/reward', rewardRouter);
 
 if (process.env.NODE_ENV == "development") {
   const swaggerUI = require("swagger-ui-express")

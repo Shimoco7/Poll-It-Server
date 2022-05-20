@@ -2,6 +2,7 @@ module.exports = Object.freeze({
   //AUTH
   USER: 'User',
   CLIENT: 'Client',
+  ADMIN: 'Admin',
   BEARER: 'Bearer',
   AUTHORIZATION: 'Authorization',
 
@@ -56,6 +57,7 @@ module.exports = Object.freeze({
   DETAIL : 'Detail',
   DETAIL_QUESTION : 'DetailQuestion',
   POLL : 'Poll',
-  POLL_QUESTION : 'PollQuestion'
+  POLL_QUESTION : 'PollQuestion',
+  REWARD: 'Reward'
 
 });
