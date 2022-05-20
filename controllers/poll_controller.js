@@ -8,6 +8,7 @@ const constants = require("../common/constants");
 const create = async (req, res) => {
     const pollName = req.body.pollName;
     const accountId = req.body.accountId;
+    const image = req.body.image;
     const pollQuestions = req.body.pollQuestions;
     const gender = req.body.gender;
     const age = req.body.age;
@@ -19,7 +20,7 @@ const create = async (req, res) => {
     try {
         const account = await Account.findOne({ _id: accountId });
         if(!account) return helpers.sendError(res, 400, constants.ACCOUNT+' not found')
-        const newPoll = await Poll.create({ pollName: pollName, accountId: accountId,pollQuestions: pollQuestions, gender: gender, maritalStatus: maritalStatus, numberOfChildrens: numberOfChildrens, permanentJob: permanentJob, income: income, age: age, educationLevel: educationLevel });
+        const newPoll = await Poll.create({ pollName: pollName, accountId: accountId, image: image, pollQuestions: pollQuestions, gender: gender, maritalStatus: maritalStatus, numberOfChildrens: numberOfChildrens, permanentJob: permanentJob, income: income, age: age, educationLevel: educationLevel });
         return res.status(200).send({ _id: newPoll._id });
 
     } catch (err) {

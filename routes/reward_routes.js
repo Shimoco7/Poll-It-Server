@@ -95,6 +95,7 @@ router.get('/getAllRewards', authenticate([constants.USER, constants.ADMIN]), Re
 *              _id: 62601c1c79b1c850871b902f
 *              title: Coffee
 *              description: Starbucks hot coffee
+*              image: https://10.10.248.124:8000/storage/images/coffee.jpg
 *              price: 5
 *     responses:
 *       200:
@@ -111,5 +112,36 @@ router.get('/getAllRewards', authenticate([constants.USER, constants.ADMIN]), Re
 
 router.put('/update', authenticate([constants.ADMIN]), Reward.update);
 
+
+/**
+* @swagger
+* /reward/redeemReward:
+*  post:
+*     summary: Redeem a reward
+*     description: "Roles: [User]"
+*     tags: [Reward API]
+*     requestBody:
+*        content:
+*          application/json:
+*            schema:
+*              $ref: '#components/schemas/Reward'
+*            example:
+*              accountId: 62601c1c79b1c850871b902f
+*              rewardId: 62601c1c79b1c850871b902f
+*     responses:
+*       200:
+*         description: Reward has been redeemed
+*       400:
+*         description: Bad Request
+*       401:
+*         description: Unauthorized
+*       403:
+*         description:  Forbidden
+*       404:
+*         description:  Not Found
+*/
+
+
+router.post('/redeemReward', authenticate([constants.USER, constants.ADMIN]), Reward.redeemReward);
 
 module.exports = router

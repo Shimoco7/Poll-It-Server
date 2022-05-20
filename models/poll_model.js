@@ -16,6 +16,9 @@ const constants = require('../common/constants');
  *          type: string
  *        accountId:
  *          type: string
+ *        image:
+ *          type: string
+ *          example: https://10.10.248.124:8000/storage/images/coffee.jpg 
  *        pollQuestions:
  *          type: array
  *          items:
@@ -74,6 +77,10 @@ const pollSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: constants.ACCOUNT,
         required:  [true, "Please enter an account id"]
+    },
+    image: {
+        type: String,
+        default: "https://10.10.248.124:8000/storage/images/coffee.jpg"
     },
     pollQuestions:[
         {

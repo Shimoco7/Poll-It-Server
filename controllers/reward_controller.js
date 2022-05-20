@@ -7,8 +7,10 @@ const create = async (req, res) => {
     const title = req.body.title;
     const description = req.body.description;
     const price = req.body.price;
+    const image = req.body.image;
+
     try {
-        const newReward = await Reward.create({ title: title, description: description, price: price});
+        const newReward = await Reward.create({ title: title, description: description, price: price, image:image});
         return res.status(200).send({ _id: newReward._id });
 
     } catch (err) {
@@ -44,9 +46,34 @@ const update = async (req, res) => {
     }
 
 }
+
+const redeemReward = async (req, res) => {
+    const accountId = req.body.accountId;
+    const rewardId = req.body.rewardId;
+    if (accountId == null || rewardId == null) return helpers.sendError(res, 401, 'No accountId or rewardId')
+    try {
+        const account = await Account.findOne({ _id: accountId });
+        if(!account) return helpers.sendError(res, 400, constants.ACCOUNT+' not found')
+        const reward = await Reward.findOne({ _id: rewardId });
+        if(!reward) return helpers.sendError(res, 400, constants.REWARD+' not found')
+        if(account.coins< reward.price) return helpers.sendError(res, 400, constants.ACCOUNT+' coins: '+account.coins+', '+constants.REWARD+" price: "+reward.price)
+        else{
+            account.coins = account.coins - reward.price;
+            await account.save();
+            return res.status(200).send({account});
+        }
+
+    } catch (err) {
+        const erros = helpers.handleErrors(constants.REWARD, err);
+        return res.status(400).json({ erros });
+    }
+}
+
+
 module.exports = {
     create,
     getCreate,
     getAllRewards,
-    update
+    update,
+    redeemReward
 }

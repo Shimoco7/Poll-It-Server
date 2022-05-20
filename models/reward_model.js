@@ -19,6 +19,8 @@ const constants = require('../common/constants');
  *          type: string
  *        price:
  *          type: integer
+ *        image:
+ *          type: string
  *        createdAt:
  *          type: integer
  *        updatedAt:
@@ -26,6 +28,7 @@ const constants = require('../common/constants');
  *      example:
  *        title: test title
  *        description: test description
+ *        image: https://10.10.248.124:8000/storage/images/coffee.jpg
  *        price: 5 
  */
 
@@ -43,7 +46,10 @@ const rewardSchema = new mongoose.Schema({
     price: {
         type: Number,
         required: [true, "Please enter an amount of coins"]
-    }
+    },
+    image: {
+        type: String
+    },
 
 });
 
