@@ -87,6 +87,7 @@ const accountSchema = new mongoose.Schema({
     },
     coins: {
         type: Number,
+        min: 0,
         default: 0
     }
 });
