@@ -52,9 +52,9 @@ const constants = require('../common/constants');
 *         description:  Not Found
 */
 
-router.post('/create', authenticate([constants.CLIENT]), Poll.create);
+router.post('/create', authenticate([constants.CLIENT, constants.ADMIN]), Poll.create);
 
-router.get('/create', authenticate([constants.CLIENT]), Poll.getCreate);
+router.get('/create', authenticate([constants.CLIENT, constants.ADMIN]), Poll.getCreate);
 
 /**
 * @swagger
@@ -77,7 +77,7 @@ router.get('/create', authenticate([constants.CLIENT]), Poll.getCreate);
 */
 
 
-router.get('/getAllPolls', authenticate([constants.USER]), Poll.getAllPolls);
+router.get('/getAllPolls', authenticate([constants.USER, constants.ADMIN]), Poll.getAllPolls);
 
 /**
 * @swagger
@@ -107,7 +107,7 @@ router.get('/getAllPolls', authenticate([constants.USER]), Poll.getAllPolls);
 */
 
 
-router.get('/getPollsByClientId/:accountId', authenticate([constants.CLIENT]), Poll.getPollsByClientId);
+router.get('/getPollsByClientId/:accountId', authenticate([constants.CLIENT, constants.ADMIN]), Poll.getPollsByClientId);
 
 
 /**
@@ -138,7 +138,7 @@ router.get('/getPollsByClientId/:accountId', authenticate([constants.CLIENT]), P
 */
 
 
-router.get('/getPollsByUserId/:accountId', authenticate([constants.USER]), Poll.getPollsByUserId);
+router.get('/getPollsByUserId/:accountId', authenticate([constants.USER, constants.ADMIN]), Poll.getPollsByUserId);
 
 /**
 * @swagger
@@ -168,7 +168,7 @@ router.get('/getPollsByUserId/:accountId', authenticate([constants.USER]), Poll.
 *         description:  Not Found
 */
 
-router.put('/update', authenticate([constants.CLIENT]), Poll.update);
+router.put('/update', authenticate([constants.CLIENT, constants.ADMIN]), Poll.update);
 
 
 module.exports = router

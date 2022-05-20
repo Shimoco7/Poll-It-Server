@@ -37,7 +37,7 @@ const constants = require('../common/constants');
 *         description:  Not Found
 */
 
-router.post('/create', authenticate([constants.USER]), Detail.create);
+router.post('/create', authenticate([constants.USER, constants.ADMIN]), Detail.create);
 
 /**
 * @swagger
@@ -66,6 +66,6 @@ router.post('/create', authenticate([constants.USER]), Detail.create);
 *         description:  Not Found
 */
 
-router.get('/getDetailsByAccountId/:accountId', authenticate([constants.USER, constants.CLIENT]), Detail.getDetailsByAccountId);
+router.get('/getDetailsByAccountId/:accountId', authenticate([constants.USER, constants.CLIENT, constants.ADMIN]), Detail.getDetailsByAccountId);
 
 module.exports = router

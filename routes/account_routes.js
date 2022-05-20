@@ -144,8 +144,8 @@ router.get('/login', Account.getLogin);
 *         description:  Not Found
 */
 
-router.post('/logout', authenticate([constants.USER, constants.CLIENT]), Account.logout);
-router.get('/logout', authenticate([constants.USER, constants.CLIENT]), Account.getLogout);
+router.post('/logout', authenticate([constants.USER, constants.CLIENT, constants.ADMIN]), Account.logout);
+router.get('/logout', authenticate([constants.USER, constants.CLIENT, constants.ADMIN]), Account.getLogout);
 
 /**
 * @swagger
@@ -208,7 +208,7 @@ router.post('/refreshToken', Account.refreshToken);
 *         description:  Not Found
 */
 
-router.put('/update', authenticate([constants.USER, constants.CLIENT]), Account.update);
+router.put('/update', authenticate([constants.USER, constants.CLIENT, constants.ADMIN]), Account.update);
 
 
 /**
@@ -240,7 +240,7 @@ router.put('/update', authenticate([constants.USER, constants.CLIENT]), Account.
 *         description:  Not Found
 */
 
-router.put('/updatePassword', authenticate([constants.USER, constants.CLIENT]), Account.updatePassword);
+router.put('/updatePassword', authenticate([constants.USER, constants.CLIENT, constants.ADMIN]), Account.updatePassword);
 
 /**
 * @swagger
@@ -269,7 +269,7 @@ router.put('/updatePassword', authenticate([constants.USER, constants.CLIENT]), 
 *         description:  Not Found
 */
 
-router.get('/getAccountById/:_id', authenticate([constants.USER, constants.CLIENT]), Account.getAccountById);
+router.get('/getAccountById/:_id', authenticate([constants.USER, constants.CLIENT, constants.ADMIN]), Account.getAccountById);
 
 /**
 * @swagger

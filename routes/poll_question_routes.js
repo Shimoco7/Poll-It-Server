@@ -52,9 +52,9 @@ const constants = require('../common/constants');
 *         description:  Not Found
 */
 
-router.post('/create', authenticate([constants.CLIENT]), PollQuestion.create);
+router.post('/create', authenticate([constants.CLIENT, constants.ADMIN]), PollQuestion.create);
 
-router.get('/create', authenticate([constants.CLIENT]), PollQuestion.getCreate);
+router.get('/create', authenticate([constants.CLIENT, constants.ADMIN]), PollQuestion.getCreate);
 
 /**
 * @swagger
@@ -83,6 +83,6 @@ router.get('/create', authenticate([constants.CLIENT]), PollQuestion.getCreate);
 *         description:  Not Found
 */
 
-router.get('/getPollQuestionsByPollId/:pollId', authenticate([constants.CLIENT, constants.USER]), PollQuestion.getPollQuestionsByPollId);
+router.get('/getPollQuestionsByPollId/:pollId', authenticate([constants.CLIENT, constants.USER, constants.ADMIN]), PollQuestion.getPollQuestionsByPollId);
 
 module.exports = router

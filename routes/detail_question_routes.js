@@ -34,6 +34,6 @@ router.get('/create', authenticate([constants.ADMIN]), DetailQuestion.getCreate)
 *         description:  Not Found
 */
 
-router.get('/getAllDetailQuestions', authenticate([constants.USER]), DetailQuestion.getAllDetailQuestions);
+router.get('/getAllDetailQuestions', authenticate([constants.USER, constants.ADMIN]), DetailQuestion.getAllDetailQuestions);
 
 module.exports = router

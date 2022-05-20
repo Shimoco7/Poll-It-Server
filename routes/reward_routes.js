@@ -77,7 +77,7 @@ router.get('/create', authenticate([constants.ADMIN]), Reward.getCreate);
 */
 
 
-router.get('/getAllRewards', authenticate([constants.USER]), Reward.getAllRewards);
+router.get('/getAllRewards', authenticate([constants.USER, constants.ADMIN]), Reward.getAllRewards);
 
 /**
 * @swagger

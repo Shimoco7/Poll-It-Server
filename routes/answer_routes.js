@@ -53,8 +53,8 @@ const constants = require('../common/constants');
 */
 
 
-router.post('/create', authenticate([constants.USER]), Answer.create);
-router.get('/create', authenticate([constants.USER]), Answer.getCreate);
+router.post('/create', authenticate([constants.USER, constants.ADMIN]), Answer.create);
+router.get('/create', authenticate([constants.USER, constants.ADMIN]), Answer.getCreate);
 
 /**
 * @swagger
@@ -83,7 +83,7 @@ router.get('/create', authenticate([constants.USER]), Answer.getCreate);
 *         description:  Not Found
 */
 
-router.get('/getAnswerById/:_id', authenticate([constants.CLIENT]), Answer.getAnswerById);
+router.get('/getAnswerById/:_id', authenticate([constants.CLIENT, constants.ADMIN]), Answer.getAnswerById);
 
 /**
 * @swagger
@@ -112,7 +112,7 @@ router.get('/getAnswerById/:_id', authenticate([constants.CLIENT]), Answer.getAn
 *         description:  Not Found
 */
 
-router.get('/getAnswersByPollId/:pollId', authenticate([constants.CLIENT]), Answer.getAnswersByPollId);
+router.get('/getAnswersByPollId/:pollId', authenticate([constants.CLIENT, constants.ADMIN]), Answer.getAnswersByPollId);
 
 /**
 * @swagger
@@ -141,6 +141,6 @@ router.get('/getAnswersByPollId/:pollId', authenticate([constants.CLIENT]), Answ
 *         description:  Not Found
 */
 
-router.get('/getAnswersByPollQuestionId/:pollQuestionId', authenticate([constants.CLIENT]), Answer.getAnswersByPollQuestionId);
+router.get('/getAnswersByPollQuestionId/:pollQuestionId', authenticate([constants.CLIENT, constants.ADMIN]), Answer.getAnswersByPollQuestionId);
 
 module.exports = router
