@@ -35,7 +35,9 @@ const constants = require('../common/constants');
  *        profilePicUrl:
  *          type: string   
  *        facebookId:
- *          type: string 
+ *          type: string
+ *        coins:
+ *          type: integer 
  *        createdAt:
  *          type: integer
  *        updatedAt:
@@ -82,6 +84,10 @@ const accountSchema = new mongoose.Schema({
     },
     facebookId: {
         type: String
+    },
+    coins: {
+        type: Number,
+        default: 0
     }
 });
 accountSchema.plugin(timestamps);

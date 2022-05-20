@@ -194,6 +194,7 @@ router.post('/refreshToken', Account.refreshToken);
 *              address: Tel Aviv
 *              gender: Male
 *              profilePicUrl: https://cdn4.iconfinder.com/data/icons/people-avatars-12/24/people_avatar_head_iron_man_marvel_hero-512.png
+*              coins: 3
 *     responses:
 *       200:
 *         description: Account has been updated
