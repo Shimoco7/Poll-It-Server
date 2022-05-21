@@ -61,13 +61,19 @@ const redeemReward = async (req, res) => {
         if(!reward) return helpers.sendError(res, 400, constants.REWARD+' not found')
         if(account.coins< reward.price) return helpers.sendError(res, 400, constants.ACCOUNT+' coins: '+account.coins+', '+constants.REWARD+" price: "+reward.price)
         else{
-            account.coins = account.coins - reward.price;
+            var objIndex = account.rewards.findIndex((obj => obj._id == rewardId));
+            var curDate = Math.floor(Date.now()/1000);
             if(!account.rewards){
-                account.rewards = [ObjectId(rewardId)]
+                account.rewards = [{_id: rewardId, ammount: 1, purchaseDate: curDate}]
             }
-            else if (!account.rewards.includes(rewardId)){
-                account.rewards.push(ObjectId(rewardId))
+            else if (objIndex === -1){
+                account.rewards.push({_id: rewardId, ammount: 1, purchaseDate: curDate})
             }
+            else{
+                account.rewards[objIndex].ammount = account.rewards[objIndex].ammount +1;
+                account.rewards[objIndex].purchaseDate = curDate;
+            }
+            account.coins = account.coins - reward.price;
             await account.save();
             return res.status(200).send({account});
         }

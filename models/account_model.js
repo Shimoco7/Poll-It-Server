@@ -41,8 +41,8 @@ const constants = require('../common/constants');
  *        rewards:
  *          type: array
  *          items:
- *             type: string
- *          example: ["4eb6e7e7e9b7f4194e000003"]
+ *             type: object
+ *          example: [{_id: "4eb6e7e7e9b7f4194e000003", ammount: 2, purchaseDate: 1653123955}]
  *        rank:
  *          type: double
  *        createdAt:
@@ -104,8 +104,9 @@ const accountSchema = new mongoose.Schema({
         default: 3
     },
     rewards: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: constants.REWARD
+        _id: mongoose.Schema.Types.ObjectId,
+        ammount: Number,
+        purchaseDate: Number
     }]
 });
 accountSchema.plugin(timestamps);
