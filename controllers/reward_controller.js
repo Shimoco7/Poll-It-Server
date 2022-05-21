@@ -9,9 +9,11 @@ const create = async (req, res) => {
     const description = req.body.description;
     const price = req.body.price;
     const image = req.body.image;
+    const supplier = req.body.supplier;
+    const supplierImage = req.body.supplierImage;
 
     try {
-        const newReward = await Reward.create({ title: title, description: description, price: price, image:image});
+        const newReward = await Reward.create({ title: title, description: description, price: price, image:image, supplier: supplier, supplierImage: supplierImage});
         return res.status(200).send({ _id: newReward._id });
 
     } catch (err) {

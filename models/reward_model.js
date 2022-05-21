@@ -21,6 +21,10 @@ const constants = require('../common/constants');
  *          type: integer
  *        image:
  *          type: string
+ *        supplier:
+ *          type: string
+ *        supplierImage:
+ *          type: string
  *        createdAt:
  *          type: integer
  *        updatedAt:
@@ -29,7 +33,9 @@ const constants = require('../common/constants');
  *        title: test title
  *        description: test description
  *        image: https://10.10.248.124:8000/storage/images/coffee.jpg
- *        price: 5 
+ *        price: 5
+ *        supplier: test supplier
+ *        supplierImage:  https://10.10.248.124:8000/storage/images/starbucks.png
  */
 
 const rewardSchema = new mongoose.Schema({
@@ -51,7 +57,12 @@ const rewardSchema = new mongoose.Schema({
     image: {
         type: String
     },
-
+    supplier: {
+        type: String
+    },
+    supplierImage: {
+        type: String
+    }
 });
 
 rewardSchema.plugin(timestamps);
