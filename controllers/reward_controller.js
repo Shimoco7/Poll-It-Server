@@ -2,7 +2,6 @@ const Account = require('../models/account_model');
 const Reward = require('../models/reward_model');
 const helpers = require("../common/helpers");
 const constants = require('../common/constants');
-const { ObjectId } = require('mongodb');
 
 const create = async (req, res) => {
     const title = req.body.title;
