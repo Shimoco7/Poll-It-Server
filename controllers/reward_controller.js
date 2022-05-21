@@ -2,6 +2,7 @@ const Account = require('../models/account_model');
 const Reward = require('../models/reward_model');
 const helpers = require("../common/helpers");
 const constants = require('../common/constants');
+const { ObjectId } = require('mongodb');
 
 const create = async (req, res) => {
     const title = req.body.title;
@@ -59,6 +60,12 @@ const redeemReward = async (req, res) => {
         if(account.coins< reward.price) return helpers.sendError(res, 400, constants.ACCOUNT+' coins: '+account.coins+', '+constants.REWARD+" price: "+reward.price)
         else{
             account.coins = account.coins - reward.price;
+            if(!account.rewards){
+                account.rewards = [ObjectId(rewardId)]
+            }
+            else if (!account.rewards.includes(rewardId)){
+                account.rewards.push(ObjectId(rewardId))
+            }
             await account.save();
             return res.status(200).send({account});
         }

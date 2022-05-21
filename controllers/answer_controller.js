@@ -20,7 +20,9 @@ const create = async (req, res) => {
         const pollQuestion = await PollQuestion.findOne({ _id: pollQuestionId });
         if(!pollQuestion) return helpers.sendError(res, 400, constants.POLL_QUESTION+' not found')
         const newAnswer = await Answer.findOneAndUpdate({ _id: new ObjectId(answerId)},{ answer: answer, pollId: pollId, pollQuestionId: pollQuestionId, accountId: accountId }, { upsert: true, runValidators: true, returnOriginal:false  });
+        if(!pollQuestion.answers.includes(newAnswer._id)){
         await PollQuestion.findOneAndUpdate({ _id: pollQuestionId }, { '$push': { answers: newAnswer._id }});
+        }
         return res.status(200).send();
 
     } catch (err) {
