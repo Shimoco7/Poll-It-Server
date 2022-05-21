@@ -20,6 +20,9 @@ module.exports = Object.freeze({
   TEST_FACEBOOKID: "123123123",
   TEST_DETAIL_QUESTION: "Gender",
   TEST_DETAIL_QUESTION_ID: "62694e77617a7539e71ef072",
+  TEST_REWARD_TITLE: "title",
+  TEST_REWARD_DESCRIPTION: "description",
+  TEST_REWARD_PRICE: 0,
 
   //STORAGE
   STORAGE_PATH: 'storage/images/',
