@@ -33,6 +33,16 @@ const create = async (req, res) => {
         if (!account.polls.includes(pollId)) {
             await Account.findOneAndUpdate({ _id: accountId }, { '$push': { polls: pollId } });
         }
+        if (accountsFilledPoll.length == poll.maxUsers){
+            poll.disabled = true;
+            await poll.save();
+        }
+        const answers = await Answer.find({ accountId: accountId, pollQuestionId: pollQuestionId});
+        const accountsFilledPoll2 = await Account.find({ role: constants.USER, polls: pollId });
+        if(accountsFilledPoll2.length >= poll.maxUsers && answers.length >= poll.pollQuestions.length){
+            poll.disabled = true;
+            await poll.save();
+        }
         return res.status(200).send({ _id: newAnswer._id });
 
     } catch (err) {
