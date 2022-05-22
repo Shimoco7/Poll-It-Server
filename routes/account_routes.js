@@ -318,37 +318,37 @@ router.post('/facebook', Account.facebook);
 *          name: age
 *          schema:
 *            type: Array
-*          description: "Example: ['11-20', '21-30', '31-40', '41-50','51-60', '61-70', '71-80', '81-90', 'More than 90']"
+*          example: '["11-20", "21-30", "31-40", "41-50","51-60", "61-70", "71-80", "81-90", "More than 90"]'
 *        - in: query
 *          name: gender
 *          schema:
 *            type: Array
-*          description: "Example: ['Male', 'Female', 'Don't Wish To Specify']"
+*          example: '["Male", "Female"]'
 *        - in: query
 *          name: educationLevel
 *          schema:
 *            type: Array
-*          description: "Example: ['Preschool', 'Elementary', 'Middle School', 'High School', 'During Bachelor's', 'Bachelor's or Higher']"
+*          example: '["Preschool", "Elementary", "Middle School", "High School"]'
 *        - in: query
 *          name: maritalStatus
 *          schema:
 *            type: Array
-*          description: "Example: ['Single', 'Married', 'Widowed', 'Divorced', 'Separated']"
+*          example: '["Single", "Married", "Widowed", "Divorced", "Separated"]'
 *        - in: query
 *          name: numberOfChildrens
 *          schema:
 *            type: Array
-*          description: "Example: ['0', '1', '2', '3', '4', '5', 'More than 5']"
+*          example: '["0", "1", "2", "3", "4", "5", "More than 5"]'
 *        - in: query
 *          name: permanentJob
 *          schema:
 *            type: Array
-*          description: "Example: ['Yes', 'No']"
+*          example: '["Yes", "No"]'
 *        - in: query
 *          name: income
 *          schema:
 *            type: Array
-*          description: "Example: ['0-5,000', '5,001-10,000', '10,001-20,000','20,001-30,000', 'More than 30,000']"
+*          example: '["0-5,000", "5,001-10,000", "10,001-20,000", "20,001-30,000", "More than 30,000"]'
 *     responses:
 *       200:
 *         description: The sample group count
