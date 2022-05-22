@@ -219,8 +219,8 @@ const getAccountById = async (req, res) => {
 }
 
 const getSampleGroupCountByDetails = async (req, res) => {
-    const gender = req.query.gender;
     const age = req.query.age;
+    const gender = req.query.gender;
     const educationLevel = req.query.educationLevel;
     const maritalStatus = req.query.maritalStatus;
     const numberOfChildrens = req.query.numberOfChildrens;
@@ -236,13 +236,38 @@ const getSampleGroupCountByDetails = async (req, res) => {
         var count = 0;
 
         const filteredDetailsGroups = detailsByAccountIdGroups.filter(x => x.details.length == 7);
-        count = filteredDetailsGroups.length;
         for (const detailsGroup of filteredDetailsGroups) {
             for (const detail of detailsGroup.details) {
-                console.log(constants.DETAIL_QUESTION_MAP[detail.question]);
-                console.log(detail.answer);
-                console.log(typeof age);
+                var question = constants.DETAIL_QUESTION_MAP[detail.question]
+                var inSampleGroup = true;
+                switch (question) {
+                    case constants.AGE:
+                        if (age && !JSON.parse(age).includes(detail.answer)) inSampleGroup = false;
+                        break;
+                    case constants.GENDER:
+                        if (gender && !JSON.parse(gender).includes(detail.answer)) inSampleGroup = false;
+                        break;
+                    case constants.EDUCATION_LEVEL:
+                        if (educationLevel && !JSON.parse(educationLevel).includes(detail.answer)) inSampleGroup = false;
+                        break;
+                    case constants.MARITAL_STATUS:
+                        if (maritalStatus && !JSON.parse(maritalStatus).includes(detail.answer)) inSampleGroup = false;
+                        break;
+                    case constants.NUMBER_OF_CHILDRENS:
+                        if (numberOfChildrens && !JSON.parse(numberOfChildrens).includes(detail.answer)) inSampleGroup = false;
+                        break;
+                    case constants.PERMANENT_JOB:
+                        if (permanentJob && !JSON.parse(permanentJob).includes(detail.answer)) inSampleGroup = false;
+                        break;
+                    case constants.INCOME:
+                        if (income && !JSON.parse(income).includes(detail.answer)) inSampleGroup = false;
+                        break;
+                    default:
+                        break;
+                }
+                if(!inSampleGroup) break;
             }
+            if(inSampleGroup) count++;
         }
         return res.status(200).send({ count });
 
