@@ -306,4 +306,56 @@ router.get('/getAccountById/:_id', authenticate([constants.USER, constants.CLIEN
 
 router.post('/facebook', Account.facebook);
 
+/**
+* @swagger
+* /auth/getSampleGroupCountByDetails:
+*   get:
+*     summary: Get sample group count by details
+*     description: "Roles: [Client]"
+*     tags: [Account API]
+*     parameters:
+*        - in: query
+*          name: age
+*          schema:
+*            type: Array
+*        - in: query
+*          name: gender
+*          schema:
+*            type: Array
+*        - in: query
+*          name: educationLevel
+*          schema:
+*            type: Array
+*        - in: query
+*          name: maritalStatus
+*          schema:
+*            type: Array
+*        - in: query
+*          name: numberOfChildrens
+*          schema:
+*            type: Array
+*        - in: query
+*          name: permanentJob
+*          schema:
+*            type: Array
+*        - in: query
+*          name: income
+*          schema:
+*            type: Array
+*     responses:
+*       200:
+*         description: The sample group count
+*       400:
+*         description: Bad Request
+*       401:
+*         description: Unauthorized
+*       403:
+*         description:  Forbidden
+*       404:
+*         description:  Not Found
+*/
+
+router.get('/getSampleGroupCountByDetails', authenticate([constants.CLIENT, constants.ADMIN]), Account.getSampleGroupCountByDetails);
+
+
 module.exports = router

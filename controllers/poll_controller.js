@@ -12,8 +12,8 @@ const create = async (req, res) => {
     const coins = req.body.coins;
     const maxUsers = req.body.maxUsers;
     const pollQuestions = req.body.pollQuestions;
-    const gender = req.body.gender;
     const age = req.body.age;
+    const gender = req.body.gender;
     const educationLevel = req.body.educationLevel;
     const maritalStatus = req.body.maritalStatus;
     const numberOfChildrens = req.body.numberOfChildrens;
@@ -22,7 +22,7 @@ const create = async (req, res) => {
     try {
         const account = await Account.findOne({ _id: accountId });
         if (!account) return helpers.sendError(res, 400, constants.ACCOUNT + ' not found')
-        const newPoll = await Poll.create({ pollName: pollName, accountId: accountId, image: image, coins: coins, maxUsers: maxUsers, pollQuestions: pollQuestions, gender: gender, maritalStatus: maritalStatus, numberOfChildrens: numberOfChildrens, permanentJob: permanentJob, income: income, age: age, educationLevel: educationLevel });
+        const newPoll = await Poll.create({ pollName: pollName, accountId: accountId, image: image, coins: coins, maxUsers: maxUsers, pollQuestions: pollQuestions, age: age, gender: gender, educationLevel: educationLevel, maritalStatus: maritalStatus, numberOfChildrens: numberOfChildrens, permanentJob: permanentJob, income: income });
         if (!account.polls.includes(newPoll._id) && account.role == constants.CLIENT) {
             await Account.findOneAndUpdate({ _id: accountId }, { '$push': { polls: newPoll._id } });
         }

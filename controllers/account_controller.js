@@ -217,6 +217,23 @@ const getAccountById = async (req, res) => {
     }
 }
 
+const getSampleGroupCountByDetails = async (req, res) => {
+    const gender = req.query.gender;
+    const age = req.query.age;
+    const educationLevel = req.query.educationLevel;
+    const maritalStatus = req.query.maritalStatus;
+    const numberOfChildrens = req.query.numberOfChildrens;
+    const permanentJob = req.query.permanentJob;
+    const income = req.query.income;
+    try {
+        return res.status(200).send();
+
+    } catch (err) {
+        const erros = helpers.handleErrors(constants.ACCOUNT, err);
+        return res.status(400).json({ erros });
+    }
+}
+
 module.exports = {
     login,
     register,
@@ -228,5 +245,6 @@ module.exports = {
     getLogin,
     getLogout,
     getAccountById,
-    facebook
+    facebook,
+    getSampleGroupCountByDetails
 }
