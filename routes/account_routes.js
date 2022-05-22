@@ -310,7 +310,7 @@ router.post('/facebook', Account.facebook);
 * @swagger
 * /auth/accountsCountBySampleGroup:
 *   get:
-*     summary: Get sample group count by details
+*     summary: Get accounts count by sample group
 *     description: "Roles: [Client]"
 *     tags: [Account API]
 *     parameters:
@@ -351,7 +351,7 @@ router.post('/facebook', Account.facebook);
 *          example: '["0-5,000", "5,001-10,000", "10,001-20,000", "20,001-30,000", "More than 30,000"]'
 *     responses:
 *       200:
-*         description: The sample group count
+*         description: The accounts count
 *       400:
 *         description: Bad Request
 *       401:
