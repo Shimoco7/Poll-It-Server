@@ -38,6 +38,11 @@ const constants = require('../common/constants');
  *          type: string
  *        coins:
  *          type: integer
+ *        polls:
+ *          type: array
+ *          items:
+ *             type: string
+ *          example: ["4eb6e7e7e9b7f4194e000003"]
  *        rewards:
  *          type: array
  *          items:
@@ -103,6 +108,10 @@ const accountSchema = new mongoose.Schema({
         max: 10,
         default: 3
     },
+    polls: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: constants.POLL
+    }],
     rewards: [{
         _id: mongoose.Schema.Types.ObjectId,
         ammount: Number,

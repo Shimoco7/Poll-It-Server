@@ -23,6 +23,9 @@ const create = async (req, res) => {
         if(!pollQuestion.answers.includes(newAnswer._id)){
         await PollQuestion.findOneAndUpdate({ _id: pollQuestionId }, { '$push': { answers: newAnswer._id }});
         }
+        if(!account.polls.includes(pollId) && account.role == constants.USER){
+            await Account.findOneAndUpdate({ _id: accountId }, { '$push': { polls: pollId }});
+        }
         return res.status(200).send();
 
     } catch (err) {
