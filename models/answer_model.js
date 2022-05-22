@@ -42,7 +42,7 @@ const answerSchema = new mongoose.Schema({
     pollId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: constants.POLL,
-        required:  [true, "Please enter a poll id"]
+        required: [true, "Please enter a poll id"]
     },
     pollQuestionId: {
         type: mongoose.Schema.Types.ObjectId,
@@ -52,7 +52,7 @@ const answerSchema = new mongoose.Schema({
     accountId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: constants.ACCOUNT,
-        required:  [true, "Please enter an account id"]
+        required: [true, "Please enter an account id"]
     },
 
 });

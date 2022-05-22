@@ -8,55 +8,63 @@ const Poll = require('../models/poll_model');
 const PollQuestion = require('../models/poll_question_model');
 const constants = require("../common/constants");
 
-beforeAll(done=>{
+beforeAll(done => {
     console.log("\x1b[35m", "*******************Answer API Tests*******************");
-    Account.deleteMany({email : {$in: [
-        constants.TEST_EMAIL,
-        constants.TEST_EMAIL2
-      ]}}, (err)=>{
+    Account.deleteMany({
+        email: {
+            $in: [
+                constants.TEST_EMAIL,
+                constants.TEST_EMAIL2
+            ]
+        }
+    }, (err) => {
         done();
     });
-    Answer.deleteOne({_id: constants.TEST_ID}, (err)=>{
+    Answer.deleteOne({ _id: constants.TEST_ID }, (err) => {
         done();
     });
-    Poll.deleteOne({pollName : constants.TEST_POLL_NAME}, (err)=>{
+    Poll.deleteOne({ pollName: constants.TEST_POLL_NAME }, (err) => {
         done();
     });
-    PollQuestion.deleteOne({pollQuestion: constants.TEST_QUESTION}, (err)=>{
+    PollQuestion.deleteOne({ pollQuestion: constants.TEST_QUESTION }, (err) => {
         done();
     });
 
 });
 
-afterAll(done=>{
-    Account.deleteMany({email : {$in: [
-        constants.TEST_EMAIL,
-        constants.TEST_EMAIL2
-      ]}}, (err)=>{
+afterAll(done => {
+    Account.deleteMany({
+        email: {
+            $in: [
+                constants.TEST_EMAIL,
+                constants.TEST_EMAIL2
+            ]
+        }
+    }, (err) => {
         done();
     });
-    Answer.deleteOne({answer : constants.TEST_ANSWER}, (err)=>{
+    Answer.deleteOne({ answer: constants.TEST_ANSWER }, (err) => {
         done();
 
     });
-    Poll.deleteOne({pollName : constants.TEST_POLL_NAME}, (err)=>{
+    Poll.deleteOne({ pollName: constants.TEST_POLL_NAME }, (err) => {
         done();
     });
-    PollQuestion.deleteOne({pollQuestion: constants.TEST_QUESTION}, (err)=>{
+    PollQuestion.deleteOne({ pollQuestion: constants.TEST_QUESTION }, (err) => {
         mongoose.connection.close();
         done();
     });
 
 
 });
-    describe('Testing Answer API',()=>{
+describe('Testing Answer API', () => {
     var userAccessToken;
     var clientAccessToken;
     var userId;
     var clientId
     var pollId;
     var pollQuestionId;
-    test('Test createAnswer',async ()=>{
+    test('Test createAnswer', async () => {
         console.log("\x1b[34m", "Starting Test: createAnswer...");
 
 
@@ -109,26 +117,26 @@ afterAll(done=>{
         console.log("\x1b[34m", "Finishing Test: createAnswer...");
     })
 
-    test('Test getAnswerById',async ()=>{
+    test('Test getAnswerById', async () => {
         console.log("\x1b[34m", "Starting Test: getAnswerById...");
-        const response = await request(app).get('/answer/getAnswerById/'+constants.TEST_ID).set(constants.AUTHORIZATION, constants.BEARER + " " + clientAccessToken);
+        const response = await request(app).get('/answer/getAnswerById/' + constants.TEST_ID).set(constants.AUTHORIZATION, constants.BEARER + " " + clientAccessToken);
         expect(response.statusCode).toEqual(200);
         expect(response.body.answer).toEqual(constants.TEST_ANSWER);
         console.log("\x1b[34m", "Finishing Test: getAnswerById...");
     });
 
-    test('Test getAnswersByPollId',async ()=>{
+    test('Test getAnswersByPollId', async () => {
         console.log("\x1b[34m", "Starting Test: getAnswersByPollId...");
-        const response = await request(app).get('/answer/getAnswersByPollId/'+pollId).set(constants.AUTHORIZATION, constants.BEARER + " " + clientAccessToken);
+        const response = await request(app).get('/answer/getAnswersByPollId/' + pollId).set(constants.AUTHORIZATION, constants.BEARER + " " + clientAccessToken);
         expect(response.statusCode).toEqual(200);
         expect(response.body.length).toBeGreaterThanOrEqual(1);
         console.log("\x1b[34m", "Finishing Test: getAnswersByPollId...");
     });
 
-    
-    test('Test getAnswersByPollQuestionId',async ()=>{
+
+    test('Test getAnswersByPollQuestionId', async () => {
         console.log("\x1b[34m", "Starting Test: getAnswersByPollQuestionId...");
-        const response = await request(app).get('/answer/getAnswersByPollQuestionId/'+pollQuestionId).set(constants.AUTHORIZATION, constants.BEARER + " " + clientAccessToken);
+        const response = await request(app).get('/answer/getAnswersByPollQuestionId/' + pollQuestionId).set(constants.AUTHORIZATION, constants.BEARER + " " + clientAccessToken);
         expect(response.statusCode).toEqual(200);
         console.log("\x1b[34m", "Finishing Test: getAnswersByPollQuestionId...");
     });

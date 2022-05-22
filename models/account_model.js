@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const {isEmail} = require("validator");
+const { isEmail } = require("validator");
 const bcryptjs = require('bcryptjs');
 var timestamps = require('mongoose-unix-timestamp-plugin');
 const constants = require('../common/constants');
@@ -78,7 +78,7 @@ const accountSchema = new mongoose.Schema({
     password: {
         type: String,
         required: [true, 'Please enter a password'],
-        match: [/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,100}$/,"Minimum 8 characters, at least one uppercase, at least one lower case, at least one digit, at least one special character"]  
+        match: [/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,100}$/, "Minimum 8 characters, at least one uppercase, at least one lower case, at least one digit, at least one special character"]
     },
     refreshToken: {
         type: String
@@ -91,7 +91,7 @@ const accountSchema = new mongoose.Schema({
     },
     gender: {
         type: String,
-        enum: {values:["Male", "Female", "Don't Wish To Specify"], message: "Please enter a valid gender"}
+        enum: { values: ["Male", "Female", "Don't Wish To Specify"], message: "Please enter a valid gender" }
     },
     profilePicUrl: {
         type: String
@@ -122,15 +122,15 @@ const accountSchema = new mongoose.Schema({
 });
 accountSchema.plugin(timestamps);
 
-accountSchema.pre('save', async function(next){
+accountSchema.pre('save', async function (next) {
     if (!this.isModified('password')) return next();
     const salt = await bcryptjs.genSalt();
     this.password = await bcryptjs.hash(this.password, salt);
     next();
 })
 
-accountSchema.statics.login = async function (email, password){
-    const account = await this.findOne({email});
+accountSchema.statics.login = async function (email, password) {
+    const account = await this.findOne({ email });
     if (account == null) throw Error("Incorrect Email");
 
     const match = await bcryptjs.compare(password, account.password)
@@ -140,8 +140,8 @@ accountSchema.statics.login = async function (email, password){
     return account;
 }
 
-accountSchema.statics.facebookLogin = async function (email){
-    const account = await this.findOne({email});
+accountSchema.statics.facebookLogin = async function (email) {
+    const account = await this.findOne({ email });
     if (account == null) throw Error("Incorrect Email");
     if (!account.facebookId) throw Error("There's no account associated with your Facebook account");
     return account;
@@ -150,7 +150,7 @@ accountSchema.statics.facebookLogin = async function (email){
 accountSchema.pre('findOneAndUpdate', async function (next) {
     try {
         if (this._update.password) {
-            if(!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,100}$/.test(this._update.password)) {
+            if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,100}$/.test(this._update.password)) {
                 throw Error("Minimum 8 characters, at least one uppercase, at least one lower case, at least one digit, at least one special character")
             }
             const salt = await bcryptjs.genSalt();

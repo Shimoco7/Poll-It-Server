@@ -13,10 +13,10 @@ const create = async (req, res) => {
     const accountId = req.body.accountId;
     try {
         const account = await Account.findOne({ _id: accountId });
-        if(!account) return helpers.sendError(res, 400, constants.ACCOUNT+' not found')
+        if (!account) return helpers.sendError(res, 400, constants.ACCOUNT + ' not found')
         const detailQuestion = await DetailQuestion.findOne({ _id: questionId });
-        if(!detailQuestion) return helpers.sendError(res, 400, constants.DETAIL_QUESTION+' not found')
-        const newDetail = await Detail.findOneAndUpdate({ _id: new ObjectId(detailId)},{answer: answer, question: question, questionId:questionId, accountId: accountId}, { upsert: true, runValidators: true  });
+        if (!detailQuestion) return helpers.sendError(res, 400, constants.DETAIL_QUESTION + ' not found')
+        const newDetail = await Detail.findOneAndUpdate({ _id: new ObjectId(detailId) }, { answer: answer, question: question, questionId: questionId, accountId: accountId }, { upsert: true, runValidators: true });
         return res.status(200).send();
 
     } catch (err) {
@@ -28,7 +28,7 @@ const create = async (req, res) => {
 const getDetailsByAccountId = async (req, res) => {
     const accountId = req.params.accountId;
     try {
-        const details = await Detail.find({accountId: accountId});
+        const details = await Detail.find({ accountId: accountId });
         return res.status(200).send(details);
 
     } catch (err) {

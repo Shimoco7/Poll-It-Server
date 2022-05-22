@@ -130,7 +130,7 @@ const updatePassword = async (req, res) => {
 
 
         if (newPassword) {
-            const updatedAccount = await Account.findOneAndUpdate({ _id: req.body._id }, {password: newPassword}, { runValidators: true });
+            const updatedAccount = await Account.findOneAndUpdate({ _id: req.body._id }, { password: newPassword }, { runValidators: true });
         }
         return res.status(200).send();
 
@@ -150,24 +150,24 @@ const facebook = async (req, res) => {
     const role = req.body.role;
     var profilePicUrl = req.body.profilePicUrl;
     try {
-        if(!facebookId || !email || facebookId == "" || email == "") return helpers.sendError(res, 400, "Missing email or facebookId")
+        if (!facebookId || !email || facebookId == "" || email == "") return helpers.sendError(res, 400, "Missing email or facebookId")
         const account = await Account.findOne({ email: email });
-        if(account && facebookId != account.facebookId){
+        if (account && facebookId != account.facebookId) {
             return helpers.sendError(res, 400, "There's already an account associated with your email")
         }
         const accountByFacebookId = await Account.findOne({ facebookId: facebookId });
-        if(accountByFacebookId && accountByFacebookId.email!=email){
+        if (accountByFacebookId && accountByFacebookId.email != email) {
             return helpers.sendError(res, 400, "There's already an account associated with your facebookId")
         }
-        if(profilePicUrl){
+        if (profilePicUrl) {
             var image = undefined;
             var ext = path.extname(profilePicUrl);
-            image = constants.STORAGE_PATH+facebookId+ext
-            helpers.download(profilePicUrl, image, function(){});
-            profilePicUrl = process.env.SERVER_URL+"/"+image;
+            image = constants.STORAGE_PATH + facebookId + ext
+            helpers.download(profilePicUrl, image, function () { });
+            profilePicUrl = process.env.SERVER_URL + "/" + image;
         }
-        if(!account){
-            await Account.create({ email: email, password: process.env.FB_PASSWORD , name: name, facebookId: facebookId, role: role, profilePicUrl: profilePicUrl});
+        if (!account) {
+            await Account.create({ email: email, password: process.env.FB_PASSWORD, name: name, facebookId: facebookId, role: role, profilePicUrl: profilePicUrl });
         }
 
         const loggedAccount = await Account.facebookLogin(email);

@@ -7,32 +7,32 @@ const Reward = require('../models/reward_model');
 
 const constants = require("../common/constants");
 
-beforeAll(done=>{
+beforeAll(done => {
     console.log("\x1b[35m", "*******************Reward API Tests*******************");
-    Account.deleteOne({email : constants.TEST_EMAIL}, (err)=>{
+    Account.deleteOne({ email: constants.TEST_EMAIL }, (err) => {
         done();
     });
-    Reward.deleteOne({title : constants.TEST_REWARD_TITLE}, (err)=>{
+    Reward.deleteOne({ title: constants.TEST_REWARD_TITLE }, (err) => {
         done();
     });
 });
 
-afterAll(done=>{
-    Account.deleteOne({email: constants.TEST_EMAIL}, (err)=>{
+afterAll(done => {
+    Account.deleteOne({ email: constants.TEST_EMAIL }, (err) => {
         done();
     });
-    Reward.deleteOne({title : constants.TEST_REWARD_TITLE}, (err)=>{
+    Reward.deleteOne({ title: constants.TEST_REWARD_TITLE }, (err) => {
         mongoose.connection.close();
         done();
     });
 });
 
-describe('Testing Reward API',()=>{
+describe('Testing Reward API', () => {
     var accessToken;
     var accountId;
     var rewardId;
 
-    test('Test createReward',async ()=>{
+    test('Test createReward', async () => {
         console.log("\x1b[34m", "Starting Test: createReward...");
         await request(app).post('/auth/register').send({
             email: constants.TEST_EMAIL,
@@ -55,7 +55,7 @@ describe('Testing Reward API',()=>{
         console.log("\x1b[34m", "Finishing Test: createReward...");
     })
 
-    test('Test rewardUpdate',async ()=>{
+    test('Test rewardUpdate', async () => {
         console.log("\x1b[34m", "Starting Test: rewardUpdate...");
         const response = await request(app).put('/reward/update').set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken).send({
             _id: rewardId,
@@ -65,14 +65,14 @@ describe('Testing Reward API',()=>{
         console.log("\x1b[34m", "Finishing Test: rewardUpdate...");
     });
 
-    test('Test getAllRewards',async ()=>{
+    test('Test getAllRewards', async () => {
         console.log("\x1b[34m", "Starting Test: getAllRewards...");
         const response = await request(app).get('/reward/getAllRewards').set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken);
         expect(response.statusCode).toEqual(200);
         expect(response.body.length).toBeGreaterThanOrEqual(1);
         console.log("\x1b[34m", "Finishing Test: getAllRewards...");
     });
-    test('Test redeemReward',async ()=>{
+    test('Test redeemReward', async () => {
         const response = await request(app).post('/reward/redeemReward').set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken).send({
             accountId: accountId,
             rewardId: rewardId

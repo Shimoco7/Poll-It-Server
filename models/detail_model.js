@@ -51,7 +51,7 @@ const detailSchema = new mongoose.Schema({
     accountId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: constants.ACCOUNT,
-        required:  [true, "Please enter an account id"]
+        required: [true, "Please enter an account id"]
     }
 
 });

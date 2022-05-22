@@ -21,7 +21,7 @@ const create = async (req, res) => {
         const pollQuestion = await PollQuestion.findOne({ _id: pollQuestionId });
         if (!pollQuestion) return helpers.sendError(res, 400, constants.POLL_QUESTION + ' not found')
         const accountsFilledPoll = await Account.find({ role: constants.USER, polls: pollId });
-        if (!account.polls.includes(pollId) && accountsFilledPoll.length >= poll.maxUsers){
+        if (!account.polls.includes(pollId) && accountsFilledPoll.length >= poll.maxUsers) {
             poll.disabled = true;
             await poll.save();
             return helpers.sendError(res, 400, constants.POLL + ' is no longer available due to max size of users');
@@ -33,13 +33,13 @@ const create = async (req, res) => {
         if (!account.polls.includes(pollId)) {
             await Account.findOneAndUpdate({ _id: accountId }, { '$push': { polls: pollId } });
         }
-        if (accountsFilledPoll.length == poll.maxUsers){
+        if (accountsFilledPoll.length == poll.maxUsers) {
             poll.disabled = true;
             await poll.save();
         }
-        const answers = await Answer.find({ accountId: accountId, pollQuestionId: pollQuestionId});
+        const answers = await Answer.find({ accountId: accountId, pollQuestionId: pollQuestionId });
         const accountsFilledPoll2 = await Account.find({ role: constants.USER, polls: pollId });
-        if(accountsFilledPoll2.length >= poll.maxUsers && answers.length >= poll.pollQuestions.length){
+        if (accountsFilledPoll2.length >= poll.maxUsers && answers.length >= poll.pollQuestions.length) {
             poll.disabled = true;
             await poll.save();
         }

@@ -11,12 +11,12 @@ const create = async (req, res) => {
     const pollId = req.body.pollId;
     try {
         const poll = await Poll.findOne({ _id: pollId });
-        if(!poll) return helpers.sendError(res, 400, 'Poll not found')
-        newPollQuestion = await PollQuestion.create({pollQuestion: pollQuestion,pollQuestionType: pollQuestionType, choices: choices, pollId: pollId, pollQuestionImage: pollQuestionImage});
-        if(!poll.pollQuestions.includes(newPollQuestion._id)){
-        await Poll.findOneAndUpdate({ _id: pollId }, { '$push': { pollQuestions: newPollQuestion._id }});
+        if (!poll) return helpers.sendError(res, 400, 'Poll not found')
+        newPollQuestion = await PollQuestion.create({ pollQuestion: pollQuestion, pollQuestionType: pollQuestionType, choices: choices, pollId: pollId, pollQuestionImage: pollQuestionImage });
+        if (!poll.pollQuestions.includes(newPollQuestion._id)) {
+            await Poll.findOneAndUpdate({ _id: pollId }, { '$push': { pollQuestions: newPollQuestion._id } });
         }
-        return res.status(200).send({_id: newPollQuestion._id});
+        return res.status(200).send({ _id: newPollQuestion._id });
 
     } catch (err) {
         const erros = helpers.handleErrors(constants.POLL_QUESTION, err);
@@ -31,7 +31,7 @@ const getCreate = async (req, res) => {
 const getPollQuestionsByPollId = async (req, res) => {
     const pollId = req.params.pollId;
     try {
-        const pollQuestions = await PollQuestion.find({pollId: pollId});
+        const pollQuestions = await PollQuestion.find({ pollId: pollId });
         return res.status(200).send(pollQuestions);
 
     } catch (err) {

@@ -48,16 +48,16 @@ const pollQuestionSchema = new mongoose.Schema({
     pollQuestion: {
         type: String,
         required: [true, "Please enter a poll question"]
-    },    
-    pollId:{
+    },
+    pollId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: constants.POLL,
-        required:  [true, "Please enter a poll id"]
+        required: [true, "Please enter a poll id"]
     },
     pollQuestionType: {
         type: String,
         required: [true, "Please enter a poll question type"],
-        enum: {values:["Multi Choice", "Image Answers", "Image Question", "Scroll Down"], message: "Please enter a valid poll question type"},
+        enum: { values: ["Multi Choice", "Image Answers", "Image Question", "Scroll Down"], message: "Please enter a valid poll question type" },
         default: "Multi Choice"
     },
     pollQuestionImage: {
@@ -65,11 +65,11 @@ const pollQuestionSchema = new mongoose.Schema({
     },
     choices: {
         type: [String]
-    },    
-    answers:[
+    },
+    answers: [
         {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: constants.ANSWER
+            type: mongoose.Schema.Types.ObjectId,
+            ref: constants.ANSWER
         }
     ]
 });

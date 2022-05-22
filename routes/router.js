@@ -31,7 +31,7 @@ const constants = require('../common/constants');
 *         description:  Not Found
 */
 
-router.get('/',(req,res)=>{
+router.get('/', (req, res) => {
     return res.send("HELLO!");
 });
 
@@ -66,9 +66,9 @@ router.get('/',(req,res)=>{
 *         description:  Not Found
 */
 
-router.post('/upload',authenticate([constants.USER,constants.CLIENT, constants.ADMIN]),upload.single('file'),(req,res)=>{                                                                     
+router.post('/upload', authenticate([constants.USER, constants.CLIENT, constants.ADMIN]), upload.single('file'), (req, res) => {
     return res.status(200).send({
-        url: process.env.SERVER_URL +"/"+req.file.path.replace(/\\/g, "/")
+        url: process.env.SERVER_URL + "/" + req.file.path.replace(/\\/g, "/")
     });
 })
 
@@ -105,7 +105,7 @@ router.post('/upload',authenticate([constants.USER,constants.CLIENT, constants.A
 *         description:  Not Found
 */
 
-router.get('/download/:image',authenticate([constants.CLIENT, constants.ADMIN]),(req,res)=>{
-    return res.download(constants.STORAGE_PATH+req.params.image);
-});                                                               
+router.get('/download/:image', authenticate([constants.CLIENT, constants.ADMIN]), (req, res) => {
+    return res.download(constants.STORAGE_PATH + req.params.image);
+});
 module.exports = router;                                              

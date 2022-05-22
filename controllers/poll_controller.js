@@ -21,10 +21,10 @@ const create = async (req, res) => {
     const income = req.body.income;
     try {
         const account = await Account.findOne({ _id: accountId });
-        if(!account) return helpers.sendError(res, 400, constants.ACCOUNT+' not found')
-        const newPoll = await Poll.create({ pollName: pollName, accountId: accountId, image: image, coins: coins, maxUsers: maxUsers,pollQuestions: pollQuestions, gender: gender, maritalStatus: maritalStatus, numberOfChildrens: numberOfChildrens, permanentJob: permanentJob, income: income, age: age, educationLevel: educationLevel });
-        if(!account.polls.includes(newPoll._id) && account.role == constants.CLIENT){
-            await Account.findOneAndUpdate({ _id: accountId }, { '$push': { polls: newPoll._id }});
+        if (!account) return helpers.sendError(res, 400, constants.ACCOUNT + ' not found')
+        const newPoll = await Poll.create({ pollName: pollName, accountId: accountId, image: image, coins: coins, maxUsers: maxUsers, pollQuestions: pollQuestions, gender: gender, maritalStatus: maritalStatus, numberOfChildrens: numberOfChildrens, permanentJob: permanentJob, income: income, age: age, educationLevel: educationLevel });
+        if (!account.polls.includes(newPoll._id) && account.role == constants.CLIENT) {
+            await Account.findOneAndUpdate({ _id: accountId }, { '$push': { polls: newPoll._id } });
         }
         return res.status(200).send({ _id: newPoll._id });
 
@@ -68,7 +68,7 @@ const getPollsByUserId = async (req, res) => {
         var matchedPolls = [];
         var detailsMap = {};
         const account = await Account.findOne({ _id: accountId, role: constants.USER });
-        if (!account) return helpers.sendError(res, 400, constants.ACCOUNT+' not found')
+        if (!account) return helpers.sendError(res, 400, constants.ACCOUNT + ' not found')
         const details = await Detail.find({ accountId: account._id });
         for (const detail of details) {
             detailsMap[constants.DETAIL_QUESTION_MAP[detail.question]] = detail.answer;

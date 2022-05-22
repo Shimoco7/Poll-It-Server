@@ -5,21 +5,29 @@ const { response } = require('../server');
 const Account = require('../models/account_model');
 const constants = require("../common/constants");
 
-beforeAll(done=>{
+beforeAll(done => {
     console.log("\x1b[35m", "*******************Account API Tests*******************");
-    Account.deleteMany({email : {$in: [
-        constants.TEST_EMAIL,
-        constants.TEST_EMAIL2
-      ]}}, (err)=>{
+    Account.deleteMany({
+        email: {
+            $in: [
+                constants.TEST_EMAIL,
+                constants.TEST_EMAIL2
+            ]
+        }
+    }, (err) => {
         done();
     });
 });
 
-afterAll(done=>{
-    Account.deleteMany({email : {$in: [
-        constants.TEST_EMAIL,
-        constants.TEST_EMAIL2
-      ]}}, (err)=>{
+afterAll(done => {
+    Account.deleteMany({
+        email: {
+            $in: [
+                constants.TEST_EMAIL,
+                constants.TEST_EMAIL2
+            ]
+        }
+    }, (err) => {
         mongoose.connection.close();
         done();
     });
@@ -27,12 +35,12 @@ afterAll(done=>{
 
 
 
-describe('Testing Account API',()=>{
+describe('Testing Account API', () => {
     var accessToken;
     var refreshToken;
     var _id;
 
-    test('Test accountRegister',async ()=>{
+    test('Test accountRegister', async () => {
         console.log("\x1b[34m", "Starting Test: accountRegister...");
         const response = await request(app).post('/auth/register').send({
             email: constants.TEST_EMAIL,
@@ -42,7 +50,7 @@ describe('Testing Account API',()=>{
         console.log("\x1b[34m", "Finishing Test: accountRegister...");
     })
 
-    test('Test accountLogin',async ()=>{
+    test('Test accountLogin', async () => {
         console.log("\x1b[34m", "Starting Test: accountLogin...");
         const response = await request(app).post('/auth/login').send({
             email: constants.TEST_EMAIL,
@@ -56,7 +64,7 @@ describe('Testing Account API',()=>{
         console.log("\x1b[34m", "Finishing Test: accountLogin...");
     });
 
-    test('Test accountFacebook',async ()=>{
+    test('Test accountFacebook', async () => {
         console.log("\x1b[34m", "Starting Test: accountFacebook...");
         const response = await request(app).post('/auth/facebook').send({
             email: constants.TEST_EMAIL2,
@@ -67,7 +75,7 @@ describe('Testing Account API',()=>{
         console.log("\x1b[34m", "Finishing Test: accountFacebook...");
     });
 
-    test('Test accountUpdatePassword',async ()=>{
+    test('Test accountUpdatePassword', async () => {
         console.log("\x1b[34m", "Starting Test: accountUpdatePassword...");
         const response = await request(app).put('/auth/updatePassword').set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken).send({
             _id: _id,
@@ -77,7 +85,7 @@ describe('Testing Account API',()=>{
         console.log("\x1b[34m", "Finishing Test: accountUpdatePassword...");
     });
 
-    test('Test refreshToken',async ()=>{
+    test('Test refreshToken', async () => {
         console.log("\x1b[34m", "Starting Test: refreshToken...");
         const response = await request(app).post('/auth/refreshToken').set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken).send({
             refreshToken: refreshToken
@@ -88,7 +96,7 @@ describe('Testing Account API',()=>{
         console.log("\x1b[34m", "Finishing Test: refreshToken...");
     });
 
-    test('Test accountUpdate',async ()=>{
+    test('Test accountUpdate', async () => {
         console.log("\x1b[34m", "Starting Test: accountUpdate...");
         const response = await request(app).put('/auth/update').set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken).send({
             _id: _id,
@@ -99,7 +107,7 @@ describe('Testing Account API',()=>{
         console.log("\x1b[34m", "Finishing Test: accountUpdate...");
     });
 
-    test('Test accountLogout',async ()=>{
+    test('Test accountLogout', async () => {
         console.log("\x1b[34m", "Starting Test: accountLogout...");
         const response = await request(app).post('/auth/logout').set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken).send({
             refreshToken: refreshToken
@@ -108,12 +116,12 @@ describe('Testing Account API',()=>{
         console.log("\x1b[34m", "Finishing Test: accountLogout...");
     });
 
-    test('Test getAccountById',async ()=>{
+    test('Test getAccountById', async () => {
         console.log("\x1b[34m", "Starting Test: getAccountById...");
-        const response = await request(app).get('/auth/getAccountById/'+_id).set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken);
+        const response = await request(app).get('/auth/getAccountById/' + _id).set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken);
         expect(response.statusCode).toEqual(200);
         expect(response.body._id).toEqual(_id);
         console.log("\x1b[34m", "Finishing Test: getAccountById...");
     });
-   
+
 })

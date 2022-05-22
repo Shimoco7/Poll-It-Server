@@ -12,7 +12,7 @@ const create = async (req, res) => {
     const supplierImage = req.body.supplierImage;
 
     try {
-        const newReward = await Reward.create({ title: title, description: description, price: price, image:image, supplier: supplier, supplierImage: supplierImage});
+        const newReward = await Reward.create({ title: title, description: description, price: price, image: image, supplier: supplier, supplierImage: supplierImage });
         return res.status(200).send({ _id: newReward._id });
 
     } catch (err) {
@@ -55,26 +55,26 @@ const redeemReward = async (req, res) => {
     if (accountId == null || rewardId == null) return helpers.sendError(res, 401, 'No accountId or rewardId')
     try {
         const account = await Account.findOne({ _id: accountId });
-        if(!account) return helpers.sendError(res, 400, constants.ACCOUNT+' not found')
+        if (!account) return helpers.sendError(res, 400, constants.ACCOUNT + ' not found')
         const reward = await Reward.findOne({ _id: rewardId });
-        if(!reward) return helpers.sendError(res, 400, constants.REWARD+' not found')
-        if(account.coins< reward.price) return helpers.sendError(res, 400, constants.ACCOUNT+' coins: '+account.coins+', '+constants.REWARD+" price: "+reward.price)
-        else{
+        if (!reward) return helpers.sendError(res, 400, constants.REWARD + ' not found')
+        if (account.coins < reward.price) return helpers.sendError(res, 400, constants.ACCOUNT + ' coins: ' + account.coins + ', ' + constants.REWARD + " price: " + reward.price)
+        else {
             var objIndex = account.rewards.findIndex((obj => obj._id == rewardId));
-            var curDate = Math.floor(Date.now()/1000);
-            if(!account.rewards){
-                account.rewards = [{_id: rewardId, ammount: 1, purchaseDate: curDate}]
+            var curDate = Math.floor(Date.now() / 1000);
+            if (!account.rewards) {
+                account.rewards = [{ _id: rewardId, ammount: 1, purchaseDate: curDate }]
             }
-            else if (objIndex === -1){
-                account.rewards.push({_id: rewardId, ammount: 1, purchaseDate: curDate})
+            else if (objIndex === -1) {
+                account.rewards.push({ _id: rewardId, ammount: 1, purchaseDate: curDate })
             }
-            else{
-                account.rewards[objIndex].ammount = account.rewards[objIndex].ammount +1;
+            else {
+                account.rewards[objIndex].ammount = account.rewards[objIndex].ammount + 1;
                 account.rewards[objIndex].purchaseDate = curDate;
             }
             account.coins = account.coins - reward.price;
             await account.save();
-            return res.status(200).send({account});
+            return res.status(200).send({ account });
         }
 
     } catch (err) {

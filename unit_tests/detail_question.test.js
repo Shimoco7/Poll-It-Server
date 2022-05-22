@@ -5,23 +5,23 @@ const { response } = require('../server');
 const Account = require('../models/account_model');
 const constants = require("../common/constants");
 
-beforeAll(done=>{
+beforeAll(done => {
     console.log("\x1b[35m", "*******************DetailQuestion API Tests*******************");
-    Account.deleteOne({email : constants.TEST_EMAIL}, (err)=>{
+    Account.deleteOne({ email: constants.TEST_EMAIL }, (err) => {
         done();
     });
 });
 
-afterAll(done=>{
-    Account.deleteOne({email: constants.TEST_EMAIL}, (err)=>{
+afterAll(done => {
+    Account.deleteOne({ email: constants.TEST_EMAIL }, (err) => {
         mongoose.connection.close();
         done();
     });
 });
 
-describe('Testing DetailQuestion API',()=>{
+describe('Testing DetailQuestion API', () => {
     var accessToken;
-    test('Test getAllDetailQuestions',async ()=>{
+    test('Test getAllDetailQuestions', async () => {
         console.log("\x1b[34m", "Starting Test: getAllDetailQuestions...");
         await request(app).post('/auth/register').send({
             email: constants.TEST_EMAIL,

@@ -89,7 +89,7 @@ const pollSchema = new mongoose.Schema({
     accountId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: constants.ACCOUNT,
-        required:  [true, "Please enter an account id"]
+        required: [true, "Please enter an account id"]
     },
     image: {
         type: String,
@@ -109,16 +109,16 @@ const pollSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    pollQuestions:[
+    pollQuestions: [
         {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: constants.POLL_QUESTION
+            type: mongoose.Schema.Types.ObjectId,
+            ref: constants.POLL_QUESTION
         }
     ],
     age: {
         type: [String],
-        enum: ["11-20", "21-30", "31-40", "41-50","51-60", "61-70", "71-80", "81-90", "More than 90"],
-        default: ["11-20", "21-30", "31-40", "41-50","51-60", "61-70", "71-80", "81-90", "More than 90"]
+        enum: ["11-20", "21-30", "31-40", "41-50", "51-60", "61-70", "71-80", "81-90", "More than 90"],
+        default: ["11-20", "21-30", "31-40", "41-50", "51-60", "61-70", "71-80", "81-90", "More than 90"]
     },
     gender: {
         type: [String],
@@ -143,14 +143,14 @@ const pollSchema = new mongoose.Schema({
     permanentJob: {
         type: [String],
         enum: ["Yes", "No"],
-        default:  ["Yes", "No"]
+        default: ["Yes", "No"]
     },
     income: {
         type: [String],
         enum: ["0-5,000", "5,001-10,000", "10,001-20,000", "20,001-30,000", "More than 30,000"],
         default: ["0-5,000", "5,001-10,000", "10,001-20,000", "20,001-30,000", "More than 30,000"]
     }
-    
+
 });
 
 pollSchema.plugin(timestamps);

@@ -6,22 +6,22 @@ const Detail = require('../models/detail_model');
 const Account = require('../models/account_model');
 const constants = require("../common/constants");
 
-beforeAll(done=>{
+beforeAll(done => {
     console.log("\x1b[35m", "*******************Detail API Tests*******************");
-    Account.deleteOne({email : constants.TEST_EMAIL}, (err)=>{
+    Account.deleteOne({ email: constants.TEST_EMAIL }, (err) => {
         done();
     });
-    Detail.deleteOne({_id : constants.TEST_ID}, (err)=>{
+    Detail.deleteOne({ _id: constants.TEST_ID }, (err) => {
         done();
     });
 
 });
 
-afterAll(done=>{
-    Account.deleteOne({email: constants.TEST_EMAIL}, (err)=>{
+afterAll(done => {
+    Account.deleteOne({ email: constants.TEST_EMAIL }, (err) => {
         done();
     });
-    Detail.deleteOne({_id : constants.TEST_ID}, (err)=>{
+    Detail.deleteOne({ _id: constants.TEST_ID }, (err) => {
         mongoose.connection.close();
         done();
 
@@ -29,11 +29,11 @@ afterAll(done=>{
 
 });
 
-describe('Testing Detail API',()=>{
+describe('Testing Detail API', () => {
     var accessToken;
     var accountId;
 
-    test('Test createDetail',async ()=>{
+    test('Test createDetail', async () => {
         console.log("\x1b[34m", "Starting Test: createDetail...");
         await request(app).post('/auth/register').send({
             email: constants.TEST_EMAIL,
@@ -58,9 +58,9 @@ describe('Testing Detail API',()=>{
         console.log("\x1b[34m", "Finishing Test: createDetail...");
     })
 
-    test('Test getDetailsByAccountId',async ()=>{
+    test('Test getDetailsByAccountId', async () => {
         console.log("\x1b[34m", "Starting Test: getDetailsByAccountId...");
-        const response = await request(app).get('/detail/getDetailsByAccountId/'+accountId).set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken);
+        const response = await request(app).get('/detail/getDetailsByAccountId/' + accountId).set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken);
         expect(response.statusCode).toEqual(200);
         expect(response.body[0].answer).toEqual(constants.TEST_ANSWER);
         console.log("\x1b[34m", "Finishing Test: getDetailsByAccountId...");
