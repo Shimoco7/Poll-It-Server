@@ -218,7 +218,7 @@ const getAccountById = async (req, res) => {
     }
 }
 
-const getSampleGroupCountByDetails = async (req, res) => {
+const accountsCountBySampleGroup = async (req, res) => {
     const age = req.query.age;
     const gender = req.query.gender;
     const educationLevel = req.query.educationLevel;
@@ -269,7 +269,7 @@ const getSampleGroupCountByDetails = async (req, res) => {
             }
             if(inSampleGroup) count++;
         }
-        return res.status(200).send({ count });
+        return res.status(200).send({ accountsCount: count });
 
     } catch (err) {
         const erros = helpers.handleErrors(constants.ACCOUNT, err);
@@ -289,5 +289,5 @@ module.exports = {
     getLogout,
     getAccountById,
     facebook,
-    getSampleGroupCountByDetails
+    accountsCountBySampleGroup
 }

@@ -37,6 +37,7 @@ afterAll(done => {
 
 describe('Testing Account API', () => {
     var accessToken;
+    var clientAccessToken;
     var refreshToken;
     var _id;
 
@@ -68,10 +69,12 @@ describe('Testing Account API', () => {
         console.log("\x1b[34m", "Starting Test: accountFacebook...");
         const response = await request(app).post('/auth/facebook').send({
             email: constants.TEST_EMAIL2,
-            facebookId: constants.TEST_FACEBOOKID
+            facebookId: constants.TEST_FACEBOOKID,
+            role: constants.CLIENT
         });
         expect(response.statusCode).toEqual(200);
         expect(response.body.account.email).toEqual(constants.TEST_EMAIL2);
+        clientAccessToken = response.body.accessToken;
         console.log("\x1b[34m", "Finishing Test: accountFacebook...");
     });
 
@@ -122,6 +125,13 @@ describe('Testing Account API', () => {
         expect(response.statusCode).toEqual(200);
         expect(response.body._id).toEqual(_id);
         console.log("\x1b[34m", "Finishing Test: getAccountById...");
+    });
+
+    test('Test accountsCountBySampleGroup', async () => {
+        console.log("\x1b[34m", "Starting Test: accountsCountBySampleGroup...");
+        const response = await request(app).get('/auth/accountsCountBySampleGroup/?gender=["Male"]').set(constants.AUTHORIZATION, constants.BEARER + " " + clientAccessToken);
+        expect(response.statusCode).toEqual(200);
+        console.log("\x1b[34m", "Finishing Test: accountsCountBySampleGroup...");
     });
 
 })
