@@ -18,11 +18,15 @@ const constants = require('../common/constants');
  *          type: string
  *        image:
  *          type: string
- *          example: https://10.10.248.124:8000/storage/images/coffee.jpg
  *        coins:
  *          type: integer
+ *          default: 0
  *        maxUsers:
- *          type: integer   
+ *          type: integer
+ *          default: 100
+ *        disabled:
+ *          type: boolean
+ *          default: false
  *        pollQuestions:
  *          type: array
  *          items:
@@ -32,37 +36,37 @@ const constants = require('../common/constants');
  *          type: array
  *          items:
  *             type: string
- *          example: ["11-20", "21-30", "31-40", "41-50","51-60", "61-70", "71-80", "81-90", "More than 90"]
+ *          default: ["11-20", "21-30", "31-40", "41-50","51-60", "61-70", "71-80", "81-90", "More than 90"]
  *        gender:
  *          type: array
  *          items:
  *             type: string
- *          example: ["Male", "Female", "Don't Wish To Specify"]
+ *          default: ["Male", "Female", "Don't Wish To Specify"]
  *        educationLevel:
  *          type: array
  *          items:
  *             type: string
- *          example: ["Preschool", "Elementary", "Middle School", "High School", "During Bachelor's", "Bachelor's or Higher"]
+ *          default: ["Preschool", "Elementary", "Middle School", "High School", "During Bachelor's", "Bachelor's or Higher"]
  *        maritalStatus:
  *          type: array
  *          items:
  *             type: string
- *          example: ["Single", "Married", "Widowed", "Divorced", "Separated"]
+ *          default: ["Single", "Married", "Widowed", "Divorced", "Separated"]
  *        numberOfChildrens:
  *          type: array
  *          items:
  *             type: string
- *          example: ["0", "1", "2", "3", "4", "5", "More than 5"]
+ *          default: ["0", "1", "2", "3", "4", "5", "More than 5"]
  *        permanentJob:
  *          type: array
  *          items:
  *             type: string
- *          example: ["Yes", "No"]
+ *          default: ["Yes", "No"]
  *        income:
  *          type: array
  *          items:
  *             type: string
- *          example: ["0-5,000", "5,001-10,000", "10,001-20,000", "20,001-30,000", "More than 30,000"]
+ *          default: ["0-5,000", "5,001-10,000", "10,001-20,000", "20,001-30,000", "More than 30,000"]
  *        createdAt:
  *          type: integer
  *        updatedAt:
@@ -72,7 +76,8 @@ const constants = require('../common/constants');
  *        accountId: 625ae81de847b7c2701e0a38
  *        image: https://10.10.248.124:8000/storage/images/coffee.jpg
  *        coins: 10 
- *        maxUsers: 300  
+ *        maxUsers: 300
+ *        disabled: false  
  */
 
 const pollSchema = new mongoose.Schema({
@@ -99,6 +104,10 @@ const pollSchema = new mongoose.Schema({
         default: 100,
         min: 0,
         max: 500
+    },
+    disabled: {
+        type: Boolean,
+        default: false
     },
     pollQuestions:[
         {

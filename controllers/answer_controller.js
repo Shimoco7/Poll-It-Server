@@ -17,10 +17,15 @@ const create = async (req, res) => {
         if (!account) return helpers.sendError(res, 400, constants.ACCOUNT + ' not found')
         const poll = await Poll.findOne({ _id: pollId });
         if (!poll) return helpers.sendError(res, 400, constants.POLL + ' not found')
+        if (poll.disabled) return helpers.sendError(res, 400, constants.POLL + ' is disabled')
         const pollQuestion = await PollQuestion.findOne({ _id: pollQuestionId });
         if (!pollQuestion) return helpers.sendError(res, 400, constants.POLL_QUESTION + ' not found')
         const accountsFilledPoll = await Account.find({ role: constants.USER, polls: pollId });
-        if (!account.polls.includes(pollId) && accountsFilledPoll.length >= poll.maxUsers) return helpers.sendError(res, 400, 'Poll is no longer available due to max size of users')
+        if (!account.polls.includes(pollId) && accountsFilledPoll.length >= poll.maxUsers){
+            poll.disabled = true;
+            await poll.save();
+            return helpers.sendError(res, 400, constants.POLL + ' is no longer available due to max size of users');
+        }
         const newAnswer = await Answer.findOneAndUpdate({ _id: new ObjectId(answerId) }, { answer: answer, pollId: pollId, pollQuestionId: pollQuestionId, accountId: accountId }, { upsert: true, runValidators: true, returnOriginal: false });
         if (!pollQuestion.answers.includes(newAnswer._id)) {
             await PollQuestion.findOneAndUpdate({ _id: pollQuestionId }, { '$push': { answers: newAnswer._id } });

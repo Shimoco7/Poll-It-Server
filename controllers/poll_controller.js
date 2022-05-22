@@ -74,6 +74,7 @@ const getPollsByUserId = async (req, res) => {
             detailsMap[constants.DETAIL_QUESTION_MAP[detail.question]] = detail.answer;
         }
         const polls = await Poll.find({
+            disabled: false,
             age: { $in: [detailsMap[constants.AGE]] },
             educationLevel: { $in: [detailsMap[constants.EDUCATION_LEVEL]] },
             gender: { $in: [detailsMap[constants.GENDER]] },

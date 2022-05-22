@@ -7,13 +7,19 @@ const constants = require("../common/constants");
 
 beforeAll(done=>{
     console.log("\x1b[35m", "*******************Account API Tests*******************");
-    Account.deleteMany({$or: {email : constants.TEST_EMAIL,facebookId : constants.TEST_FACEBOOKID }}, (err)=>{
+    Account.deleteMany({email : {$in: [
+        constants.TEST_EMAIL,
+        constants.TEST_EMAIL2
+      ]}}, (err)=>{
         done();
     });
 });
 
 afterAll(done=>{
-    Account.deleteMany({$or: {email : constants.TEST_EMAIL, facebookId : constants.TEST_FACEBOOKID }}, (err)=>{
+    Account.deleteMany({email : {$in: [
+        constants.TEST_EMAIL,
+        constants.TEST_EMAIL2
+      ]}}, (err)=>{
         mongoose.connection.close();
         done();
     });

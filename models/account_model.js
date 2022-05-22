@@ -38,6 +38,10 @@ const constants = require('../common/constants');
  *          type: string
  *        coins:
  *          type: integer
+ *          default: 0
+ *        rank:
+ *          type: double
+ *          default: 3
  *        polls:
  *          type: array
  *          items:
@@ -48,8 +52,6 @@ const constants = require('../common/constants');
  *          items:
  *             type: object
  *          example: [{_id: "4eb6e7e7e9b7f4194e000003", ammount: 2, purchaseDate: 1653123955}]
- *        rank:
- *          type: double
  *        createdAt:
  *          type: integer
  *        updatedAt:
