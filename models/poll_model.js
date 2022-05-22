@@ -20,6 +20,8 @@ const constants = require('../common/constants');
  *          type: string
  *          example: https://10.10.248.124:8000/storage/images/coffee.jpg
  *        coins:
+ *          type: integer
+ *        maxUsers:
  *          type: integer   
  *        pollQuestions:
  *          type: array
@@ -69,7 +71,8 @@ const constants = require('../common/constants');
  *        pollName: test poll name
  *        accountId: 625ae81de847b7c2701e0a38
  *        image: https://10.10.248.124:8000/storage/images/coffee.jpg
- *        coins: 10   
+ *        coins: 10 
+ *        maxUsers: 300  
  */
 
 const pollSchema = new mongoose.Schema({
@@ -90,6 +93,12 @@ const pollSchema = new mongoose.Schema({
     coins: {
         type: Number,
         default: 0
+    },
+    maxUsers: {
+        type: Number,
+        default: 100,
+        min: 0,
+        max: 500
     },
     pollQuestions:[
         {

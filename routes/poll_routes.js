@@ -156,6 +156,7 @@ router.get('/getPollsByUserId/:accountId', authenticate([constants.USER, constan
 *              _id: 62601c1c79b1c850871b902f
 *              image:  https://10.10.248.124:8000/storage/images/coffee.jpg
 *              gender: ['Male']
+*              maxUsers: 200
 *     responses:
 *       200:
 *         description: Poll has been updated
