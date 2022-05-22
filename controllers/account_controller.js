@@ -14,7 +14,7 @@ const register = async (req, res) => {
     const gender = req.body.gender;
     try {
         const newAccount = await Account.create({ email: email, password: password, role: role, name: name, address: address, gender: gender });
-        return res.status(200).send();
+        return res.status(200).send({ _id: newAccount._id });
 
     } catch (err) {
         const erros = helpers.handleErrors(constants.ACCOUNT, err);

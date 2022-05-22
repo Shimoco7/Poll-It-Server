@@ -13,20 +13,22 @@ const create = async (req, res) => {
     const pollQuestionId = req.body.pollQuestionId;
     const accountId = req.body.accountId;
     try {
-        const account = await Account.findOne({ _id: accountId });
-        if(!account) return helpers.sendError(res, 400, constants.ACCOUNT+' not found')
+        const account = await Account.findOne({ _id: accountId, role: constants.USER });
+        if (!account) return helpers.sendError(res, 400, constants.ACCOUNT + ' not found')
         const poll = await Poll.findOne({ _id: pollId });
-        if(!poll) return helpers.sendError(res, 400, constants.POLL+' not found')
+        if (!poll) return helpers.sendError(res, 400, constants.POLL + ' not found')
         const pollQuestion = await PollQuestion.findOne({ _id: pollQuestionId });
-        if(!pollQuestion) return helpers.sendError(res, 400, constants.POLL_QUESTION+' not found')
-        const newAnswer = await Answer.findOneAndUpdate({ _id: new ObjectId(answerId)},{ answer: answer, pollId: pollId, pollQuestionId: pollQuestionId, accountId: accountId }, { upsert: true, runValidators: true, returnOriginal:false  });
-        if(!pollQuestion.answers.includes(newAnswer._id)){
-        await PollQuestion.findOneAndUpdate({ _id: pollQuestionId }, { '$push': { answers: newAnswer._id }});
+        if (!pollQuestion) return helpers.sendError(res, 400, constants.POLL_QUESTION + ' not found')
+        const accountsFilledPoll = await Account.find({ role: constants.USER, polls: pollId });
+        if (!account.polls.includes(pollId) && accountsFilledPoll.length >= poll.maxUsers) return helpers.sendError(res, 400, 'Poll is no longer available due to max size of users')
+        const newAnswer = await Answer.findOneAndUpdate({ _id: new ObjectId(answerId) }, { answer: answer, pollId: pollId, pollQuestionId: pollQuestionId, accountId: accountId }, { upsert: true, runValidators: true, returnOriginal: false });
+        if (!pollQuestion.answers.includes(newAnswer._id)) {
+            await PollQuestion.findOneAndUpdate({ _id: pollQuestionId }, { '$push': { answers: newAnswer._id } });
         }
-        if(!account.polls.includes(pollId) && account.role == constants.USER){
-            await Account.findOneAndUpdate({ _id: accountId }, { '$push': { polls: pollId }});
+        if (!account.polls.includes(pollId)) {
+            await Account.findOneAndUpdate({ _id: accountId }, { '$push': { polls: pollId } });
         }
-        return res.status(200).send();
+        return res.status(200).send({ _id: newAnswer._id });
 
     } catch (err) {
         const erros = helpers.handleErrors(constants.ANSWER, err);
@@ -41,7 +43,7 @@ const getCreate = async (req, res) => {
 const getAnswerById = async (req, res) => {
     const answerId = req.params._id;
     try {
-        const answer = await Answer.findOne({_id: answerId});
+        const answer = await Answer.findOne({ _id: answerId });
         return res.status(200).send(answer);
 
     } catch (err) {
@@ -53,7 +55,7 @@ const getAnswerById = async (req, res) => {
 const getAnswersByPollId = async (req, res) => {
     const pollId = req.params.pollId;
     try {
-        const answers = await Answer.find({pollId: pollId});
+        const answers = await Answer.find({ pollId: pollId });
         return res.status(200).send(answers);
 
     } catch (err) {
@@ -66,7 +68,7 @@ const getAnswersByPollId = async (req, res) => {
 const getAnswersByPollQuestionId = async (req, res) => {
     const pollQuestionId = req.params.pollQuestionId;
     try {
-        const answers = await Answer.find({pollQuestionId: pollQuestionId});
+        const answers = await Answer.find({ pollQuestionId: pollQuestionId });
         return res.status(200).send(answers);
 
     } catch (err) {
