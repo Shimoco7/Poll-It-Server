@@ -1,4 +1,5 @@
 const Account = require('../models/account_model');
+const Detail = require('../models/detail_model');
 const jwt = require('jsonwebtoken');
 const helpers = require("../common/helpers");
 const constants = require('../common/constants');
@@ -226,7 +227,24 @@ const getSampleGroupCountByDetails = async (req, res) => {
     const permanentJob = req.query.permanentJob;
     const income = req.query.income;
     try {
-        return res.status(200).send();
+        const detailsByAccountIdGroups = await Detail.aggregate([{
+            $group: {
+                _id: "$accountId",
+                details: { $push: "$$ROOT" }
+            }
+        }]);
+        var count = 0;
+
+        const filteredDetailsGroups = detailsByAccountIdGroups.filter(x => x.details.length == 7);
+        count = filteredDetailsGroups.length;
+        for (const detailsGroup of filteredDetailsGroups) {
+            for (const detail of detailsGroup.details) {
+                console.log(constants.DETAIL_QUESTION_MAP[detail.question]);
+                console.log(detail.answer);
+                console.log(typeof age);
+            }
+        }
+        return res.status(200).send({ count });
 
     } catch (err) {
         const erros = helpers.handleErrors(constants.ACCOUNT, err);
