@@ -31,7 +31,7 @@ const constants = require('../common/constants');
  *          type: string
  *        gender:
  *          type: string
- *          enum: [Male, Female, Don't Wish To Specify]
+ *          enum: [Male, Female, Dont Wish To Specify]
  *        profilePicUrl:
  *          type: string   
  *        facebookId:
@@ -91,7 +91,7 @@ const accountSchema = new mongoose.Schema({
     },
     gender: {
         type: String,
-        enum: { values: ["Male", "Female", "Don't Wish To Specify"], message: "Please enter a valid gender" }
+        enum: { values: ["Male", "Female", "Dont Wish To Specify"], message: "Please enter a valid gender" }
     },
     profilePicUrl: {
         type: String

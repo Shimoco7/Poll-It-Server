@@ -323,12 +323,12 @@ router.post('/facebook', Account.facebook);
 *          name: gender
 *          schema:
 *            type: Array
-*          example: '["Male", "Female"]'
+*          example: '["Male", "Female", "Dont Wish To Specify"]'
 *        - in: query
 *          name: educationLevel
 *          schema:
 *            type: Array
-*          example: '["Preschool", "Elementary", "Middle School", "High School"]'
+*          example: '["Preschool", "Elementary", "Middle School", "High School", "During Bachelors", "Bachelors or Higher"]'
 *        - in: query
 *          name: maritalStatus
 *          schema:

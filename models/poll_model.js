@@ -41,12 +41,12 @@ const constants = require('../common/constants');
  *          type: array
  *          items:
  *             type: string
- *          default: ["Male", "Female", "Don't Wish To Specify"]
+ *          default: ["Male", "Female", "Dont Wish To Specify"]
  *        educationLevel:
  *          type: array
  *          items:
  *             type: string
- *          default: ["Preschool", "Elementary", "Middle School", "High School", "During Bachelor's", "Bachelor's or Higher"]
+ *          default: ["Preschool", "Elementary", "Middle School", "High School", "During Bachelors", "Bachelors or Higher"]
  *        maritalStatus:
  *          type: array
  *          items:
@@ -122,13 +122,13 @@ const pollSchema = new mongoose.Schema({
     },
     gender: {
         type: [String],
-        enum: ["Male", "Female", "Don't Wish To Specify"],
-        default: ["Male", "Female", "Don't Wish To Specify"]
+        enum: ["Male", "Female", "Dont Wish To Specify"],
+        default: ["Male", "Female", "Dont Wish To Specify"]
     },
     educationLevel: {
         type: [String],
-        enum: ["Preschool", "Elementary", "Middle School", "High School", "During Bachelor's", "Bachelor's or Higher"],
-        default: ["Preschool", "Elementary", "Middle School", "High School", "During Bachelor's", "Bachelor's or Higher"]
+        enum: ["Preschool", "Elementary", "Middle School", "High School", "During Bachelors", "Bachelors or Higher"],
+        default: ["Preschool", "Elementary", "Middle School", "High School", "During Bachelors", "Bachelors or Higher"]
     },
     maritalStatus: {
         type: [String],
