@@ -193,7 +193,7 @@ router.post('/refreshToken', Account.refreshToken);
 *              name: Yossi
 *              address: Tel Aviv
 *              gender: Male
-*              profilePicUrl: https://cdn4.iconfinder.com/data/icons/people-avatars-12/24/people_avatar_head_iron_man_marvel_hero-512.png
+*              profilePicUrl: http://cdn4.iconfinder.com/data/icons/people-avatars-12/24/people_avatar_head_iron_man_marvel_hero-512.png
 *              coins: 3
 *              rank: 7
 *     responses:
@@ -289,7 +289,7 @@ router.get('/getAccountById/:_id', authenticate([constants.USER, constants.CLIEN
 *               facebookId: 1234567890
 *               email: facebook@test.com
 *               name: test name
-*               profilePicUrl: https://cdn4.iconfinder.com/data/icons/people-avatars-12/24/people_avatar_head_iron_man_marvel_hero-512.png
+*               profilePicUrl: http://cdn4.iconfinder.com/data/icons/people-avatars-12/24/people_avatar_head_iron_man_marvel_hero-512.png
 *     responses:
 *       200:
 *         description: Account has been login
