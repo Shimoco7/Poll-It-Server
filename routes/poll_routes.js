@@ -154,7 +154,7 @@ router.get('/getPollsByUserId/:accountId', authenticate([constants.USER, constan
 *              $ref: '#components/schemas/Poll'
 *            example:
 *              _id: 62601c1c79b1c850871b902f
-*              image:  http://10.10.248.124:8000/storage/images/coffee.jpg
+*              image:  http://10.10.248.124:8000/storage/images/defaultPoll.png
 *              gender: ['Male']
 *              maxUsers: 200
 *              disabled: false
