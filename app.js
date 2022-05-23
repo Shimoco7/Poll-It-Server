@@ -13,9 +13,9 @@ const options = {
 
 
 http.createServer(app).listen(port, ()=>{
-  console.log('Server is running on port ' + port)
+  console.log('http server is running on port ' + port)
 });
 
 https.createServer(options, app).listen(https_port, ()=>{
-  console.log('Server is running on port ' + https_port)
+  console.log('https server is running on port ' + https_port)
 });
