@@ -87,7 +87,7 @@ const getPollsByUserId = async (req, res) => {
         for (const poll of polls) {
             var filledPoll = false;
             for (const answer of answers) {
-                if (poll._id == answer.pollId) {
+                if (poll._id.equals(answer.pollId)) {
                     filledPoll = true;
                     break;
                 }
