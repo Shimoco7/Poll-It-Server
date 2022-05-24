@@ -308,7 +308,7 @@ router.post('/facebook', Account.facebook);
 
 /**
 * @swagger
-* /auth/accountsCountBySampleGroup:
+* /auth/getAccountsCountBySampleGroup:
 *   get:
 *     summary: Get accounts count by sample group
 *     description: "Roles: [Client]"
@@ -362,7 +362,7 @@ router.post('/facebook', Account.facebook);
 *         description:  Not Found
 */
 
-router.get('/accountsCountBySampleGroup', authenticate([constants.CLIENT, constants.ADMIN]), Account.accountsCountBySampleGroup);
+router.get('/getAccountsCountBySampleGroup', authenticate([constants.CLIENT, constants.ADMIN]), Account.getAccountsCountBySampleGroup);
 
 
 module.exports = router

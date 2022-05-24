@@ -218,7 +218,7 @@ const getAccountById = async (req, res) => {
     }
 }
 
-const accountsCountBySampleGroup = async (req, res) => {
+const getAccountsCountBySampleGroup = async (req, res) => {
     const age = req.query.age;
     const gender = req.query.gender;
     const educationLevel = req.query.educationLevel;
@@ -289,5 +289,5 @@ module.exports = {
     getLogout,
     getAccountById,
     facebook,
-    accountsCountBySampleGroup
+    getAccountsCountBySampleGroup
 }
