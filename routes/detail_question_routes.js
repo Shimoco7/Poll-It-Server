@@ -40,7 +40,7 @@ const constants = require('../common/constants');
 *     tags: [DetailQuestion API]
 *     responses:
 *       200:
-*         description: DetailQuestion has been created
+*         description: Create a detail question
 *       400:
 *         description: Bad Request
 *       401:

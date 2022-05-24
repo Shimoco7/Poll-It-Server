@@ -41,7 +41,7 @@ const constants = require('../common/constants');
 *     tags: [Answer API]
 *     responses:
 *       200:
-*         description: Answer has been created
+*         description: Create an answer
 *       400:
 *         description: Bad Request
 *       401:
@@ -89,7 +89,7 @@ router.get('/getAnswerById/:_id', authenticate([constants.CLIENT, constants.ADMI
 * @swagger
 * /answer/getAnswersByPollId/{pollId}:
 *   get:
-*     summary: Get answers by pollId
+*     summary: Get answers by poll id
 *     description: "Roles: [Client]"
 *     tags: [Answer API]
 *     parameters:
@@ -98,7 +98,7 @@ router.get('/getAnswerById/:_id', authenticate([constants.CLIENT, constants.ADMI
 *         schema:
 *           type: string
 *         required: true
-*         description: The answers list
+*         description: The poll id
 *     responses:
 *       200:
 *         description: The answers list
@@ -118,7 +118,7 @@ router.get('/getAnswersByPollId/:pollId', authenticate([constants.CLIENT, consta
 * @swagger
 * /answer/getAnswersByPollQuestionId/{pollQuestionId}:
 *   get:
-*     summary: Get answers by pollQuestionId
+*     summary: Get answers by poll question id
 *     description: "Roles: [Client]"
 *     tags: [Answer API]
 *     parameters:
@@ -127,7 +127,7 @@ router.get('/getAnswersByPollId/:pollId', authenticate([constants.CLIENT, consta
 *         schema:
 *           type: string
 *         required: true
-*         description: The answers list
+*         description: The pollQuestion id
 *     responses:
 *       200:
 *         description: The answers list

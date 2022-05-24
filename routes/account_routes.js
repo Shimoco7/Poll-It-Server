@@ -163,7 +163,7 @@ router.get('/logout', authenticate([constants.USER, constants.CLIENT, constants.
 *              refreshToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjYwMWMxYzc5YjFjODUwODcxYjkwMmYiLCJyb2xlIjoiVXNlciIsImlhdCI6MTY1MDQ2NTgyOH0.wiMhRV3FvL_nTRDGpBOadUI5nM7EEGmyKIOttfLGs6s
 *     responses:
 *       200:
-*         description: Token has been generated
+*         description: New token has been generated
 *       400:
 *         description: Bad Request
 *       401:
@@ -292,7 +292,7 @@ router.get('/getAccountById/:_id', authenticate([constants.USER, constants.CLIEN
 *               profilePicUrl: http://cdn4.iconfinder.com/data/icons/people-avatars-12/24/people_avatar_head_iron_man_marvel_hero-512.png
 *     responses:
 *       200:
-*         description: Account has been login
+*         description: Account has been logged in using facebook
 *       400:
 *         description: Bad Request
 *       401:

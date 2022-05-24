@@ -41,7 +41,7 @@ const constants = require('../common/constants');
 *     tags: [Poll API]
 *     responses:
 *       200:
-*         description: Poll has been created
+*         description: Create a poll
 *       400:
 *         description: Bad Request
 *       401:
@@ -83,7 +83,7 @@ router.get('/getAllPolls', authenticate([constants.USER, constants.ADMIN]), Poll
 * @swagger
 * /poll/getPollsByClientId/{accountId}:
 *   get:
-*     summary: Get polls by clientId
+*     summary: Get polls by client id
 *     description: "Roles: [Client]"
 *     tags: [Poll API]
 *     parameters:
@@ -92,7 +92,7 @@ router.get('/getAllPolls', authenticate([constants.USER, constants.ADMIN]), Poll
 *         schema:
 *           type: string
 *         required: true
-*         description: The polls list
+*         description: The account id
 *     responses:
 *       200:
 *         description: The polls list
@@ -114,7 +114,7 @@ router.get('/getPollsByClientId/:accountId', authenticate([constants.CLIENT, con
 * @swagger
 * /poll/getPollsByUserId/{accountId}:
 *   get:
-*     summary: Get polls by userId
+*     summary: Get polls by user id
 *     description: "Roles: [User]"
 *     tags: [Poll API]
 *     parameters:
@@ -123,7 +123,7 @@ router.get('/getPollsByClientId/:accountId', authenticate([constants.CLIENT, con
 *         schema:
 *           type: string
 *         required: true
-*         description: The polls list
+*         description: The account id
 *     responses:
 *       200:
 *         description: The polls list

@@ -41,7 +41,7 @@ const constants = require('../common/constants');
 *     tags: [PollQuestion API]
 *     responses:
 *       200:
-*         description: PollQuestion has been created
+*         description: Create a poll question
 *       400:
 *         description: Bad Request
 *       401:
