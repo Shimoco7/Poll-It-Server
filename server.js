@@ -46,7 +46,7 @@ if (process.env.NODE_ENV == "development") {
         version: "1.0.0",
         description: "Poll-it Server side API Documentation",
       },
-      servers: [{ url: process.env.SERVER_URL, },],
+      servers: [{ url: process.env.DOMAIN_URL, },],
       security: [
         {
           bearerAuth: ['Authorization'],

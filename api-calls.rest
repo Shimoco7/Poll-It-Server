@@ -1,35 +1,34 @@
 ###
-GET https://localhost:8000/
+GET https://poll-it.cs.colman.ac.il/
 
 #Auth----------------------------------------------------------------------
 
 ###
-POST https://localhost:8000/auth/register
+POST https://poll-it.cs.colman.ac.il/auth/register
 Content-Type: application/json
 
 {
-    "email" : "admin@admin.com",
-    "password" : "Test1234@",
-    "role": "Admin"
-}
-
-###
-GET https://localhost:8000/auth/register
-
-###
-POST https://localhost:8000/auth/login
-Content-Type: application/json
-
-{
-    "email" : "admin@admin.com",
+    "email" : "admin1@admin.com",
     "password" : "Test1234@"
 }
 
 ###
-GET https://localhost:8000/auth/login
+GET https://poll-it.cs.colman.ac.il/auth/register
 
 ###
-POST https://localhost:8000/auth/logout
+POST https://poll-it.cs.colman.ac.il/auth/login
+Content-Type: application/json
+
+{
+    "email" : "admin1@admin.com",
+    "password" : "Test1234@"
+}
+
+###
+GET https://poll-it.cs.colman.ac.il/auth/login
+
+###
+POST https://poll-it.cs.colman.ac.il/auth/logout
 Authorization: Bearer addAccessTokenHere
 Content-Type: application/json
 
@@ -38,11 +37,11 @@ Content-Type: application/json
 }
 
 ###
-GET https://localhost:8000/auth/logout
+GET https://poll-it.cs.colman.ac.il/auth/logout
 Authorization: Bearer addAccessTokenHere
 
 ###
-POST https://localhost:8000/auth/refreshToken
+POST https://poll-it.cs.colman.ac.il/auth/refreshToken
 Content-Type: application/json
 
 {
@@ -50,7 +49,7 @@ Content-Type: application/json
 }
 
 ###
-PUT https://localhost:8000/auth/update
+PUT https://poll-it.cs.colman.ac.il/auth/update
 Authorization: Bearer addAccessTokenHere
 Content-Type: application/json
 
@@ -62,7 +61,7 @@ Content-Type: application/json
 }
 
 ###
-PUT https://localhost:8000/auth/updatePassword
+PUT https://poll-it.cs.colman.ac.il/auth/updatePassword
 Authorization: Bearer addAccessTokenHere
 Content-Type: application/json
 
@@ -73,11 +72,11 @@ Content-Type: application/json
 }
 
 ###
-GET https://localhost:8000/auth/getAccountById/_id
+GET https://poll-it.cs.colman.ac.il/auth/getAccountById/_id
 Authorization: Bearer addAccessTokenHere
 
 ###
-POST  https://localhost:8000/auth/facebook
+POST  https://poll-it.cs.colman.ac.il/auth/facebook
 Content-Type: application/json
 
 {
@@ -89,7 +88,7 @@ Content-Type: application/json
 #Poll----------------------------------------------------------------------
 
 ###
-POST https://localhost:8000/poll/create
+POST https://poll-it.cs.colman.ac.il/poll/create
 Authorization: Bearer addAccessTokenHere
 Content-Type: application/json
 
@@ -100,24 +99,24 @@ Content-Type: application/json
 }
 
 ###
-GET https://localhost:8000/poll/create
+GET https://poll-it.cs.colman.ac.il/poll/create
 Authorization: Bearer addAccessTokenHere
 
 ###
-GET https://localhost:8000/poll/getAllPolls
+GET https://poll-it.cs.colman.ac.il/poll/getAllPolls
 Authorization: Bearer addAccessTokenHere
 
 ###
-GET https://localhost:8000/poll/getPollsByClientId/accountId
+GET https://poll-it.cs.colman.ac.il/poll/getPollsByClientId/accountId
 Authorization: Bearer addAccessTokenHere
 
 
 ###
-GET https://localhost:8000/poll/getPollsByUserId/accountId
+GET https://poll-it.cs.colman.ac.il/poll/getPollsByUserId/accountId
 Authorization: Bearer addAccessTokenHere
 
 ###
-PUT https://localhost:8000/poll/update
+PUT https://poll-it.cs.colman.ac.il/poll/update
 Authorization: Bearer addAccessTokenHere
 Content-Type: application/json
 
@@ -130,7 +129,7 @@ Content-Type: application/json
 #PollQuestion----------------------------------------------------------------------
 
 ###
-POST https://localhost:8000/poll_question/create
+POST https://poll-it.cs.colman.ac.il/poll_question/create
 Authorization: Bearer addAccessTokenHere
 Content-Type: application/json
 
@@ -142,17 +141,17 @@ Content-Type: application/json
 }
 
 ###
-GET https://localhost:8000/poll_question/create
+GET https://poll-it.cs.colman.ac.il/poll_question/create
 Authorization: Bearer addAccessTokenHere
 
 ###
-GET https://localhost:8000/poll_question/getPollQuestionsByPollId/pollId
+GET https://poll-it.cs.colman.ac.il/poll_question/getPollQuestionsByPollId/pollId
 Authorization: Bearer addAccessTokenHere
 
 #Detail----------------------------------------------------------------------
 
 ###
-POST https://localhost:8000/detail/create
+POST https://poll-it.cs.colman.ac.il/detail/create
 Authorization: Bearer addAccessTokenHere
 Content-Type: application/json
 
@@ -165,13 +164,13 @@ Content-Type: application/json
 }
 
 ###
-GET https://localhost:8000/detail/getDetailsByAccountId/accountId
+GET https://poll-it.cs.colman.ac.il/detail/getDetailsByAccountId/accountId
 Authorization: Bearer addAccessTokenHere
 
 #DetailQuestion----------------------------------------------------------------------
 
 ###
-POST https://localhost:8000/detail_question/create
+POST https://poll-it.cs.colman.ac.il/detail_question/create
 Authorization: Bearer addAccessTokenHere
 Content-Type: application/json
 
@@ -181,17 +180,17 @@ Content-Type: application/json
 }
 
 ###
-GET https://localhost:8000/detail_question/create
+GET https://poll-it.cs.colman.ac.il/detail_question/create
 Authorization: Bearer addAccessTokenHere
 
 ###
-GET https://localhost:8000/detail_question/getAllDetailQuestions
+GET https://poll-it.cs.colman.ac.il/detail_question/getAllDetailQuestions
 Authorization: Bearer addAccessTokenHere
 
 #Answer----------------------------------------------------------------------
 
 ###
-POST https://localhost:8000/answer/create
+POST https://poll-it.cs.colman.ac.il/answer/create
 Authorization: Bearer addAccessTokenHere
 Content-Type: application/json
 
@@ -203,13 +202,13 @@ Content-Type: application/json
 }
 
 ###
-GET https://localhost:8000/answer/getAnswerById/_id
+GET https://poll-it.cs.colman.ac.il/answer/getAnswerById/_id
 Authorization: Bearer addAccessTokenHere
 
 ###
-GET https://localhost:8000/answer/getAnswersByPollId/pollId
+GET https://poll-it.cs.colman.ac.il/answer/getAnswersByPollId/pollId
 Authorization: Bearer addAccessTokenHere
 
 ###
-GET https://localhost:8000/answer/getAnswersByPollQuestionId/pollQuestionId
+GET https://poll-it.cs.colman.ac.il/answer/getAnswersByPollQuestionId/pollQuestionId
 Authorization: Bearer addAccessTokenHere
