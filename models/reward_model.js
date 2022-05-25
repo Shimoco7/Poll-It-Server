@@ -25,6 +25,11 @@ const constants = require('../common/constants');
  *          type: string
  *        supplierImage:
  *          type: string
+ *        accounts:
+ *          type: array
+ *          items:
+ *             type: string
+ *          example: ["4eb6e7e7e9b7f4194e000004"]
  *        createdAt:
  *          type: integer
  *        updatedAt:
@@ -62,7 +67,13 @@ const rewardSchema = new mongoose.Schema({
     },
     supplierImage: {
         type: String
-    }
+    },
+    accounts: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: constants.ACCOUNT
+        }
+    ]
 });
 
 rewardSchema.plugin(timestamps);

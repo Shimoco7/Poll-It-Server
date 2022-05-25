@@ -54,7 +54,7 @@ const redeemReward = async (req, res) => {
     const rewardId = req.body.rewardId;
     if (accountId == null || rewardId == null) return helpers.sendError(res, 401, 'No accountId or rewardId')
     try {
-        const account = await Account.findOne({ _id: accountId });
+        const account = await Account.findOne({ _id: accountId, role: constants.USER });
         if (!account) return helpers.sendError(res, 400, constants.ACCOUNT + ' not found')
         const reward = await Reward.findOne({ _id: rewardId });
         if (!reward) return helpers.sendError(res, 400, constants.REWARD + ' not found')
@@ -74,6 +74,9 @@ const redeemReward = async (req, res) => {
             }
             account.coins = account.coins - reward.price;
             await account.save();
+            if (!reward.accounts.includes(accountId)) {
+                await Reward.findOneAndUpdate({ _id: rewardId },{$addToSet : { accounts: accountId} });
+            }
             return res.status(200).send({ account });
         }
 
