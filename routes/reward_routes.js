@@ -35,6 +35,8 @@ const constants = require('../common/constants');
 *         description:  Forbidden
 *       404:
 *         description:  Not Found
+*       500:
+*         description:  Internal Server Error
 *  get:
 *     summary: Create a reward
 *     description: "Roles: [Admin]"
@@ -50,6 +52,8 @@ const constants = require('../common/constants');
 *         description:  Forbidden
 *       404:
 *         description:  Not Found
+*       500:
+*         description:  Internal Server Error
 */
 
 router.post('/create', authenticate([constants.ADMIN]), Reward.create);
@@ -74,6 +78,8 @@ router.get('/create', authenticate([constants.ADMIN]), Reward.getCreate);
 *         description:  Forbidden
 *       404:
 *         description:  Not Found
+*       500:
+*         description:  Internal Server Error
 */
 
 
@@ -108,6 +114,8 @@ router.get('/getAllRewards', authenticate([constants.USER, constants.ADMIN]), Re
 *         description:  Forbidden
 *       404:
 *         description:  Not Found
+*       500:
+*         description:  Internal Server Error
 */
 
 router.put('/update', authenticate([constants.ADMIN]), Reward.update);
@@ -139,6 +147,8 @@ router.put('/update', authenticate([constants.ADMIN]), Reward.update);
 *         description:  Forbidden
 *       404:
 *         description:  Not Found
+*       500:
+*         description:  Internal Server Error
 */
 
 

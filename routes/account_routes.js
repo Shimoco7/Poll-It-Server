@@ -36,6 +36,8 @@ const passport = require('passport');
 *         description:  Forbidden
 *       404:
 *         description:  Not Found
+*       500:
+*         description:  Internal Server Error
 
 *  get:
 *     summary: Register an account
@@ -52,6 +54,8 @@ const passport = require('passport');
 *         description:  Forbidden
 *       404:
 *         description:  Not Found
+*       500:
+*         description:  Internal Server Error
 */
 
 router.post('/register', Account.register);
@@ -81,6 +85,8 @@ router.get('/register', Account.getRegister);
 *         description:  Forbidden
 *       404:
 *         description:  Not Found
+*       500:
+*         description:  Internal Server Error
 *
 *  get:
 *     summary: Login an account
@@ -97,6 +103,8 @@ router.get('/register', Account.getRegister);
 *         description:  Forbidden
 *       404:
 *         description:  Not Found
+*       500:
+*         description:  Internal Server Error
 */
 
 router.post('/login', Account.login);
@@ -127,6 +135,8 @@ router.get('/login', Account.getLogin);
 *         description:  Forbidden
 *       404:
 *         description:  Not Found
+*       500:
+*         description:  Internal Server Error
 *  get:
 *     summary: Logout an account
 *     description: "Roles: [User, Client]"
@@ -142,6 +152,8 @@ router.get('/login', Account.getLogin);
 *         description:  Forbidden
 *       404:
 *         description:  Not Found
+*       500:
+*         description:  Internal Server Error
 */
 
 router.post('/logout', authenticate([constants.USER, constants.CLIENT, constants.ADMIN]), Account.logout);
@@ -172,6 +184,8 @@ router.get('/logout', authenticate([constants.USER, constants.CLIENT, constants.
 *         description:  Forbidden
 *       404:
 *         description:  Not Found
+*       500:
+*         description:  Internal Server Error
 */
 
 router.post('/refreshToken', Account.refreshToken);
@@ -207,6 +221,8 @@ router.post('/refreshToken', Account.refreshToken);
 *         description:  Forbidden
 *       404:
 *         description:  Not Found
+*       500:
+*         description:  Internal Server Error
 */
 
 router.put('/update', authenticate([constants.USER, constants.CLIENT, constants.ADMIN]), Account.update);
@@ -239,6 +255,8 @@ router.put('/update', authenticate([constants.USER, constants.CLIENT, constants.
 *         description:  Forbidden
 *       404:
 *         description:  Not Found
+*       500:
+*         description:  Internal Server Error
 */
 
 router.put('/updatePassword', authenticate([constants.USER, constants.CLIENT, constants.ADMIN]), Account.updatePassword);
@@ -268,6 +286,8 @@ router.put('/updatePassword', authenticate([constants.USER, constants.CLIENT, co
 *         description:  Forbidden
 *       404:
 *         description:  Not Found
+*       500:
+*         description:  Internal Server Error
 */
 
 router.get('/getAccountById/:_id', authenticate([constants.USER, constants.CLIENT, constants.ADMIN]), Account.getAccountById);
@@ -301,6 +321,8 @@ router.get('/getAccountById/:_id', authenticate([constants.USER, constants.CLIEN
 *         description:  Forbidden
 *       404:
 *         description:  Not Found
+*       500:
+*         description:  Internal Server Error
 */
 
 
@@ -360,6 +382,8 @@ router.post('/facebook', Account.facebook);
 *         description:  Forbidden
 *       404:
 *         description:  Not Found
+*       500:
+*         description:  Internal Server Error
 */
 
 router.get('/getAccountsCountBySampleGroup', authenticate([constants.CLIENT, constants.ADMIN]), Account.getAccountsCountBySampleGroup);

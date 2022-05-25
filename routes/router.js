@@ -29,6 +29,8 @@ const constants = require('../common/constants');
 *         description:  Forbidden
 *       404:
 *         description:  Not Found
+*       500:
+*         description:  Internal Server Error
 */
 
 router.get('/', (req, res) => {
@@ -64,6 +66,8 @@ router.get('/', (req, res) => {
 *         description:  Forbidden
 *       404:
 *         description:  Not Found
+*       500:
+*         description:  Internal Server Error
 */
 
 router.post('/upload', authenticate([constants.USER, constants.CLIENT, constants.ADMIN]), upload.single('file'), (req, res) => {
@@ -89,12 +93,7 @@ router.post('/upload', authenticate([constants.USER, constants.CLIENT, constants
 *         description: The image name
 *     responses:
 *       200:
-*         description: Logo image in PNG format
-*         content:
-*            image/png:
-*              schema:
-*                type: string
-*                format: binary
+*         description: Image has been downloaded
 *       400:
 *         description: Bad Request
 *       401:
@@ -103,6 +102,8 @@ router.post('/upload', authenticate([constants.USER, constants.CLIENT, constants
 *         description:  Forbidden
 *       404:
 *         description:  Not Found
+*       500:
+*         description:  Internal Server Error
 */
 
 router.get('/download/:image', authenticate([constants.CLIENT, constants.ADMIN]), (req, res) => {

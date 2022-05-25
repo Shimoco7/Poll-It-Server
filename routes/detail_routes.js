@@ -35,6 +35,8 @@ const constants = require('../common/constants');
 *         description:  Forbidden
 *       404:
 *         description:  Not Found
+*       500:
+*         description:  Internal Server Error
 */
 
 router.post('/create', authenticate([constants.USER, constants.ADMIN]), Detail.create);
@@ -64,6 +66,8 @@ router.post('/create', authenticate([constants.USER, constants.ADMIN]), Detail.c
 *         description:  Forbidden
 *       404:
 *         description:  Not Found
+*       500:
+*         description:  Internal Server Error
 */
 
 router.get('/getDetailsByAccountId/:accountId', authenticate([constants.USER, constants.CLIENT, constants.ADMIN]), Detail.getDetailsByAccountId);

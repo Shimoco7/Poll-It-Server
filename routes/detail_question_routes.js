@@ -34,6 +34,8 @@ const constants = require('../common/constants');
 *         description:  Forbidden
 *       404:
 *         description:  Not Found
+*       500:
+*         description:  Internal Server Error
 *  get:
 *     summary: Create a detail question
 *     description: "Roles: [Admin]"
@@ -49,6 +51,8 @@ const constants = require('../common/constants');
 *         description:  Forbidden
 *       404:
 *         description:  Not Found
+*       500:
+*         description:  Internal Server Error
 */
 
 router.post('/create', authenticate([constants.ADMIN]), DetailQuestion.create);
@@ -73,6 +77,8 @@ router.get('/create', authenticate([constants.ADMIN]), DetailQuestion.getCreate)
 *         description:  Forbidden
 *       404:
 *         description:  Not Found
+*       500:
+*         description:  Internal Server Error
 */
 
 router.get('/getAllDetailQuestions', authenticate([constants.USER, constants.ADMIN]), DetailQuestion.getAllDetailQuestions);

@@ -35,6 +35,8 @@ const constants = require('../common/constants');
 *         description:  Forbidden
 *       404:
 *         description:  Not Found
+*       500:
+*         description:  Internal Server Error
 *  get:
 *     summary: Create an answer
 *     description: "Roles: [User]"
@@ -50,6 +52,8 @@ const constants = require('../common/constants');
 *         description:  Forbidden
 *       404:
 *         description:  Not Found
+*       500:
+*         description:  Internal Server Error
 */
 
 
@@ -81,6 +85,8 @@ router.get('/create', authenticate([constants.USER, constants.ADMIN]), Answer.ge
 *         description:  Forbidden
 *       404:
 *         description:  Not Found
+*       500:
+*         description:  Internal Server Error
 */
 
 router.get('/getAnswerById/:_id', authenticate([constants.CLIENT, constants.ADMIN]), Answer.getAnswerById);
@@ -110,6 +116,8 @@ router.get('/getAnswerById/:_id', authenticate([constants.CLIENT, constants.ADMI
 *         description:  Forbidden
 *       404:
 *         description:  Not Found
+*       500:
+*         description:  Internal Server Error
 */
 
 router.get('/getAnswersByPollId/:pollId', authenticate([constants.CLIENT, constants.ADMIN]), Answer.getAnswersByPollId);
@@ -139,6 +147,8 @@ router.get('/getAnswersByPollId/:pollId', authenticate([constants.CLIENT, consta
 *         description:  Forbidden
 *       404:
 *         description:  Not Found
+*       500:
+*         description:  Internal Server Error
 */
 
 router.get('/getAnswersByPollQuestionId/:pollQuestionId', authenticate([constants.CLIENT, constants.ADMIN]), Answer.getAnswersByPollQuestionId);

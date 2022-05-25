@@ -35,6 +35,8 @@ const constants = require('../common/constants');
 *         description:  Forbidden
 *       404:
 *         description:  Not Found
+*       500:
+*         description:  Internal Server Error
 *  get:
 *     summary: Create a poll question
 *     description: "Roles: [Client]"
@@ -50,6 +52,8 @@ const constants = require('../common/constants');
 *         description:  Forbidden
 *       404:
 *         description:  Not Found
+*       500:
+*         description:  Internal Server Error
 */
 
 router.post('/create', authenticate([constants.CLIENT, constants.ADMIN]), PollQuestion.create);
@@ -81,6 +85,8 @@ router.get('/create', authenticate([constants.CLIENT, constants.ADMIN]), PollQue
 *         description:  Forbidden
 *       404:
 *         description:  Not Found
+*       500:
+*         description:  Internal Server Error
 */
 
 router.get('/getPollQuestionsByPollId/:pollId', authenticate([constants.CLIENT, constants.USER, constants.ADMIN]), PollQuestion.getPollQuestionsByPollId);
