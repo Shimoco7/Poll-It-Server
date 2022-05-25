@@ -28,10 +28,10 @@ const create = async (req, res) => {
         }
         const newAnswer = await Answer.findOneAndUpdate({ _id: new ObjectId(answerId) }, { answer: answer, pollId: pollId, pollQuestionId: pollQuestionId, accountId: accountId }, { upsert: true, runValidators: true, returnOriginal: false });
         if (!pollQuestion.answers.includes(newAnswer._id)) {
-            await PollQuestion.findOneAndUpdate({ _id: pollQuestionId }, { '$push': { answers: newAnswer._id } });
+            await PollQuestion.findOneAndUpdate({ _id: pollQuestionId },{$addToSet : { answers: newAnswer._id }  });
         }
         if (!account.polls.includes(pollId)) {
-            await Account.findOneAndUpdate({ _id: accountId }, { '$push': { polls: pollId } });
+            await Account.findOneAndUpdate({ _id: accountId },{$addToSet : { polls: pollId} });
         }
         const answers = await Answer.find({ accountId: accountId, pollId: pollId });
         const accountsFilledPoll2 = await Account.find({ role: constants.USER, polls: pollId });

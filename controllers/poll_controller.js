@@ -25,7 +25,7 @@ const create = async (req, res) => {
         if (!account) return helpers.sendError(res, 400, constants.ACCOUNT + ' not found')
         const newPoll = await Poll.findOneAndUpdate({ _id: new ObjectId(pollId) }, {pollName: pollName, accountId: accountId, image: image, coins: coins, maxUsers: maxUsers, pollQuestions: pollQuestions, age: age, gender: gender, educationLevel: educationLevel, maritalStatus: maritalStatus, numberOfChildrens: numberOfChildrens, permanentJob: permanentJob, income: income  }, { upsert: true, runValidators: true, returnOriginal: false });
         if (!account.polls.includes(newPoll._id) && account.role == constants.CLIENT) {
-            await Account.findOneAndUpdate({ _id: accountId }, { '$push': { polls: newPoll._id } });
+            await Account.findOneAndUpdate({ _id: accountId },{$addToSet : { polls: newPoll._id } });
         }
         return res.status(200).send({ _id: newPoll._id });
 
