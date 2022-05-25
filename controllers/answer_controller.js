@@ -15,13 +15,12 @@ const create = async (req, res) => {
     try {
         const account = await Account.findOne({ _id: accountId, role: constants.USER });
         if (!account) return helpers.sendError(res, 400, constants.ACCOUNT + ' not found')
-        const poll = await Poll.findOne({ _id: pollId });
+        var poll = await Poll.findOne({ _id: pollId });
         if (!poll) return helpers.sendError(res, 400, constants.POLL + ' not found')
         if (poll.disabled) return helpers.sendError(res, 400, constants.POLL + ' is disabled')
         const pollQuestion = await PollQuestion.findOne({ _id: pollQuestionId });
         if (!pollQuestion) return helpers.sendError(res, 400, constants.POLL_QUESTION + ' not found')
-        const accountsFilledPoll = await Account.find({ role: constants.USER, polls: pollId });
-        if (!account.polls.includes(pollId) && accountsFilledPoll.length >= poll.maxUsers) {
+        if (!account.polls.includes(pollId) && poll.users.length >= poll.maxUsers) {
             poll.disabled = true;
             await poll.save();
             return helpers.sendError(res, 400, constants.POLL + ' is no longer available due to max size of users');
@@ -34,11 +33,10 @@ const create = async (req, res) => {
             await Account.findOneAndUpdate({ _id: accountId },{$addToSet : { polls: pollId} });
         }
         if (!poll.users.includes(accountId)) {
-            await Poll.findOneAndUpdate({ _id: pollId },{$addToSet : { users: accountId } });
+            poll = await Poll.findOneAndUpdate({ _id: pollId },{$addToSet : { users: accountId } }, { returnOriginal: false});
         }
         const answers = await Answer.find({ accountId: accountId, pollId: pollId });
-        const accountsFilledPoll2 = await Account.find({ role: constants.USER, polls: pollId });
-        if (accountsFilledPoll2.length >= poll.maxUsers && answers.length >= poll.pollQuestions.length) {
+        if (poll.users.length >= poll.maxUsers && answers.length >= poll.pollQuestions.length) {
             poll.disabled = true;
             await poll.save();
         }
