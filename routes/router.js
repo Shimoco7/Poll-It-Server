@@ -3,7 +3,8 @@ const router = express.Router();
 const authenticate = require('../common/auth_middleware');
 const upload = require('../common/upload_middleware');
 const constants = require('../common/constants');
-
+const helpers = require('../common/helpers');
+const fs = require('fs');
 
 /**
 * @swagger
@@ -34,7 +35,7 @@ const constants = require('../common/constants');
 */
 
 router.get('/', (req, res) => {
-    return res.send("HELLO!");
+    return res.send("Welcome to Poll-It!");
 });
 
 
@@ -71,9 +72,8 @@ router.get('/', (req, res) => {
 */
 
 router.post('/upload', authenticate([constants.USER, constants.CLIENT, constants.ADMIN]), upload.single('file'), (req, res) => {
-    return res.status(200).send({
-        url: process.env.SERVER_URL + "/" + req.file.path.replace(/\\/g, "/")
-    });
+    if (!req.file) return helpers.sendError(res, 400, "No file chosen");
+    else return res.status(200).send({url: process.env.SERVER_URL + "/" + req.file.path.replace(/\\/g, "/")});
 })
 
 
@@ -107,6 +107,7 @@ router.post('/upload', authenticate([constants.USER, constants.CLIENT, constants
 */
 
 router.get('/download/:image', authenticate([constants.CLIENT, constants.ADMIN]), (req, res) => {
-    return res.download(constants.STORAGE_PATH + req.params.image);
+    if (!fs.existsSync(constants.STORAGE_PATH + req.params.image)) return helpers.sendError(res, 400, "File is not exists")
+    else return res.download(constants.STORAGE_PATH + req.params.image);
 });
 module.exports = router;                                              
