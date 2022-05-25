@@ -24,8 +24,8 @@ db.on('open', () => { console.log('Connected to MongoDB') });
 
 app.use(cors());
 const bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({ extended: true, limit: '1m' }));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({limit: '200mb', extended: true}));
+app.use(bodyParser.json({limit: '200mb'}));
 app.use('/', appRouter);
 app.use('/auth', accountRouter);
 app.use('/poll', pollRouter);
