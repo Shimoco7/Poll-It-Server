@@ -17,11 +17,11 @@ const fs = require('fs');
 * @swagger
 * /:
 *   get:
-*     summary: Home page
+*     summary: Welcome to Poll-It
 *     tags: [General API]
 *     responses:
 *       200:
-*         description: Home page
+*         description: Welcome to Poll-It
 *       400:
 *         description: Bad Request
 *       401:
@@ -35,7 +35,7 @@ const fs = require('fs');
 */
 
 router.get('/', (req, res) => {
-    return res.send("Welcome to Poll-It!");
+    return res.status(200).send("Welcome to Poll-It");
 });
 
 
