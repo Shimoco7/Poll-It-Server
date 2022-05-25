@@ -32,6 +32,11 @@ const constants = require('../common/constants');
  *          items:
  *             type: string
  *          example: ["4eb6e7e7e9b7f4194e000003"]
+ *        users:
+ *          type: array
+ *          items:
+ *             type: string
+ *          example: ["4eb6e7e7e9b7f4194e000004"]
  *        age:
  *          type: array
  *          items:
@@ -112,6 +117,12 @@ const pollSchema = new mongoose.Schema({
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: constants.POLL_QUESTION
+        }
+    ],
+    users: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: constants.ACCOUNT
         }
     ],
     age: {

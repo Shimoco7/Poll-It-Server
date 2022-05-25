@@ -33,6 +33,9 @@ const create = async (req, res) => {
         if (!account.polls.includes(pollId)) {
             await Account.findOneAndUpdate({ _id: accountId },{$addToSet : { polls: pollId} });
         }
+        if (!poll.users.includes(accountId)) {
+            await Poll.findOneAndUpdate({ _id: pollId },{$addToSet : { users: accountId } });
+        }
         const answers = await Answer.find({ accountId: accountId, pollId: pollId });
         const accountsFilledPoll2 = await Account.find({ role: constants.USER, polls: pollId });
         if (accountsFilledPoll2.length >= poll.maxUsers && answers.length >= poll.pollQuestions.length) {

@@ -21,10 +21,10 @@ const create = async (req, res) => {
     const permanentJob = req.body.permanentJob;
     const income = req.body.income;
     try {
-        const account = await Account.findOne({ _id: accountId });
+        const account = await Account.findOne({ _id: accountId, role: constants.CLIENT });
         if (!account) return helpers.sendError(res, 400, constants.ACCOUNT + ' not found')
         const newPoll = await Poll.findOneAndUpdate({ _id: new ObjectId(pollId) }, {pollName: pollName, accountId: accountId, image: image, coins: coins, maxUsers: maxUsers, pollQuestions: pollQuestions, age: age, gender: gender, educationLevel: educationLevel, maritalStatus: maritalStatus, numberOfChildrens: numberOfChildrens, permanentJob: permanentJob, income: income  }, { upsert: true, runValidators: true, returnOriginal: false });
-        if (!account.polls.includes(newPoll._id) && account.role == constants.CLIENT) {
+        if (!account.polls.includes(newPoll._id)) {
             await Account.findOneAndUpdate({ _id: accountId },{$addToSet : { polls: newPoll._id } });
         }
         return res.status(200).send({ _id: newPoll._id });
@@ -76,6 +76,7 @@ const getPollsByUserId = async (req, res) => {
         }
         const polls = await Poll.find({
             disabled: false,
+            users: { $nin: accountId },
             age: { $in: [detailsMap[constants.AGE]] },
             educationLevel: { $in: [detailsMap[constants.EDUCATION_LEVEL]] },
             gender: { $in: [detailsMap[constants.GENDER]] },
@@ -84,12 +85,7 @@ const getPollsByUserId = async (req, res) => {
             permanentJob: { $in: [detailsMap[constants.PERMANENT_JOB]] },
             income: { $in: [detailsMap[constants.INCOME]] },
         });
-        for (const poll of polls) {
-            if(!account.polls.includes(poll._id)){
-                matchedPolls.push(poll);
-            }
-        }
-        return res.status(200).send(matchedPolls);
+        return res.status(200).send(polls);
     } catch (err) {
         const erros = helpers.handleErrors(constants.POLL, err);
         return res.status(400).json({ erros });
