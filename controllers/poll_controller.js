@@ -1,6 +1,5 @@
 const Poll = require('../models/poll_model');
 const Account = require('../models/account_model');
-const Answer = require('../models/answer_model');
 const Detail = require('../models/detail_model');
 const helpers = require("../common/helpers");
 const constants = require("../common/constants");
@@ -85,22 +84,12 @@ const getPollsByUserId = async (req, res) => {
             permanentJob: { $in: [detailsMap[constants.PERMANENT_JOB]] },
             income: { $in: [detailsMap[constants.INCOME]] },
         });
-        const answers = await Answer.find({ accountId: account._id });
         for (const poll of polls) {
-            var filledPoll = false;
-            for (const answer of answers) {
-                if (poll._id.equals(answer.pollId)) {
-                    filledPoll = true;
-                    break;
-                }
-            }
-            if (!filledPoll) {
+            if(!account.polls.includes(poll._id)){
                 matchedPolls.push(poll);
             }
         }
-
         return res.status(200).send(matchedPolls);
-
     } catch (err) {
         const erros = helpers.handleErrors(constants.POLL, err);
         return res.status(400).json({ erros });
