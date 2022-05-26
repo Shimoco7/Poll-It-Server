@@ -165,7 +165,7 @@ const facebook = async (req, res) => {
             var ext = path.extname(profilePicUrl);
             image = constants.STORAGE_PATH + facebookId + ext
             helpers.download(profilePicUrl, image, function () { });
-            profilePicUrl = process.env.SERVER_URL + "/" + image;
+            profilePicUrl = process.env.DOMAIN_URL + "/" + image;
         }
         if (!account) {
             await Account.create({ email: email, password: process.env.FB_PASSWORD, name: name, facebookId: facebookId, role: role, profilePicUrl: profilePicUrl });

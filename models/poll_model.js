@@ -79,7 +79,7 @@ const constants = require('../common/constants');
  *      example:
  *        pollName: test poll name
  *        accountId: 625ae81de847b7c2701e0a38
- *        image: http://10.10.248.124:8000/storage/images/defaultPoll.png
+ *        image: https://poll-it.cs.colman.ac.il/storage/images/defaultPoll.png
  *        coins: 10 
  *        maxUsers: 300
  *        disabled: false  

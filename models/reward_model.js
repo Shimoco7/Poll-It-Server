@@ -37,10 +37,10 @@ const constants = require('../common/constants');
  *      example:
  *        title: test title
  *        description: test description
- *        image: http://10.10.248.124:8000/storage/images/coffee.jpg
+ *        image: https://poll-it.cs.colman.ac.il/storage/images/coffee.jpg
  *        price: 5
  *        supplier: test supplier
- *        supplierImage:  http://10.10.248.124:8000/storage/images/starbucks.png
+ *        supplierImage:  https://poll-it.cs.colman.ac.il/storage/images/starbucks.png
  */
 
 const rewardSchema = new mongoose.Schema({

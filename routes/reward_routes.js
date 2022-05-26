@@ -101,7 +101,7 @@ router.get('/getAllRewards', authenticate([constants.USER, constants.ADMIN]), Re
 *              _id: 62601c1c79b1c850871b902f
 *              title: Coffee
 *              description: Starbucks hot coffee
-*              image: http://10.10.248.124:8000/storage/images/coffee.jpg
+*              image: https://poll-it.cs.colman.ac.il/storage/images/coffee.jpg
 *              price: 5
 *     responses:
 *       200:

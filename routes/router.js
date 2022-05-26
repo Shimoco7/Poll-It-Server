@@ -73,7 +73,7 @@ router.get('/', (req, res) => {
 
 router.post('/upload', authenticate([constants.USER, constants.CLIENT, constants.ADMIN]), upload.single('file'), (req, res) => {
     if (!req.file) return helpers.sendError(res, 400, "No file chosen");
-    else return res.status(200).send({url: process.env.SERVER_URL + "/" + req.file.path.replace(/\\/g, "/")});
+    else return res.status(200).send({url: process.env.DOMAIN_URL + "/" + req.file.path.replace(/\\/g, "/")});
 })
 
 
