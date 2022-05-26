@@ -54,26 +54,15 @@ const redeemReward = async (req, res) => {
     const rewardId = req.body.rewardId;
     if (accountId == null || rewardId == null) return helpers.sendError(res, 401, 'No accountId or rewardId')
     try {
-        const account = await Account.findOne({ _id: accountId, role: constants.USER });
+        var account = await Account.findOne({ _id: accountId, role: constants.USER });
         if (!account) return helpers.sendError(res, 400, constants.ACCOUNT + ' not found')
         const reward = await Reward.findOne({ _id: rewardId });
         if (!reward) return helpers.sendError(res, 400, constants.REWARD + ' not found')
         if (account.coins < reward.price) return helpers.sendError(res, 400, constants.ACCOUNT + ' coins: ' + account.coins + ', ' + constants.REWARD + " price: " + reward.price)
         else {
-            var objIndex = account.rewards.findIndex((obj => obj._id == rewardId));
             var curDate = Math.floor(Date.now() / 1000);
-            if (!account.rewards) {
-                account.rewards = [{ _id: rewardId, ammount: 1, purchaseDate: curDate }]
-            }
-            else if (objIndex === -1) {
-                account.rewards.push({ _id: rewardId, ammount: 1, purchaseDate: curDate })
-            }
-            else {
-                account.rewards[objIndex].ammount = account.rewards[objIndex].ammount + 1;
-                account.rewards[objIndex].purchaseDate = curDate;
-            }
-            account.coins = account.coins - reward.price;
-            await account.save();
+            var expirationDate = Math.floor((Date.now() + 365*24*60*60000 )/ 1000);
+            account = await Account.findOneAndUpdate({ _id: accountId }, { coins : account.coins - reward.price, '$push': { rewards: { rewardId: rewardId, purchaseDate: curDate, expirationDate: expirationDate }} }, { returnOriginal: false});
             if (!reward.accounts.includes(accountId)) {
                 await Reward.findOneAndUpdate({ _id: rewardId },{$addToSet : { accounts: accountId} });
             }
