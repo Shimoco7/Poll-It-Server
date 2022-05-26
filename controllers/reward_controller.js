@@ -60,8 +60,8 @@ const redeemReward = async (req, res) => {
         if (!reward) return helpers.sendError(res, 400, constants.REWARD + ' not found')
         if (account.coins < reward.price) return helpers.sendError(res, 400, constants.ACCOUNT + ' coins: ' + account.coins + ', ' + constants.REWARD + " price: " + reward.price)
         else {
-            var curDate = Math.floor(Date.now() / 1000);
-            var expirationDate = Math.floor((Date.now() + 365*24*60*60000 )/ 1000);
+            const curDate = Math.floor(Date.now() / 1000);
+            const expirationDate = Math.floor((Date.now() + 365*24*60*60000 )/ 1000);
             account = await Account.findOneAndUpdate({ _id: accountId }, { coins : account.coins - reward.price, '$push': { rewards: { rewardId: rewardId, purchaseDate: curDate, expirationDate: expirationDate }} }, { returnOriginal: false});
             if (!reward.accounts.includes(accountId)) {
                 await Reward.findOneAndUpdate({ _id: rewardId },{$addToSet : { accounts: accountId} });
