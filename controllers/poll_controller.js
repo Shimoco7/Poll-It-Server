@@ -53,6 +53,8 @@ const getAllPolls = async (req, res) => {
 
 const getPollsByClientId = async (req, res) => {
     const accountId = req.params.accountId;
+    const account = await Account.findOne({ _id: accountId, role: constants.CLIENT });
+    if (!account) return helpers.sendError(res, 400, constants.ACCOUNT + ' not found')
     try {
         const polls = await Poll.find({ accountId: accountId });
         return res.status(200).send(polls);
@@ -66,7 +68,6 @@ const getPollsByClientId = async (req, res) => {
 const getPollsByUserId = async (req, res) => {
     const accountId = req.params.accountId;
     try {
-        var matchedPolls = [];
         var detailsMap = {};
         const account = await Account.findOne({ _id: accountId, role: constants.USER });
         if (!account) return helpers.sendError(res, 400, constants.ACCOUNT + ' not found')

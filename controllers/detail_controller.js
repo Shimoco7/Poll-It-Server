@@ -12,12 +12,12 @@ const create = async (req, res) => {
     const questionId = req.body.questionId;
     const accountId = req.body.accountId;
     try {
-        const account = await Account.findOne({ _id: accountId });
+        const account = await Account.findOne({ _id: accountId, role: constants.USER });
         if (!account) return helpers.sendError(res, 400, constants.ACCOUNT + ' not found')
         const detailQuestion = await DetailQuestion.findOne({ _id: questionId });
         if (!detailQuestion) return helpers.sendError(res, 400, constants.DETAIL_QUESTION + ' not found')
-        const newDetail = await Detail.findOneAndUpdate({ _id: new ObjectId(detailId) }, { answer: answer, question: question, questionId: questionId, accountId: accountId }, { upsert: true, runValidators: true });
-        return res.status(200).send();
+        const newDetail = await Detail.findOneAndUpdate({ _id: new ObjectId(detailId) }, { answer: answer, question: question, questionId: questionId, accountId: accountId }, { upsert: true, runValidators: true, returnOriginal:false });
+        return res.status(200).send({_id: newDetail._id});
 
     } catch (err) {
         const erros = helpers.handleErrors(constants.DETAIL, err);

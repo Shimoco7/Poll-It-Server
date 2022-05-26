@@ -9,7 +9,14 @@ const constants = require("../common/constants");
 
 beforeAll(done => {
     console.log("\x1b[35m", "*******************Reward API Tests*******************");
-    Account.deleteOne({ email: constants.TEST_EMAIL }, (err) => {
+    Account.deleteMany({
+        email: {
+            $in: [
+                constants.TEST_EMAIL,
+                constants.TEST_EMAIL2
+            ]
+        }
+    }, (err) => {
         done();
     });
     Reward.deleteOne({ title: constants.TEST_REWARD_TITLE }, (err) => {
@@ -18,7 +25,14 @@ beforeAll(done => {
 });
 
 afterAll(done => {
-    Account.deleteOne({ email: constants.TEST_EMAIL }, (err) => {
+    Account.deleteMany({
+        email: {
+            $in: [
+                constants.TEST_EMAIL,
+                constants.TEST_EMAIL2
+            ]
+        }
+    }, (err) => {
         done();
     });
     Reward.deleteOne({ title: constants.TEST_REWARD_TITLE }, (err) => {
@@ -73,6 +87,15 @@ describe('Testing Reward API', () => {
         console.log("\x1b[34m", "Finishing Test: getAllRewards...");
     });
     test('Test redeemReward', async () => {
+        await request(app).post('/auth/register').send({
+            email: constants.TEST_EMAIL2,
+            password: constants.TEST_PASSWORD
+        });
+        const userLoginResult = await request(app).post('/auth/login').send({
+            email: constants.TEST_EMAIL2,
+            password: constants.TEST_PASSWORD
+        });
+        accountId =  userLoginResult.body.account._id;
         const response = await request(app).post('/reward/redeemReward').set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken).send({
             accountId: accountId,
             rewardId: rewardId

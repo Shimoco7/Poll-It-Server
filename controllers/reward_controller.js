@@ -66,7 +66,7 @@ const redeemReward = async (req, res) => {
             if (!reward.accounts.includes(accountId)) {
                 await Reward.findOneAndUpdate({ _id: rewardId },{$addToSet : { accounts: accountId} });
             }
-            return res.status(200).send({ account });
+            return res.status(200).send(account);
         }
 
     } catch (err) {
