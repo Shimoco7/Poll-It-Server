@@ -98,7 +98,8 @@ describe('Testing Reward API', () => {
         accountId =  userLoginResult.body.account._id;
         const response = await request(app).post('/reward/redeemReward').set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken).send({
             accountId: accountId,
-            rewardId: rewardId
+            rewardId: rewardId,
+            ammount: 1
         });
         expect(response.statusCode).toEqual(200);
         console.log("\x1b[34m", "Finishing Test: redeemReward...");
