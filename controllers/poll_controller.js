@@ -53,12 +53,10 @@ const getAllPolls = async (req, res) => {
 
 const getPollsByClientId = async (req, res) => {
     const accountId = req.params.accountId;
-    const account = await Account.findOne({ _id: accountId, role: constants.CLIENT });
+    const account = await Account.findOne({ _id: accountId, role: constants.CLIENT }).populate('polls');
     if (!account) return helpers.sendError(res, 400, constants.ACCOUNT + ' not found')
     try {
-        const polls = await Poll.find({ accountId: accountId });
-        return res.status(200).send(polls);
-
+        return res.status(200).send(account.polls);
     } catch (err) {
         const erros = helpers.handleErrors(constants.POLL, err);
         return res.status(400).json({ erros });
