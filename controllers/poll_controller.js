@@ -67,10 +67,9 @@ const getPollsByUserId = async (req, res) => {
     const accountId = req.params.accountId;
     try {
         var detailsMap = {};
-        const account = await Account.findOne({ _id: accountId, role: constants.USER });
+        const account = await Account.findOne({ _id: accountId, role: constants.USER }).populate('details');
         if (!account) return helpers.sendError(res, 400, constants.ACCOUNT + ' not found')
-        const details = await Detail.find({ accountId: account._id });
-        for (const detail of details) {
+        for (const detail of account.details) {
             detailsMap[constants.DETAIL_QUESTION_MAP[detail.question]] = detail.answer;
         }
         const polls = await Poll.find({
