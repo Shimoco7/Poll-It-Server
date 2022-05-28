@@ -52,18 +52,17 @@ const update = async (req, res) => {
 const redeemReward = async (req, res) => {
     const accountId = req.body.accountId;
     const rewardId = req.body.rewardId;
-    const ammount = req.body.ammount;
-    if (accountId == null || rewardId == null|| ammount == null) return helpers.sendError(res, 401, 'No accountId, rewardId or ammount')
+    if (!accountId || !rewardId) return helpers.sendError(res, 401, 'No accountId or rewardId')
     try {
         var account = await Account.findOne({ _id: accountId, role: constants.USER });
         if (!account) return helpers.sendError(res, 400, constants.ACCOUNT + ' not found')
         const reward = await Reward.findOne({ _id: rewardId });
         if (!reward) return helpers.sendError(res, 400, constants.REWARD + ' not found')
-        if (account.coins < reward.price*ammount) return helpers.sendError(res, 400, constants.ACCOUNT + ' coins: ' + account.coins + ', ' + constants.REWARD + "s price: " + reward.price*ammount)
+        if (account.coins < reward.price) return helpers.sendError(res, 400, constants.ACCOUNT + ' coins: ' + account.coins + ', ' + constants.REWARD + " price: " + reward.price)
         else {
             const curDate = Math.floor(Date.now() / 1000);
             const expirationDate = Math.floor((Date.now() + 365*24*60*60000 )/ 1000);
-            account = await Account.findOneAndUpdate({ _id: accountId }, { coins : account.coins - reward.price*ammount, '$push': { rewards: { rewardId: rewardId,ammount: ammount, purchaseDate: curDate, expirationDate: expirationDate }} }, { returnOriginal: false});
+            account = await Account.findOneAndUpdate({ _id: accountId }, { coins : account.coins - reward.price, '$push': { rewards: { rewardId: rewardId, purchaseDate: curDate, expirationDate: expirationDate }} }, { returnOriginal: false});
             if (!reward.accounts.includes(accountId)) {
                 await Reward.findOneAndUpdate({ _id: rewardId },{$addToSet : { accounts: accountId} });
             }

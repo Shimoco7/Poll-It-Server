@@ -136,7 +136,6 @@ router.put('/update', authenticate([constants.ADMIN]), Reward.update);
 *            example:
 *              accountId: 62601c1c79b1c850871b902f
 *              rewardId: 62601c1c79b1c850871b902f
-*              ammount: 1
 *     responses:
 *       200:
 *         description: Reward has been redeemed

@@ -57,7 +57,7 @@ const rewardSchema = new mongoose.Schema({
     price: {
         type: Number,
         min: 0,
-        required: [true, "Please enter an amount of coins"]
+        required: [true, "Please enter a reward price"]
     },
     image: {
         type: String
