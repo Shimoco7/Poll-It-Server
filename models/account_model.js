@@ -56,7 +56,7 @@ const constants = require('../common/constants');
  *          type: array
  *          items:
  *             type: object
- *          example: [{_id: "4eb6e7e7e9b7f4194e000005", rewardId: "4eb6e7e7e9b7f4194e000003", supplierImage:  https://poll-it.cs.colman.ac.il/storage/images/starbucks.png , purchaseDate: 1653123955, expirationDate: 1655123955 }]
+ *          example: [{_id: "4eb6e7e7e9b7f4194e000005", rewardId: "4eb6e7e7e9b7f4194e000003", title: title, supplierImage:  https://poll-it.cs.colman.ac.il/storage/images/starbucks.png , purchaseDate: 1653123955, expirationDate: 1655123955 }]
  *        createdAt:
  *          type: integer
  *        updatedAt:
@@ -125,6 +125,7 @@ const accountSchema = new mongoose.Schema({
     }],
     rewards: [{
         rewardId: mongoose.Schema.Types.ObjectId,
+        title: String,
         supplierImage: String,
         purchaseDate: Number,
         expirationDate: Number
