@@ -17,6 +17,9 @@ const create = async (req, res) => {
         const detailQuestion = await DetailQuestion.findOne({ _id: questionId });
         if (!detailQuestion) return helpers.sendError(res, 400, constants.DETAIL_QUESTION + ' not found')
         const newDetail = await Detail.findOneAndUpdate({ _id: new ObjectId(detailId) }, { answer: answer, question: question, questionId: questionId, accountId: accountId }, { upsert: true, runValidators: true, returnOriginal:false });
+        if (!account.details.includes(newDetail._id)) {
+            await Account.findOneAndUpdate({ _id: accountId },{$addToSet : { details: newDetail._id } });
+        }
         return res.status(200).send({_id: newDetail._id});
 
     } catch (err) {
