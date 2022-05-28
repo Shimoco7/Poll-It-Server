@@ -15,7 +15,7 @@ const rewardRouter = require('./routes/reward_routes');
 const authenticate = require("./common/auth_middleware");
 const constants = require("./common/constants");
 
-app.use("/storage", authenticate([constants.USER, constants.ADMIN]), express.static(path.resolve(__dirname + '/storage')));
+app.use("/storage", authenticate([constants.USER, constants.CLIENT, constants.ADMIN]), express.static(path.resolve(__dirname + '/storage')));
 
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true });
 const db = mongoose.connection;
