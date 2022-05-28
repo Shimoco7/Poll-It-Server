@@ -18,6 +18,7 @@ const constants = require('../common/constants');
  *          type: string
  *        image:
  *          type: string
+ *          default: https://poll-it.cs.colman.ac.il/storage/images/defaultPoll.png
  *        coins:
  *          type: integer
  *          default: 0
@@ -97,7 +98,8 @@ const pollSchema = new mongoose.Schema({
         required: [true, "Please enter an account id"]
     },
     image: {
-        type: String
+        type: String,
+        default: "https://poll-it.cs.colman.ac.il/storage/images/defaultPoll.png"
     },
     coins: {
         type: Number,
