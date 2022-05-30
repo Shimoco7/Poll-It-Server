@@ -32,6 +32,7 @@ const login = async (req, res) => {
 
     try {
         const account = await Account.login(email, password);
+        if(account.role == constants.USER && account.rank >= 10) return helpers.sendError(res, 400, 'Error: '+ constants.ACCOUNT + ' unreliability rank is too high; failed to login')
         const accessToken = helpers.generateAccessToken(account);
         const refreshToken = helpers.generateRefreshToken(account);
         if (account.refreshToken != refreshToken) {
@@ -160,6 +161,7 @@ const facebook = async (req, res) => {
         if (accountByFacebookId && accountByFacebookId.email != email) {
             return helpers.sendError(res, 400, "There's already an account associated with your facebookId")
         }
+        if(account.role == constants.USER && account.rank >= 10) return helpers.sendError(res, 400, 'Error: '+ constants.ACCOUNT + ' unreliability rank is too high; failed to login')
         if (profilePicUrl) {
             var image = undefined;
             var ext = path.extname(profilePicUrl);

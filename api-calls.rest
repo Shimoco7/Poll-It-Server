@@ -20,7 +20,7 @@ POST https://poll-it.cs.colman.ac.il/auth/login
 Content-Type: application/json
 
 {
-    "email" : "admin1@admin.com",
+    "email" : "client@client.com",
     "password" : "Test1234@"
 }
 
@@ -78,12 +78,17 @@ Authorization: Bearer addAccessTokenHere
 ###
 POST  https://poll-it.cs.colman.ac.il/auth/facebook
 Content-Type: application/json
-
+Authorization: Bearer addAccessTokenHere
 {
     "facebookId": "1231231234",
     "email": "test1@test.com",
     "name": "test name"
 }
+
+###
+GET  https://poll-it.cs.colman.ac.il/auth/getAccountsCountBySampleGroup/?gender=["Male"]
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjdlMDNkYmU3MTA5M2FlYzg1OGUyMmMiLCJyb2xlIjoiQ2xpZW50IiwiaWF0IjoxNjUzNzU0OTYyLCJleHAiOjE2NTM3NTg1NjJ9.gsxj7pnurlE1AUcYb9KlHuyfEKRqsrTwBuOu9Wzb0rE
 
 #Poll----------------------------------------------------------------------
 
