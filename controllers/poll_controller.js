@@ -69,10 +69,10 @@ const getPollsByUserId = async (req, res) => {
         var detailsMap = {};
         const account = await Account.findOne({ _id: accountId, role: constants.USER }).populate('details');
         if (!account) return helpers.sendError(res, 400, constants.ACCOUNT + ' not found')
-        if (account.rank >= 10) return helpers.sendError(res, 400, constants.ACCOUNT + ' unreliability rank is too high')
+        if (account.rank >= 7) return helpers.sendError(res, 400, 'Warning: '+ constants.ACCOUNT + ' unreliability rank is too high; failed to get polls')
         for (const detail of account.details) {
             detailsMap[constants.DETAIL_QUESTION_MAP[detail.question]] = detail.answer;
-        }
+        } 
         const polls = await Poll.find({
             disabled: false,
             users: { $nin: accountId },
