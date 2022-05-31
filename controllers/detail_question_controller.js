@@ -21,7 +21,17 @@ const getCreate = async (req, res) => {
 
 const getAllDetailQuestions = async (req, res) => {
     try {
-        const detailQuestions = await DetailQuestion.find();
+        const detailQuestions = await DetailQuestion.aggregate([
+            {
+                $lookup:
+                {
+                    from: 'details',
+                    localField: '_id',
+                    foreignField: 'questionId',
+                    as: 'details'
+                }
+            }
+        ])
         return res.status(200).send(detailQuestions);
 
     } catch (err) {
