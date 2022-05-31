@@ -23,9 +23,9 @@ const create = async (req, res) => {
     try {
         const account = await Account.findOne({ _id: accountId, role: constants.CLIENT });
         if (!account) return helpers.sendError(res, 400, constants.ACCOUNT + ' not found')
-        const newPoll = await Poll.findOneAndUpdate({ _id: new ObjectId(pollId) }, {pollName: pollName, accountId: accountId, image: image, coins: coins, maxUsers: maxUsers, pollQuestions: pollQuestions, age: age, gender: gender, educationLevel: educationLevel, maritalStatus: maritalStatus, numberOfChildrens: numberOfChildrens, permanentJob: permanentJob, income: income  }, { upsert: true, runValidators: true, returnOriginal: false });
+        const newPoll = await Poll.findOneAndUpdate({ _id: new ObjectId(pollId) }, { pollName: pollName, accountId: accountId, image: image, coins: coins, maxUsers: maxUsers, pollQuestions: pollQuestions, age: age, gender: gender, educationLevel: educationLevel, maritalStatus: maritalStatus, numberOfChildrens: numberOfChildrens, permanentJob: permanentJob, income: income }, { upsert: true, runValidators: true, returnOriginal: false });
         if (!account.polls.includes(newPoll._id)) {
-            await Account.findOneAndUpdate({ _id: accountId },{$addToSet : { polls: newPoll._id } });
+            await Account.findOneAndUpdate({ _id: accountId }, { $addToSet: { polls: newPoll._id } });
         }
         return res.status(200).send({ _id: newPoll._id });
 
@@ -53,7 +53,7 @@ const getAllPolls = async (req, res) => {
 
 const getPollsByClientId = async (req, res) => {
     const accountId = req.params.accountId;
-    const account = await Account.findOne({ _id: accountId, role: constants.CLIENT }).populate('polls');
+    const account = await Account.findOne({ _id: accountId, role: constants.CLIENT }).populate('polls').select({ polls: 1 });
     if (!account) return helpers.sendError(res, 400, constants.ACCOUNT + ' not found')
     try {
         return res.status(200).send(account.polls);
@@ -67,12 +67,12 @@ const getPollsByUserId = async (req, res) => {
     const accountId = req.params.accountId;
     try {
         var detailsMap = {};
-        const account = await Account.findOne({ _id: accountId, role: constants.USER }).populate('details');
+        const account = await Account.findOne({ _id: accountId, role: constants.USER }).populate('details').select({ details: 1, rank: 1 });
         if (!account) return helpers.sendError(res, 400, constants.ACCOUNT + ' not found')
-        if (account.rank >= 7) return helpers.sendError(res, 400, 'Warning: '+ constants.ACCOUNT + ' unreliability rank is too high; failed to get polls')
+        if (account.rank >= 7) return helpers.sendError(res, 400, 'Warning: ' + constants.ACCOUNT + ' unreliability rank is too high; failed to get polls')
         for (const detail of account.details) {
             detailsMap[constants.DETAIL_QUESTION_MAP[detail.question]] = detail.answer;
-        } 
+        }
         const polls = await Poll.find({
             disabled: false,
             users: { $nin: accountId },
@@ -83,7 +83,7 @@ const getPollsByUserId = async (req, res) => {
             numberOfChildrens: { $in: [detailsMap[constants.NUMBER_OF_CHILDRENS]] },
             permanentJob: { $in: [detailsMap[constants.PERMANENT_JOB]] },
             income: { $in: [detailsMap[constants.INCOME]] },
-            "pollQuestions.0": {$exists: true}
+            "pollQuestions.0": { $exists: true }
         });
         return res.status(200).send(polls);
     } catch (err) {
