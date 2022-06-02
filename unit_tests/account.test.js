@@ -131,6 +131,7 @@ describe('Testing Account API', () => {
         console.log("\x1b[34m", "Starting Test: getAccountsCountBySampleGroup...");
         const response = await request(app).get('/auth/getAccountsCountBySampleGroup/?gender=["Male"]').set(constants.AUTHORIZATION, constants.BEARER + " " + clientAccessToken);
         expect(response.statusCode).toEqual(200);
+        expect(response.body.accountsCount).toBeGreaterThanOrEqual(1);
         console.log("\x1b[34m", "Finishing Test: getAccountsCountBySampleGroup...");
     });
 

@@ -114,6 +114,7 @@ describe('Testing Answer API', () => {
             pollQuestionId: pollQuestionId
         });
         expect(response.statusCode).toEqual(200);
+        expect(response.body._id).toEqual(constants.TEST_ID);
         console.log("\x1b[34m", "Finishing Test: createAnswer...");
     })
 
@@ -138,6 +139,7 @@ describe('Testing Answer API', () => {
         console.log("\x1b[34m", "Starting Test: getAnswersByPollQuestionId...");
         const response = await request(app).get('/answer/getAnswersByPollQuestionId/' + pollQuestionId).set(constants.AUTHORIZATION, constants.BEARER + " " + clientAccessToken);
         expect(response.statusCode).toEqual(200);
+        expect(response.body.length).toBeGreaterThanOrEqual(1);
         console.log("\x1b[34m", "Finishing Test: getAnswersByPollQuestionId...");
     });
 

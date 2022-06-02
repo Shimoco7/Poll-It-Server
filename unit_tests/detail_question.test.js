@@ -35,6 +35,7 @@ describe('Testing DetailQuestion API', () => {
 
         const response = await request(app).get('/detail_question/getAllDetailQuestions').set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken);
         expect(response.statusCode).toEqual(200);
+        expect(response.body.length).toEqual(7);
         console.log("\x1b[34m", "Finishing Test: getAllDetailQuestions...");
     });
 })

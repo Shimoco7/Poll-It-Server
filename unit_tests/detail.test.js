@@ -55,6 +55,7 @@ describe('Testing Detail API', () => {
             accountId: accountId
         });
         expect(response.statusCode).toEqual(200);
+        expect(response.body._id).toEqual(constants.TEST_ID);
         console.log("\x1b[34m", "Finishing Test: createDetail...");
     })
 

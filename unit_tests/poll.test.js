@@ -112,6 +112,7 @@ describe('Testing Poll API', () => {
         console.log("\x1b[34m", "Starting Test: getPollsByUserId...");
         const response = await request(app).get('/poll/getPollsByUserId/'+userId).set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken);
         expect(response.statusCode).toEqual(200);
+        expect(response.body.length).toEqual(0);
         console.log("\x1b[34m", "Finishing Test: getPollsByUserId...");
     });
 
