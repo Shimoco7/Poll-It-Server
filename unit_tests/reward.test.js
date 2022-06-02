@@ -76,6 +76,7 @@ describe('Testing Reward API', () => {
             supplier: "supplier"
         });
         expect(response.statusCode).toEqual(200);
+        expect(response.body.supplier).toEqual("supplier");
         console.log("\x1b[34m", "Finishing Test: rewardUpdate...");
     });
 
@@ -101,6 +102,7 @@ describe('Testing Reward API', () => {
             rewardId: rewardId
         });
         expect(response.statusCode).toEqual(200);
+        expect(response.body.orders[0].rewardId).toEqual(rewardId);
         console.log("\x1b[34m", "Finishing Test: redeemReward...");
     });
 })
