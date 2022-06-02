@@ -52,7 +52,7 @@ const constants = require('../common/constants');
  *          items:
  *             type: string
  *          example: ["4eb6e7e7e9b7f4194e000003"]
- *        rewards:
+ *        orders:
  *          type: array
  *          items:
  *             type: object
@@ -123,7 +123,7 @@ const accountSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: constants.POLL
     }],
-    rewards: [{
+    orders: [{
         rewardId: mongoose.Schema.Types.ObjectId,
         title: String,
         supplierImage: String,

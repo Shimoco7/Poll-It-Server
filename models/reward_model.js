@@ -52,7 +52,7 @@ const rewardSchema = new mongoose.Schema({
     },
     description: {
         type: String,
-        required: [true, "Please enter a rewards description"]
+        required: [true, "Please enter a reward description"]
     },
     price: {
         type: Number,
