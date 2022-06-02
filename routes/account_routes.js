@@ -3,7 +3,6 @@ const router = express.Router();
 const Account = require('../controllers/account_controller');
 const authenticate = require("../common/auth_middleware");
 const constants = require('../common/constants');
-const passport = require('passport');
 
 /**
 * @swagger

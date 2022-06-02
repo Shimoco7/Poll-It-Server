@@ -45,7 +45,6 @@ afterAll(done => {
 
 describe('Testing Poll API', () => {
     var accessToken;
-    var accountId;
     var userId;
     var pollId;
     test('Test createPoll', async () => {
@@ -86,6 +85,7 @@ describe('Testing Poll API', () => {
             gender: ['Male']
         });
         expect(response.statusCode).toEqual(200);
+        expect(response.body.pollId).toEqual(pollId);
         console.log("\x1b[34m", "Finishing Test: pollUpdate...");
     });
 
