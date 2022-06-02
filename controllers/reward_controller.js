@@ -1,5 +1,6 @@
 const Account = require('../models/account_model');
 const Reward = require('../models/reward_model');
+const Order = require('../models/order_model');
 const helpers = require("../common/helpers");
 const constants = require('../common/constants');
 
@@ -62,9 +63,10 @@ const redeemReward = async (req, res) => {
         else {
             const curDate = Math.floor(Date.now() / 1000);
             const expirationDate = Math.floor((Date.now() + 365*24*60*60000 )/ 1000);
-            account = await Account.findOneAndUpdate({ _id: accountId }, { coins : account.coins - reward.price, '$push': { orders: { rewardId: rewardId, title: reward.title, supplierImage: reward.supplierImage, purchaseDate: curDate, expirationDate: expirationDate }} }, { returnOriginal: false});
-            if (!reward.accounts.includes(accountId)) {
-                await Reward.findOneAndUpdate({ _id: rewardId },{$addToSet : { accounts: accountId} });
+            const order = await Order.create({ rewardId: rewardId,accountId:accountId, title: reward.title, supplierImage: reward.supplierImage, purchaseDate: curDate, expirationDate: expirationDate})
+            account = await Account.findOneAndUpdate({ _id: accountId }, { coins : account.coins - reward.price, '$push': { orders: order._id} }, { returnOriginal: false}).populate('orders');
+            if (!reward.orders.includes(order._id)) {
+                await Reward.findOneAndUpdate({ _id: rewardId },{$addToSet : { orders: order._id} });
             }
             return res.status(200).send(account);
         }

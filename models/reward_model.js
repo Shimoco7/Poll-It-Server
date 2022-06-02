@@ -25,7 +25,7 @@ const constants = require('../common/constants');
  *          type: string
  *        supplierImage:
  *          type: string
- *        accounts:
+ *        orders:
  *          type: array
  *          items:
  *             type: string
@@ -68,10 +68,10 @@ const rewardSchema = new mongoose.Schema({
     supplierImage: {
         type: String
     },
-    accounts: [
+    orders: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: constants.ACCOUNT
+            ref: constants.ORDER
         }
     ]
 });

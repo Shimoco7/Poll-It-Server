@@ -61,6 +61,7 @@ module.exports = Object.freeze({
   DETAIL_QUESTION: 'DetailQuestion',
   POLL: 'Poll',
   POLL_QUESTION: 'PollQuestion',
-  REWARD: 'Reward'
+  REWARD: 'Reward',
+  ORDER: 'Order'
 
 });

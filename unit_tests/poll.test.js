@@ -46,6 +46,7 @@ afterAll(done => {
 describe('Testing Poll API', () => {
     var accessToken;
     var accountId;
+    var userId;
     var pollId;
     test('Test createPoll', async () => {
         console.log("\x1b[34m", "Starting Test: createPoll...");
@@ -60,10 +61,10 @@ describe('Testing Poll API', () => {
         });
 
         accessToken = loginResult.body.accessToken;
-        accountId = loginResult.body.account._id;
+        clientId = loginResult.body.account._id;
         const response = await request(app).post('/poll/create').set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken).send({
             pollName: constants.TEST_POLL_NAME,
-            accountId: accountId
+            accountId: clientId
         });
         expect(response.statusCode).toEqual(200);
         console.log("\x1b[34m", "Finishing Test: createPoll...");
@@ -71,7 +72,7 @@ describe('Testing Poll API', () => {
 
     test('Test getPollsByClientId', async () => {
         console.log("\x1b[34m", "Starting Test: getPollsByClientId...");
-        const response = await request(app).get('/poll/getPollsByClientId/' + accountId).set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken);
+        const response = await request(app).get('/poll/getPollsByClientId/' + clientId).set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken);
         expect(response.statusCode).toEqual(200);
         expect(response.body.length).toBeGreaterThanOrEqual(1);
         pollId = response.body[0]._id;
@@ -99,6 +100,7 @@ describe('Testing Poll API', () => {
             password: constants.TEST_PASSWORD
         });
         accessToken = loginResult.body.accessToken;
+        userId = loginResult.body.account._id;
         const response = await request(app).get('/poll/getAllPolls').set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken);
         expect(response.statusCode).toEqual(200);
         expect(response.body.length).toBeGreaterThanOrEqual(1);
@@ -106,13 +108,12 @@ describe('Testing Poll API', () => {
     });
 
 
-    // test('Test getPollsByUserId',async ()=>{
-    //     console.log("\x1b[34m", "Starting Test: getPollsByUserId...");
-    //     const response = await request(app).get('/poll/getPollsByUserId/'+accountId).set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken);
-    //     expect(response.statusCode).toEqual(200);
-    //     expect(response.body.length).toBeGreaterThanOrEqual(1);
-    //     console.log("\x1b[34m", "Finishing Test: getPollsByUserId...");
-    // });
+    test('Test getPollsByUserId',async ()=>{
+        console.log("\x1b[34m", "Starting Test: getPollsByUserId...");
+        const response = await request(app).get('/poll/getPollsByUserId/'+userId).set(constants.AUTHORIZATION, constants.BEARER + " " + accessToken);
+        expect(response.statusCode).toEqual(200);
+        console.log("\x1b[34m", "Finishing Test: getPollsByUserId...");
+    });
 
 
 });

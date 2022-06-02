@@ -124,11 +124,8 @@ const accountSchema = new mongoose.Schema({
         ref: constants.POLL
     }],
     orders: [{
-        rewardId: mongoose.Schema.Types.ObjectId,
-        title: String,
-        supplierImage: String,
-        purchaseDate: Number,
-        expirationDate: Number
+        type: mongoose.Schema.Types.ObjectId,
+        ref: constants.ORDER
     }]
 });
 accountSchema.plugin(timestamps);
