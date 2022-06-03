@@ -88,7 +88,7 @@ Authorization: Bearer addAccessTokenHere
 ###
 GET  https://poll-it.cs.colman.ac.il/auth/getAccountsCountBySampleGroup/?gender=["Male"]
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjdlMDNkYmU3MTA5M2FlYzg1OGUyMmMiLCJyb2xlIjoiQ2xpZW50IiwiaWF0IjoxNjUzNzU0OTYyLCJleHAiOjE2NTM3NTg1NjJ9.gsxj7pnurlE1AUcYb9KlHuyfEKRqsrTwBuOu9Wzb0rE
+Authorization: Bearer addAccessTokenHere
 
 #Poll----------------------------------------------------------------------
 
