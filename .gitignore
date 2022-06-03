@@ -3,4 +3,4 @@ package-lock.json
 storage
 CSSTUD
 **.env
-api-calls.rest
+calls.rest
