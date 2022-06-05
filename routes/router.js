@@ -5,6 +5,10 @@ const upload = require('../common/upload_middleware');
 const constants = require('../common/constants');
 const helpers = require('../common/helpers');
 const fs = require('fs');
+const mime = require('mime');
+const path = require('path');
+const {v1:uuidv1,v4:uuidv4} = require('uuid');
+
 
 /**
 * @swagger
@@ -74,6 +78,23 @@ router.get('/', (req, res) => {
 router.post('/upload', authenticate([constants.USER, constants.CLIENT, constants.ADMIN]), upload.single('file'), (req, res) => {
     if (!req.file) return helpers.sendError(res, 400, "No file chosen");
     else return res.status(200).send({url: process.env.DOMAIN_URL + "/" + req.file.path.replace(/\\/g, "/")});
+})
+
+
+router.post('/uploadBase64', authenticate([constants.USER, constants.CLIENT, constants.ADMIN]), (req, res) => {
+    var matches = req.body.file.match(/^data:([A-Za-z-+/]+);base64,(.+)$/);
+    if (!matches) return helpers.sendError(res, 400, "Invalid input")
+    response = {};
+    if (matches.length !== 3) return helpers.sendError(res, 400, "Invalid input")
+    response.type = matches[1];
+    response.data = new Buffer.from(matches[2], 'base64');
+    let decodedImg = response;
+    let imageBuffer = decodedImg.data;
+    let type = decodedImg.type;
+    let extension = mime.extension(type);
+    let fileName = uuidv4() +'.'+ extension;
+    fs.writeFileSync(path.join(constants.STORAGE_PATH,fileName),imageBuffer,"utf8")
+    return res.status(200).send({url: process.env.DOMAIN_URL + "/" + constants.STORAGE_PATH+fileName});
 })
 
 
