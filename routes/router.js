@@ -81,6 +81,36 @@ router.post('/upload', authenticate([constants.USER, constants.CLIENT, constants
 })
 
 
+/**
+* @swagger
+* /uploadBase64:
+*  post:
+*     summary: upload an image with base64 format
+*     description: "Roles: [User, Client]"
+*     tags: [General API]
+*     requestBody:
+*        content:
+*          application/json:
+*            schema:
+*              $ref: '#components/schemas/General'
+*            example:
+*              file: base64string
+*     responses:
+*       200:
+*         description: Image has been uploaded
+*       400:
+*         description: Bad Request
+*       401:
+*         description: Unauthorized
+*       403:
+*         description:  Forbidden
+*       404:
+*         description:  Not Found
+*       500:
+*         description:  Internal Server Error
+*/
+
+
 router.post('/uploadBase64', authenticate([constants.USER, constants.CLIENT, constants.ADMIN]), (req, res) => {
     var matches = req.body.file.match(/^data:([A-Za-z-+/]+);base64,(.+)$/);
     if (!matches) return helpers.sendError(res, 400, "Invalid input")
