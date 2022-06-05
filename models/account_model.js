@@ -138,7 +138,7 @@ accountSchema.pre('save', async function (next) {
 })
 
 accountSchema.statics.login = async function (email, password) {
-    const account = await this.findOne({ email });
+    const account = await this.findOne({ email }).populate('orders');
     if (account == null) throw Error("Incorrect Email");
 
     const match = await bcryptjs.compare(password, account.password)
@@ -149,7 +149,7 @@ accountSchema.statics.login = async function (email, password) {
 }
 
 accountSchema.statics.facebookLogin = async function (email) {
-    const account = await this.findOne({ email });
+    const account = await this.findOne({ email }).populate('orders');
     if (account == null) throw Error("Incorrect Email");
     if (!account.facebookId) throw Error("There's no account associated with your Facebook account");
     return account;
