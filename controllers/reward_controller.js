@@ -64,7 +64,7 @@ const redeemReward = async (req, res) => {
             const curDate = Math.floor(Date.now() / 1000);
             const expirationDate = Math.floor((Date.now() + 365*24*60*60000 )/ 1000);
             const order = await Order.create({ rewardId: rewardId,accountId:accountId, title: reward.title, supplierImage: reward.supplierImage, purchaseDate: curDate, expirationDate: expirationDate})
-            account = await Account.findOneAndUpdate({ _id: accountId }, { coins : account.coins - reward.price, '$push': { orders: order._id} }, { returnOriginal: false}).populate('orders');
+            account = await Account.findOneAndUpdate({ _id: accountId }, { $inc:{coins : -reward.price}, $push: { orders: order._id} }, { returnOriginal: false}).populate('orders');
             if (!reward.orders.includes(order._id)) {
                 await Reward.findOneAndUpdate({ _id: rewardId },{$addToSet : { orders: order._id} });
             }
