@@ -109,7 +109,7 @@ const refreshToken = async (req, res) => {
 
 const update = async (req, res) => {
     try {
-        const updatedAccount = await Account.findOneAndUpdate({ _id: req.body._id }, req.body, { returnOriginal: false, runValidators: true });
+        const updatedAccount = await Account.findOneAndUpdate({ _id: req.body._id }, req.body, { returnOriginal: false, runValidators: true }).populate('orders');
         return res.status(200).send(updatedAccount);
 
     } catch (err) {
@@ -211,7 +211,7 @@ const getLogout = async (req, res) => {
 const getAccountById = async (req, res) => {
     const accountId = req.params._id;
     try {
-        const account = await Account.findOne({ _id: accountId });
+        const account = await Account.findOne({ _id: accountId }).populate('orders');
         return res.status(200).send(account);
 
     } catch (err) {
