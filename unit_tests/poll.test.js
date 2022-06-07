@@ -85,7 +85,7 @@ describe('Testing Poll API', () => {
             gender: ['Male']
         });
         expect(response.statusCode).toEqual(200);
-        expect(response.body.pollId).toEqual(pollId);
+        expect(response.body._id).toEqual(pollId);
         console.log("\x1b[34m", "Finishing Test: pollUpdate...");
     });
 
