@@ -387,5 +387,36 @@ router.post('/facebook', Account.facebook);
 
 router.get('/getAccountsCountBySampleGroup', authenticate([constants.CLIENT, constants.ADMIN]), Account.getAccountsCountBySampleGroup);
 
+/**
+* @swagger
+* /auth/deleteAccount/{_id}:
+*   delete:
+*     summary: Delete an account
+*     description: "Roles: [Admin]"
+*     tags: [Account API]
+*     parameters:
+*       - in: path
+*         name: _id
+*         schema:
+*           type: string
+*         required: true
+*         description: The account id
+*     responses:
+*       200:
+*         description: The account has been deleted
+*       400:
+*         description: Bad Request
+*       401:
+*         description: Unauthorized
+*       403:
+*         description:  Forbidden
+*       404:
+*         description:  Not Found
+*       500:
+*         description:  Internal Server Error
+*/
+
+
+router.delete('/deleteAccount/:_id', authenticate([constants.ADMIN]), Account.deleteAccount);
 
 module.exports = router

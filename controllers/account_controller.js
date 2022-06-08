@@ -1,5 +1,8 @@
 const Account = require('../models/account_model');
+const Poll = require('../models/poll_model');
 const Detail = require('../models/detail_model');
+const Order = require('../models/order_model');
+const Answer = require('../models/answer_model');
 const jwt = require('jsonwebtoken');
 const helpers = require("../common/helpers");
 const constants = require('../common/constants');
@@ -145,6 +148,28 @@ const updatePassword = async (req, res) => {
 }
 
 
+const deleteAccount = async (req, res) => {
+    const accountId = req.params._id;
+    try {
+        // const account = Account.findOne({_id: accountId}).populate('orders').populate('details').populate('polls');
+       
+        // await Reward.findOneAndUpdate({orders:{$in:account.orders}}, {$pull: {orders: account.orders}});
+        // await Poll.findOneAndUpdate({users:{$in:[accountId]}}, {$pull: {users: accountId}});
+
+        // await Poll.deleteMany({accountId: accountId});
+        // await Order.deleteMany({accountId: accountId});
+        // await Detail.deleteMany({accountId: accountId});
+        // await Answer.deleteMany({ accountId: accountId});
+        // await Account.deleteOne({ _id: accountId});
+        return res.status(200).send();
+
+    } catch (err) {
+        const erros = helpers.handleErrors(constants.ACCOUNT, err);
+        return res.status(400).json({ erros });
+    }
+
+}
+
 const facebook = async (req, res) => {
     var detailsFilled = true;
     const email = req.body.email;
@@ -287,6 +312,7 @@ module.exports = {
     refreshToken,
     update,
     updatePassword,
+    deleteAccount,
     getRegister,
     getLogin,
     getLogout,
