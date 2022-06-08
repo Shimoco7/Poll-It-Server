@@ -32,7 +32,7 @@ const login = async (req, res) => {
 
     try {
         const account = await Account.login(email, password);
-        if(account.role == constants.USER && account.rank >= 10) return helpers.sendError(res, 400, 'Error: '+ constants.ACCOUNT + ' unreliability rank is too high; failed to login')
+        if(account.role == constants.USER && account.rank >= constants.MAX_UNRELIABILITY_RANK) return helpers.sendError(res, 400, constants.MAX_UNRELIABILITY_RANK_ERROR_MSG)
         const accessToken = helpers.generateAccessToken(account);
         const refreshToken = helpers.generateRefreshToken(account);
         if (account.refreshToken != refreshToken) {
@@ -110,6 +110,7 @@ const refreshToken = async (req, res) => {
 const update = async (req, res) => {
     try {
         const updatedAccount = await Account.findOneAndUpdate({ _id: req.body._id }, req.body, { returnOriginal: false, runValidators: true }).populate('orders');
+        if(updatedAccount.role == constants.USER && updatedAccount.rank >= constants.MAX_UNRELIABILITY_RANK) return helpers.sendError(res, 400, constants.MAX_UNRELIABILITY_RANK_ERROR_MSG)
         return res.status(200).send(updatedAccount);
 
     } catch (err) {
@@ -161,7 +162,7 @@ const facebook = async (req, res) => {
         if (accountByFacebookId && accountByFacebookId.email != email) {
             return helpers.sendError(res, 400, "There's already an account associated with your facebookId")
         }
-        if(account && account.role == constants.USER && account.rank >= 10) return helpers.sendError(res, 400, 'Error: '+ constants.ACCOUNT + ' unreliability rank is too high; failed to login')
+        if(account && account.role == constants.USER && account.rank >= constants.MAX_UNRELIABILITY_RANK) return helpers.sendError(res, 400, constants.MAX_UNRELIABILITY_RANK_ERROR_MSG)
         if (profilePicUrl) {
             var image = undefined;
             var ext = path.extname(profilePicUrl);
