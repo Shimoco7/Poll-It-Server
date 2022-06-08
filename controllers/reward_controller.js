@@ -29,7 +29,7 @@ const getCreate = async (req, res) => {
 
 const getAllRewards = async (req, res) => {
     try {
-        const rewards = await Reward.find();
+        const rewards = await Reward.find().sort([["price", 1]]).exec();
         return res.status(200).send(rewards);
 
     } catch (err) {
