@@ -53,21 +53,24 @@ const update = async (req, res) => {
 const redeemReward = async (req, res) => {
     const accountId = req.body.accountId;
     const rewardId = req.body.rewardId;
+    const amount = req.body.amount;
     if (!accountId || !rewardId) return helpers.sendError(res, 401, 'No accountId or rewardId')
     try {
         var account = await Account.findOne({ _id: accountId, role: constants.USER });
         if (!account) return helpers.sendError(res, 400, constants.ACCOUNT + ' not found')
         const reward = await Reward.findOne({ _id: rewardId });
         if (!reward) return helpers.sendError(res, 400, constants.REWARD + ' not found')
-        if (account.coins < reward.price) return helpers.sendError(res, 400, constants.ACCOUNT + ' coins: ' + account.coins + ', ' + constants.REWARD + " price: " + reward.price)
+        if (account.coins < reward.price*amount) return helpers.sendError(res, 400, constants.ACCOUNT + ' coins: ' + account.coins + ', ' + constants.REWARD + "s price: " + reward.price*amount)
         else {
             const curDate = Math.floor(Date.now() / 1000);
             const expirationDate = Math.floor((Date.now() + 365*24*60*60000 )/ 1000);
-            const order = await Order.create({ rewardId: rewardId,accountId:accountId, title: reward.title, supplierImage: reward.supplierImage, purchaseDate: curDate, expirationDate: expirationDate})
-            account = await Account.findOneAndUpdate({ _id: accountId }, { $inc:{coins : -reward.price}, $push: { orders: order._id} }, { returnOriginal: false}).populate('orders');
-            if (!reward.orders.includes(order._id)) {
-                await Reward.findOneAndUpdate({ _id: rewardId },{$addToSet : { orders: order._id} });
-            }
+            for (var i=0; i<amount; ++i) {
+                const order = await Order.create({ rewardId: rewardId,accountId:accountId, title: reward.title, supplierImage: reward.supplierImage, purchaseDate: curDate, expirationDate: expirationDate})
+                account = await Account.findOneAndUpdate({ _id: accountId }, { $inc:{coins : -reward.price}, $push: { orders: order._id} }, { returnOriginal: false}).populate('orders');
+                if (!reward.orders.includes(order._id)) {
+                    await Reward.findOneAndUpdate({ _id: rewardId },{$addToSet : { orders: order._id} });
+                }
+            }  
             return res.status(200).send(account);
         }
 
