@@ -20,7 +20,7 @@ const create = async (req, res) => {
         if (!account.details.includes(newDetail._id)) {
             await Account.findOneAndUpdate({ _id: accountId },{$addToSet : { details: newDetail._id } });
         }
-        return res.status(200).send({_id: newDetail._id});
+        return res.status(200).send(newDetail);
 
     } catch (err) {
         const erros = helpers.handleErrors(constants.DETAIL, err);
