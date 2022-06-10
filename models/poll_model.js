@@ -52,7 +52,7 @@ const constants = require('../common/constants');
  *          type: array
  *          items:
  *             type: string
- *          default: ["Preschool", "Elementary", "Middle School", "High School", "During Bachelors", "Bachelors or Higher"]
+ *          default: ["Middle School", "High School", "During Bachelors", "Bachelors or Higher"]
  *        maritalStatus:
  *          type: array
  *          items:
@@ -139,8 +139,8 @@ const pollSchema = new mongoose.Schema({
     },
     educationLevel: {
         type: [String],
-        enum: ["Preschool", "Elementary", "Middle School", "High School", "During Bachelors", "Bachelors or Higher"],
-        default: ["Preschool", "Elementary", "Middle School", "High School", "During Bachelors", "Bachelors or Higher"]
+        enum: ["Middle School", "High School", "During Bachelors", "Bachelors or Higher"],
+        default: ["Middle School", "High School", "During Bachelors", "Bachelors or Higher"]
     },
     maritalStatus: {
         type: [String],

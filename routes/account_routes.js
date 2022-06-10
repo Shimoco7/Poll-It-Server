@@ -349,7 +349,7 @@ router.post('/facebook', Account.facebook);
 *          name: educationLevel
 *          schema:
 *            type: Array
-*          example: '["Preschool", "Elementary", "Middle School", "High School", "During Bachelors", "Bachelors or Higher"]'
+*          example: '["Middle School", "High School", "During Bachelors", "Bachelors or Higher"]'
 *        - in: query
 *          name: maritalStatus
 *          schema:
