@@ -53,7 +53,7 @@ const update = async (req, res) => {
 const redeemReward = async (req, res) => {
     const accountId = req.body.accountId;
     const rewardId = req.body.rewardId;
-    const amount = req.body.amount;
+    var amount = req.body.amount;
     if (!accountId || !rewardId) return helpers.sendError(res, 401, 'No accountId or rewardId')
     if (!amount){amount = 1;}
     try {
