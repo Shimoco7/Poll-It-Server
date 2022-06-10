@@ -35,7 +35,7 @@ const login = async (req, res) => {
 
     try {
         const account = await Account.login(email, password);
-        if(account.role == constants.USER && account.rank >= constants.MAX_UNRELIABILITY_RANK) return helpers.sendError(res, 400, constants.MAX_UNRELIABILITY_RANK_ERROR_MSG)
+        if (account.role == constants.USER && account.rank >= constants.MAX_UNRELIABILITY_RANK) return helpers.sendError(res, 400, constants.MAX_UNRELIABILITY_RANK_ERROR_MSG)
         const accessToken = helpers.generateAccessToken(account);
         const refreshToken = helpers.generateRefreshToken(account);
         if (account.refreshToken != refreshToken) {
@@ -113,7 +113,7 @@ const refreshToken = async (req, res) => {
 const update = async (req, res) => {
     try {
         const updatedAccount = await Account.findOneAndUpdate({ _id: req.body._id }, req.body, { returnOriginal: false, runValidators: true }).populate('orders');
-        if(updatedAccount.role == constants.USER && updatedAccount.rank >= constants.MAX_UNRELIABILITY_RANK) return helpers.sendError(res, 400, constants.MAX_UNRELIABILITY_RANK_ERROR_MSG)
+        if (updatedAccount.role == constants.USER && updatedAccount.rank >= constants.MAX_UNRELIABILITY_RANK) return helpers.sendError(res, 400, constants.MAX_UNRELIABILITY_RANK_ERROR_MSG)
         return res.status(200).send(updatedAccount);
 
     } catch (err) {
@@ -147,29 +147,6 @@ const updatePassword = async (req, res) => {
 
 }
 
-
-const deleteAccount = async (req, res) => {
-    const accountId = req.params._id;
-    try {
-        // const account = Account.findOne({_id: accountId}).populate('orders').populate('details').populate('polls');
-       
-        // await Reward.findOneAndUpdate({orders:{$in:account.orders}}, {$pull: {orders: account.orders}});
-        // await Poll.findOneAndUpdate({users:{$in:[accountId]}}, {$pull: {users: accountId}});
-
-        // await Poll.deleteMany({accountId: accountId});
-        // await Order.deleteMany({accountId: accountId});
-        // await Detail.deleteMany({accountId: accountId});
-        // await Answer.deleteMany({ accountId: accountId});
-        // await Account.deleteOne({ _id: accountId});
-        return res.status(200).send();
-
-    } catch (err) {
-        const erros = helpers.handleErrors(constants.ACCOUNT, err);
-        return res.status(400).json({ erros });
-    }
-
-}
-
 const facebook = async (req, res) => {
     var detailsFilled = true;
     const email = req.body.email;
@@ -187,7 +164,7 @@ const facebook = async (req, res) => {
         if (accountByFacebookId && accountByFacebookId.email != email) {
             return helpers.sendError(res, 400, "There's already an account associated with your facebookId")
         }
-        if(account && account.role == constants.USER && account.rank >= constants.MAX_UNRELIABILITY_RANK) return helpers.sendError(res, 400, constants.MAX_UNRELIABILITY_RANK_ERROR_MSG)
+        if (account && account.role == constants.USER && account.rank >= constants.MAX_UNRELIABILITY_RANK) return helpers.sendError(res, 400, constants.MAX_UNRELIABILITY_RANK_ERROR_MSG)
         if (profilePicUrl) {
             var image = undefined;
             var ext = path.extname(profilePicUrl);
@@ -293,9 +270,9 @@ const getAccountsCountBySampleGroup = async (req, res) => {
                     default:
                         break;
                 }
-                if(!inSampleGroup) break;
+                if (!inSampleGroup) break;
             }
-            if(inSampleGroup) count++;
+            if (inSampleGroup) count++;
         }
         return res.status(200).send({ accountsCount: count });
 
@@ -312,7 +289,6 @@ module.exports = {
     refreshToken,
     update,
     updatePassword,
-    deleteAccount,
     getRegister,
     getLogin,
     getLogout,

@@ -55,6 +55,7 @@ const redeemReward = async (req, res) => {
     const rewardId = req.body.rewardId;
     const amount = req.body.amount;
     if (!accountId || !rewardId) return helpers.sendError(res, 401, 'No accountId or rewardId')
+    if (!amount){amount = 1;}
     try {
         var account = await Account.findOne({ _id: accountId, role: constants.USER });
         if (!account) return helpers.sendError(res, 400, constants.ACCOUNT + ' not found')
