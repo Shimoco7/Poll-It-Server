@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const { response } = require('../server');
 const Account = require('../models/account_model');
 const Reward = require('../models/reward_model');
+const Order = require('../models/order_model');
 
 const constants = require("../common/constants");
 
@@ -17,6 +18,9 @@ beforeAll(done => {
             ]
         }
     }, (err) => {
+        done();
+    });
+    Order.deleteOne({ title: constants.TEST_REWARD_TITLE }, (err) => {
         done();
     });
     Reward.deleteOne({ title: constants.TEST_REWARD_TITLE }, (err) => {
@@ -33,6 +37,9 @@ afterAll(done => {
             ]
         }
     }, (err) => {
+        done();
+    });
+    Order.deleteOne({ title: constants.TEST_REWARD_TITLE }, (err) => {
         done();
     });
     Reward.deleteOne({ title: constants.TEST_REWARD_TITLE }, (err) => {
