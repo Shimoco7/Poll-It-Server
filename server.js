@@ -15,7 +15,7 @@ const rewardRouter = require('./routes/reward_routes');
 const orderRouter = require('./routes/order_routes');
 const authenticate = require("./common/auth_middleware");
 const constants = require("./common/constants");
-
+app.use(cors());
 app.use("/storage", authenticate([constants.USER, constants.CLIENT, constants.ADMIN]), express.static(path.resolve(__dirname + '/storage')));
 
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true });
@@ -23,7 +23,6 @@ const db = mongoose.connection;
 db.on('error', error => { console.log(error) });
 db.on('open', () => { console.log('Connected to MongoDB') });
 
-app.use(cors());
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({limit: '200mb', extended: true}));
 app.use(bodyParser.json({limit: '200mb'}));
